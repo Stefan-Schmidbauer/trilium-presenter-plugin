@@ -1,0 +1,44 @@
+/* Chapter slide — section divider (dark theme) */
+.chapter-slide {
+    background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #2a1a3e 100%);
+    color: #ffffff;
+}
+
+.chapter-slide .slide-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chapter-slide .slide-content {
+    text-align: center;
+    max-width: 1200px;
+}
+
+.chapter-slide h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 0.4em;
+    letter-spacing: -0.02em;
+    color: #e94560;
+}
+
+.chapter-slide h2 {
+    font-size: 1.6rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 0.5em;
+}
+
+.chapter-slide p, .chapter-slide em {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.chapter-slide hr {
+    border: none;
+    width: 80px;
+    height: 3px;
+    background: #e94560;
+    margin: 1.5rem auto;
+}

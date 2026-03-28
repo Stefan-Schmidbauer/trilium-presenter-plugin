@@ -193,7 +193,7 @@ class PresenterWidget extends api.NoteContextAwareWidget {
                         if (tmpl.title === 'Base') {
                             templates.base = css;
                         } else if (tmpl.title === 'Handout') {
-                            templates.handout = css;
+                            templates.handout = { css, bgUrl };
                         } else {
                             const typeName = tmpl.title.replace(/\s*Slide\s*/i, '').trim().toLowerCase();
                             templates.types[typeName] = { css, bgUrl };
@@ -705,6 +705,15 @@ class PresenterWidget extends api.NoteContextAwareWidget {
         const templates = data.templates || {};
         const lang = data.lang || 'en';
 
+        // Resolve handout CSS — may be string or { css, bgUrl }
+        let handoutCSS;
+        if (templates.handout && typeof templates.handout === 'object') {
+            handoutCSS = templates.handout.css || '';
+        } else {
+            handoutCSS = templates.handout || '';
+        }
+        if (!handoutCSS) handoutCSS = this.getHandoutCSS();
+
         // Process each slide into a document section
         const sections = [];
         for (const slide of data.slides) {
@@ -712,23 +721,26 @@ class PresenterWidget extends api.NoteContextAwareWidget {
             sections.push(`<section class="handout-section">${content}</section>`);
         }
 
-        const css = templates.handout || this.getHandoutCSS();
+        // Page-break rules injected separately so they work regardless of theme CSS
+        const layoutCSS = `
+            .handout-section { page-break-before: always; break-before: page; }
+            .handout-section:first-child { page-break-before: avoid; break-before: avoid; }
+        `;
 
         return `<!DOCTYPE html>
 <html lang="${lang}">
 <head>
     <meta charset="UTF-8">
     <title>${data.title} — Handout</title>
-    <style>${css}</style>
+    <style>${layoutCSS}</style>
+    <style>${handoutCSS}</style>
 </head>
 <body>
     <div class="document-container">
         ${sections.join('\n')}
     </div>
     <script>
-        // Auto-open print dialog
         window.onload = () => {
-            // Small delay so the page renders first
             setTimeout(() => window.print(), 500);
         };
     </script>

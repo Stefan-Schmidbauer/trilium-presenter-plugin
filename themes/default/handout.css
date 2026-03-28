@@ -37,6 +37,17 @@ body {
     z-index: 1;
 }
 
+/* Jede Slide-Section auf neuer Seite */
+.handout-section {
+    page-break-before: always;
+    break-before: page;
+}
+
+.handout-section:first-child {
+    page-break-before: avoid;
+    break-before: avoid;
+}
+
 /* Ultra-kompakte Überschriften für maximale Textdichte */
 h1 {
     font-size: 16pt;    /* Erhöht für bessere Lesbarkeit */
@@ -360,7 +371,7 @@ p, li, blockquote {
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
     }
-    
+
     html, body {
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;

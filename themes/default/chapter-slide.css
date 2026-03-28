@@ -1,0 +1,43 @@
+/* Chapter slide — section divider between content blocks */
+.chapter-slide {
+    background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 50%, #3b7ab8 100%);
+    color: #ffffff;
+}
+
+.chapter-slide .slide-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chapter-slide .slide-content {
+    text-align: center;
+    max-width: 1200px;
+}
+
+.chapter-slide h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 0.4em;
+    letter-spacing: -0.02em;
+}
+
+.chapter-slide h2 {
+    font-size: 1.6rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.75);
+    margin-bottom: 0.5em;
+}
+
+.chapter-slide p, .chapter-slide em {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chapter-slide hr {
+    border: none;
+    width: 80px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.4);
+    margin: 1.5rem auto;
+}
