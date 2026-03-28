@@ -1,0 +1,47 @@
+/* Default Light Theme - Title Slide */
+.title-slide .slide-content {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    padding: 60px;
+}
+
+.title-slide h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #1a202c;
+    letter-spacing: -0.02em;
+}
+
+.title-slide h2 {
+    font-size: 2rem;
+    font-weight: 300;
+    margin-bottom: 2rem;
+    color: #4a5568;
+}
+
+.title-slide h3 {
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: #718096;
+}
+
+.title-slide p {
+    font-size: 1.3rem;
+    color: #4a5568;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}
+
+.title-slide em { color: #3b82f6; font-style: italic; }
+.title-slide strong { color: #1a202c; font-weight: 600; }
+.title-slide hr { border: none; border-top: 2px solid #e2e8f0; margin: 2rem auto; max-width: 200px; }
+
+.title-slide img {
+    max-height: 300px;
+    margin: 2rem auto;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}

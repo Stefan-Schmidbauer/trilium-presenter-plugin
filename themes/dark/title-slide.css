@@ -1,0 +1,54 @@
+/* Dark Theme - Title Slide */
+.title-slide .slide-content {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    padding: 60px;
+}
+
+.title-slide h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+}
+
+.title-slide h2 {
+    font-size: 2rem;
+    font-weight: 300;
+    margin-bottom: 2rem;
+    color: #a0aec0;
+}
+
+.title-slide h3 {
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: #718096;
+}
+
+.title-slide p {
+    font-size: 1.3rem;
+    color: #a0aec0;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}
+
+.title-slide em {
+    color: #e94560;
+    font-style: italic;
+}
+
+.title-slide strong {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.title-slide hr {
+    border: none;
+    border-top: 1px solid #2d3748;
+    margin: 2rem auto;
+    max-width: 200px;
+}

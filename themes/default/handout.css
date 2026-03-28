@@ -1,0 +1,369 @@
+/* Unified PDF Styles für A4 Textdokumente */
+/* Kompakte Schriftgrößen und Abstände für optimale Platznutzung */
+
+@page {
+    size: A4 portrait;
+    margin: 2.5cm 2.5cm 3cm 2.5cm;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
+/* Reset und Basis-Typografie */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    line-height: 1.6;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+}
+
+.document-container {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+}
+
+/* Ultra-kompakte Überschriften für maximale Textdichte */
+h1 {
+    font-size: 16pt;    /* Erhöht für bessere Lesbarkeit */
+    font-weight: 700;
+    margin: 16pt 0 8pt 0;    /* Mehr Abstand für bessere Trennung */
+    color: #1a202c;
+    line-height: 1.1;       /* Kompakter von 1.2 */
+    page-break-after: avoid;
+}
+
+h2 {
+    font-size: 14pt;    /* Erhöht für bessere Lesbarkeit */
+    font-weight: 600;
+    margin: 12pt 0 6pt 0;    /* Mehr Abstand für bessere Trennung */
+    color: #2d3748;
+    line-height: 1.2;       /* Kompakter von 1.3 */
+    page-break-after: avoid;
+}
+
+h3 {
+    font-size: 12pt;    /* Erhöht für bessere Lesbarkeit */
+    font-weight: 600;
+    margin: 10pt 0 5pt 0;    /* Mehr Abstand für bessere Trennung */
+    color: #4a5568;
+    line-height: 1.2;       /* Kompakter von 1.4 */
+    page-break-after: avoid;
+}
+
+h4, h5, h6 {
+    font-size: 10pt;        /* Reduziert von 11pt */
+    font-weight: 600;
+    margin: 4pt 0 1pt 0;    /* Drastisch reduziert */
+    color: #4a5568;
+    line-height: 1.2;
+    page-break-after: avoid;
+}
+
+/* Ultra-kompakte Absätze */
+p {
+    margin: 0 0 8pt 0;      /* Mehr Abstand zwischen Absätzen */
+    line-height: 1.5;       /* Bessere Lesbarkeit */
+    font-size: 10pt;        /* Größere Schrift für bessere Lesbarkeit */
+    color: #374151;
+    font-weight: 400;
+    text-align: justify;
+}
+
+/* Ultra-kompakte Listen */
+ul, ol {
+    margin: 6pt 0 8pt 20pt;  /* Mehr Abstand für bessere Lesbarkeit */
+    padding: 0;
+}
+
+li {
+    font-size: 10pt;        /* Bessere Lesbarkeit */
+    line-height: 1.4;       /* Bessere Lesbarkeit */
+    margin-bottom: 3pt;     /* Mehr Abstand zwischen Listenpunkten */
+    color: #374151;
+    font-weight: 400;
+}
+
+/* Verschachtelte Listen */
+li ul, li ol {
+    margin: 3pt 0 3pt 16pt;  /* Mehr Abstand für verschachtelte Listen */
+}
+
+li li {
+    font-size: 10pt;
+    line-height: 1.4;
+    margin-bottom: 2pt;     /* Mehr Abstand */
+}
+
+/* Ultra-kompakte Code-Blöcke */
+pre {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 2pt;
+    padding: 4pt;           /* Drastisch reduziert von 8pt */
+    font-family: 'Courier New', monospace;
+    font-size: 7pt;         /* Reduziert von 8pt */
+    margin: 4pt 0;          /* Drastisch reduziert von 10pt */
+    page-break-inside: avoid;
+    overflow: hidden;
+    white-space: pre-wrap;
+    line-height: 1.2;       /* Kompakter von 1.3 */
+}
+
+code {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 1pt;
+    padding: 1pt 2pt;       /* Reduziert von 1pt/3pt */
+    font-family: 'Courier New', monospace;
+    font-size: 8pt;         /* Reduziert von 9pt */
+}
+
+/* Kompakte Tabellen */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10pt 0;         /* Reduziert von 15pt */
+    page-break-inside: avoid;
+    font-size: 9pt;         /* Reduziert von 10pt */
+}
+
+th, td {
+    border: 1pt solid #ddd;
+    padding: 6pt 8pt;       /* Reduziert von 8pt/10pt */
+    text-align: left;
+    vertical-align: top;
+    line-height: 1.3;       /* Kompakter von 1.4 */
+}
+
+th {
+    background: #f8f9fa;
+    font-weight: bold;
+}
+
+/* Bilder für Dokumente */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 10pt auto;      /* Reduziert von 15pt */
+    page-break-inside: avoid;
+    border: 1px solid #ddd;
+    padding: 3pt;           /* Reduziert von 4pt */
+}
+
+/* Kompakte Bildgrößen */
+img[src*="_small"], img[alt*="small"] {
+    max-width: 30%;         /* Reduziert von 40% */
+    max-height: 6cm;        /* Reduziert von 8cm */
+}
+
+img[src*="_medium"], img[alt*="medium"] {
+    max-width: 50%;         /* Reduziert von 60% */
+    max-height: 10cm;       /* Reduziert von 12cm */
+}
+
+img[src*="_large"], img[alt*="large"] {
+    max-width: 70%;         /* Reduziert von 80% */
+    max-height: 14cm;       /* Reduziert von 16cm */
+}
+
+img[alt*="tiny"] {
+    max-width: 20%;         /* Reduziert von 25% */
+    max-height: 4cm;        /* Reduziert von 5cm */
+}
+
+img[alt*="full"] {
+    max-width: 100%;
+    max-height: 18cm;       /* Reduziert von 20cm */
+}
+
+/* Ultra-kompakte Blockquotes */
+blockquote {
+    border-left: 2pt solid #3498db;    /* Reduziert von 3pt */
+    padding-left: 8pt;                 /* Drastisch reduziert von 12pt */
+    margin: 4pt 0;                     /* Drastisch reduziert von 10pt */
+    font-style: italic;
+    color: #555;
+    background: #f8f9fa;
+    padding: 4pt 8pt;                  /* Drastisch reduziert von 8pt/12pt */
+    border-radius: 2pt;
+    line-height: 1.3;                  /* Kompakter von 1.5 */
+    font-size: 9pt;                    /* Reduziert von 10pt */
+}
+
+/* Hervorhebung und Betonung */
+strong {
+    color: #2d3748;
+    font-weight: 600;
+}
+
+em {
+    color: #3b82f6;
+    font-style: italic;
+    font-weight: 500;
+}
+
+/* Links für Druck */
+a {
+    color: #2c3e50;
+    text-decoration: underline;
+}
+
+a:after {
+    content: " (" attr(href) ")";
+    font-size: 8pt;         /* Reduziert von 9pt */
+    color: #666;
+}
+
+/* Ultra-kompakte Content-Boxen für Dokumente */
+.highlight {
+    background: #e3f2fd;
+    border: 1px solid #2196f3;
+    padding: 4pt;           /* Drastisch reduziert von 8pt */
+    border-radius: 2pt;
+    margin: 4pt 0;          /* Drastisch reduziert von 10pt */
+    page-break-inside: avoid;
+    font-size: 9pt;
+}
+
+.warning {
+    background: #fff3e0;
+    border: 1px solid #ff9800;
+    padding: 4pt;           /* Drastisch reduziert von 8pt */
+    border-radius: 2pt;
+    margin: 4pt 0;          /* Drastisch reduziert von 10pt */
+    page-break-inside: avoid;
+    font-size: 9pt;
+}
+
+.info {
+    background: #e8f5e8;
+    border: 1px solid #4caf50;
+    padding: 4pt;           /* Drastisch reduziert von 8pt */
+    border-radius: 2pt;
+    margin: 4pt 0;          /* Drastisch reduziert von 10pt */
+    page-break-inside: avoid;
+    font-size: 9pt;
+}
+
+/* Ultra-kompakte Hinweis-Boxen */
+.note {
+    background: #f5f5f5;
+    border-left: 2pt solid #666;       /* Reduziert von 3pt */
+    padding: 4pt;                      /* Drastisch reduziert von 8pt */
+    margin: 4pt 0;                     /* Drastisch reduziert von 10pt */
+    font-style: italic;
+    page-break-inside: avoid;
+    font-size: 9pt;                    /* Reduziert von 10pt */
+}
+
+.note:before {
+    content: "Hinweis: ";
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* Ultra-kompaktes Mehrspalten-Layout */
+.columns {
+    display: flex;
+    margin: 4pt 0;          /* Drastisch reduziert von 8pt */
+    gap: 6pt;               /* Reduziert von 8pt */
+    page-break-inside: avoid;
+}
+
+.columns.columns-2 .column,
+.columns.columns-3 .column,
+.columns.columns-4 .column {
+    flex: 1;
+    min-width: 0;
+}
+
+.column {
+    padding: 0;
+    margin: 0;
+}
+
+.column h1, .column h2, .column h3, .column h4, .column h5, .column h6 {
+    margin-top: 0;
+    margin-bottom: 2pt;     /* Drastisch reduziert von 4pt */
+}
+
+.column p {
+    margin: 2pt 0;          /* Drastisch reduziert von 4pt */
+}
+
+.column ul, .column ol {
+    margin: 2pt 0;          /* Drastisch reduziert von 4pt */
+    padding-left: 10pt;     /* Reduziert von 12pt */
+}
+
+/* Zentrierungsklassen */
+.center, .text-center {
+    text-align: center;
+}
+
+.right {
+    text-align: right;
+}
+
+.justify {
+    text-align: justify;
+}
+
+.block-center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Seitenumbrüche */
+.page-break {
+    page-break-before: always;
+    break-before: page;
+    display: block;
+    height: 0;
+    width: 0;
+    margin: 0;
+    padding: 0;
+    clear: both;
+}
+
+/* Flexiblere Seitenumbruch-Kontrolle für maximale Platznutzung */
+h1, h2, h3 {
+    page-break-after: avoid;
+}
+
+p, li, blockquote {
+    page-break-inside: auto;  /* Mehr Flexibilität von avoid */
+    orphans: 1;               /* Minimale Orphan-Kontrolle für mehr Platz */
+    widows: 1;                /* Minimale Widow-Kontrolle für mehr Platz */
+}
+
+/* Print-spezifische Optimierungen */
+@media print {
+    @page {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+    
+    html, body {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        background: transparent;
+    }
+}

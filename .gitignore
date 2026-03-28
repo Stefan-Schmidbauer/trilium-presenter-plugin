@@ -1,0 +1,5 @@
+*.zip
+.DS_Store
+node_modules/
+.env
+CLAUDE.md
