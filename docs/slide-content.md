@@ -120,7 +120,7 @@ Speaker notes support Markdown formatting and appear in the Presenter Mode windo
 ### With CSS Size Classes
 
 ```markdown
-![Description](api/attachments/ID/image/file.svg){.img-medium .center}
+![Description](file.svg){.img-medium .center}
 ```
 
 **Available size classes:**
@@ -140,7 +140,7 @@ Speaker notes support Markdown formatting and appear in the Presenter Mode windo
 ### Without Classes
 
 ```markdown
-![Description](api/images/NOTE_ID/filename.png)
+![Description](filename.png)
 ```
 
 Images without classes display at their natural size, constrained to max-width: 100%.
@@ -179,7 +179,7 @@ Text to center
 :::
 :::
 
-![Architecture Diagram](api/attachments/abc123/image/arch.svg){.img-large .center}
+![Architecture Diagram](arch.svg){.img-large .center}
 
 ::: {.notes}
 Walk through each component. Emphasize the API layer.

@@ -22,6 +22,9 @@ const TPL = `
     <button class="tp-handout-btn btn btn-secondary btn-sm" style="width: 100%;">
         📄 Handout (PDF)
     </button>
+    <button class="tp-slide-btn btn btn-secondary btn-sm" style="width: 100%; margin-top: 4px;">
+        🔎 Show Slide
+    </button>
 </div>
 `;
 
@@ -34,16 +37,27 @@ class PresenterWidget extends api.NoteContextAwareWidget {
         this.$widget.find('.tp-present-btn').on('click', () => this.startPresentation(false));
         this.$widget.find('.tp-presenter-btn').on('click', () => this.startPresentation(true));
         this.$widget.find('.tp-handout-btn').on('click', () => this.startPresentation('handout'));
+        this.$widget.find('.tp-slide-btn').on('click', () => this.showSingleSlide());
         return this.$widget;
     }
 
     async refreshWithNote(note) {
-        // Show widget only for notes that have children (potential presentations)
-        const show = note.hasChildren();
+        const hasChildren = note.hasChildren();
+        const isSlideable = note.type === 'code' && note.mime === 'text/x-markdown';
+        const show = hasChildren || isSlideable;
         this.toggleInt(show);
 
         if (show) {
-            await this.loadThemes(note);
+            // Presentation buttons only for notes with children
+            this.$widget.find('.tp-present-btn, .tp-presenter-btn, .tp-handout-btn').toggle(hasChildren);
+            // Theme selector visible for presentations and single slides
+            this.$widget.find('.tp-theme-select').closest('div').toggle(hasChildren || isSlideable);
+            // Show Slide button for any slideable note
+            this.$widget.find('.tp-slide-btn').toggle(isSlideable);
+
+            if (hasChildren || isSlideable) {
+                await this.loadThemes(note);
+            }
         }
     }
 
@@ -236,6 +250,87 @@ class PresenterWidget extends api.NoteContextAwareWidget {
         }
     }
 
+    async showSingleSlide() {
+        const noteId = this.noteId;
+        const themeNoteId = this.$widget.find('.tp-theme-select').val();
+
+        try {
+            const data = await api.runOnBackend((nId, themeId) => {
+                const note = api.getNote(nId);
+                if (!note) return { error: 'Note not found' };
+
+                const lang = note.getLabelValue('presenterLang') || 'en';
+                const content = note.getContent() || '';
+                const attachments = note.getAttachments ? note.getAttachments() : [];
+                const attInfo = attachments.map(a => ({
+                    id: a.attachmentId,
+                    title: a.title,
+                    url: `api/attachments/${a.attachmentId}/image/${encodeURIComponent(a.title)}`
+                }));
+
+                let slideType = note.getLabelValue('slideType') || 'content';
+
+                // Load CSS templates from selected theme
+                const templates = { base: '', types: {}, handout: '' };
+                let templateFolder;
+                if (themeId) {
+                    templateFolder = api.getNote(themeId);
+                }
+                if (!templateFolder) {
+                    const themeNotes = api.searchForNotes('#presenterTheme');
+                    const defaultTheme = themeNotes.find(n => n.title === 'Default');
+                    if (defaultTheme) templateFolder = defaultTheme;
+                    else if (themeNotes.length > 0) templateFolder = themeNotes[0];
+                }
+                if (templateFolder) {
+                    const tmplChildren = templateFolder.getChildNotes();
+                    for (const tmpl of tmplChildren) {
+                        const css = tmpl.getContent() || '';
+                        const atts = tmpl.getAttachments ? tmpl.getAttachments() : [];
+                        const bgAtt = atts.find(a => a.title === 'background.svg' || a.role === 'image');
+                        const bgUrl = bgAtt ? `api/attachments/${bgAtt.attachmentId}/image/${encodeURIComponent(bgAtt.title)}` : '';
+                        if (tmpl.title === 'Base') {
+                            templates.base = css;
+                        } else if (tmpl.title === 'Handout') {
+                            templates.handout = { css, bgUrl };
+                        } else {
+                            const typeName = tmpl.title.replace(/\s*Slide\s*/i, '').trim().toLowerCase();
+                            templates.types[typeName] = { css, bgUrl };
+                        }
+                    }
+                }
+
+                return {
+                    title: note.title,
+                    lang: lang,
+                    slideCount: 1,
+                    slides: [{
+                        noteId: note.noteId,
+                        title: note.title,
+                        content: content,
+                        mime: note.mime,
+                        type: slideType,
+                        attachments: attInfo
+                    }],
+                    templates: templates
+                };
+            }, [noteId, themeNoteId]);
+
+            if (data.error) {
+                api.showError(data.error);
+                return;
+            }
+
+            const html = this.buildPresentation(data, false);
+            const blob = new Blob([html], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            window.open(url, 'trilium-presentation');
+        } catch (e) {
+            api.showError(`Show slide failed: ${e.message}`);
+            console.error('Trilium Presenter error:', e);
+        }
+    }
+
     /**
      * Convert markdown to HTML (basic implementation).
      * Handles: headings, bold, italic, code blocks, inline code,
@@ -257,6 +352,7 @@ class PresenterWidget extends api.NoteContextAwareWidget {
         let inList = false;
         let inOrderedList = false;
         let inBlockquote = false;
+        let inTable = false;
 
         for (let i = 0; i < lines.length; i++) {
             let line = lines[i];
@@ -325,6 +421,27 @@ class PresenterWidget extends api.NoteContextAwareWidget {
                 continue;
             }
 
+            // Markdown table rows: | ... | ... |
+            if (line.trim().match(/^\|(.+)\|$/)) {
+                // Skip separator row (|---|---|)
+                if (line.trim().match(/^\|[\s\-:|]+\|$/)) {
+                    continue;
+                }
+                const cells = line.trim().replace(/^\||\|$/g, '').split('|').map(c => c.trim());
+                if (!inTable) {
+                    result.push('<table>');
+                    result.push('<thead><tr>' + cells.map(c => `<th>${this.inlineFormat(c)}</th>`).join('') + '</tr></thead>');
+                    result.push('<tbody>');
+                    inTable = true;
+                } else {
+                    result.push('<tr>' + cells.map(c => `<td>${this.inlineFormat(c)}</td>`).join('') + '</tr>');
+                }
+                continue;
+            } else if (inTable) {
+                result.push('</tbody></table>');
+                inTable = false;
+            }
+
             // Pass through HTML tags unchanged (e.g. column divs from processPandocDivs)
             if (line.trim().startsWith('<div') || line.trim().startsWith('</div') || line.trim().match(/^<\/?(?:section|table|thead|tbody|tr|th|td|pre|blockquote)/)) {
                 result.push(line);
@@ -338,6 +455,7 @@ class PresenterWidget extends api.NoteContextAwareWidget {
         }
 
         // Close any open elements
+        if (inTable) result.push('</tbody></table>');
         if (inList) result.push(inOrderedList ? '</ol>' : '</ul>');
         if (inBlockquote) result.push('</blockquote>');
 
