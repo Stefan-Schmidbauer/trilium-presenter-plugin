@@ -244,6 +244,7 @@ class PresenterWidget extends api.NoteContextAwareWidget {
             } else {
                 window.open(url, 'trilium-presentation');
             }
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
         } catch (e) {
             api.showError(`Presentation failed: ${e.message}`);
             console.error('Trilium Presenter error:', e);
@@ -325,6 +326,7 @@ class PresenterWidget extends api.NoteContextAwareWidget {
             const blob = new Blob([html], { type: 'text/html' });
             const url = URL.createObjectURL(blob);
             window.open(url, 'trilium-presentation');
+            setTimeout(() => URL.revokeObjectURL(url), 1000);
         } catch (e) {
             api.showError(`Show slide failed: ${e.message}`);
             console.error('Trilium Presenter error:', e);
@@ -353,13 +355,20 @@ class PresenterWidget extends api.NoteContextAwareWidget {
         let inOrderedList = false;
         let inBlockquote = false;
         let inTable = false;
+        let inPre = false;
 
         for (let i = 0; i < lines.length; i++) {
             let line = lines[i];
 
             // Skip lines inside <pre> blocks
-            if (line.includes('<pre>') || line.includes('</pre>')) {
+            if (inPre) {
                 result.push(line);
+                if (line.includes('</pre>')) inPre = false;
+                continue;
+            }
+            if (line.includes('<pre>')) {
+                result.push(line);
+                if (!line.includes('</pre>')) inPre = true;
                 continue;
             }
 
@@ -980,7 +989,7 @@ class PresenterWidget extends api.NoteContextAwareWidget {
             // Navigation hint
             const hint = document.createElement('div');
             hint.className = 'nav-hint';
-            hint.textContent = '← → Navigate | Esc Fullscreen | P Presenter';
+            hint.textContent = '← → Navigate | Esc Fullscreen';
             document.body.appendChild(hint);
             hint.classList.add('visible');
             setTimeout(() => hint.classList.remove('visible'), 3000);
@@ -1020,8 +1029,9 @@ class PresenterWidget extends api.NoteContextAwareWidget {
                 }
             };
 
-            // Click navigation
+            // Click navigation (skip links and interactive elements)
             document.addEventListener('click', (e) => {
+                if (e.target.closest('a, button, input, textarea, select')) return;
                 if (e.clientX > window.innerWidth / 2) showSlide(current + 1);
                 else showSlide(current - 1);
             });

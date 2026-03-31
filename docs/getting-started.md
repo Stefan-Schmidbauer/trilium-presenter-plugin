@@ -36,6 +36,10 @@ Navigate to your presentation note. In the right panel, you'll see:
 - **🖥 Presenter Mode** — Opens a speaker view with notes and slide list
 - **📄 Handout (PDF)** — Opens a print-optimized view where each slide is a separate page
 
+### Single Slide Preview
+
+When viewing an individual Markdown code note (without children), the widget shows a **🔎 Show Slide** button with theme selection. This lets you preview any single slide as a themed presentation — useful for checking how a slide looks before assembling a full presentation.
+
 ### Slide Order
 
 Slides appear in the order shown in Trilium's tree. Drag and drop child notes to reorder your slides.

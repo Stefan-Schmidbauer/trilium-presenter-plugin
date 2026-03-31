@@ -14,8 +14,6 @@ Regular paragraph text.
 **Bold text** and *italic text* and ***bold italic***.
 
 `inline code`
-
-~~strikethrough~~
 ```
 
 ## Lists
@@ -152,12 +150,16 @@ Images without classes display at their natural size, constrained to max-width: 
 :::
 ```
 
-## Centering
+## Tables
 
 ```markdown
-Text to center
-{.center}
+| Feature | Status |
+|---------|--------|
+| Columns | Done |
+| Tables  | Done |
 ```
+
+The first row becomes the table header, the separator row (`|---|---|`) is required. Inline formatting (bold, italic, code, links) works inside table cells.
 
 ## Complete Slide Example
 
