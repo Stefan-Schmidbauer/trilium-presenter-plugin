@@ -19,7 +19,8 @@ Turn any Trilium note into a fullscreen presentation -- directly from Trilium, w
 1. Download `trilium-presenter-plugin.zip` from the [latest release](../../releases/latest)
 2. In Trilium, right-click any note in the tree and select **Import into note**
 3. Select the downloaded `.zip` file
-4. Reload Trilium (Ctrl+R) -- the **Trilium Presenter** widget appears in the right panel
+4. Trilium disables imported widgets by default -- open the **Widget** note inside the imported "Trilium Presenter" tree, find the `#disabled:widget` attribute and rename it to `#widget`
+5. Reload Trilium (Ctrl+R) -- the **Trilium Presenter** widget appears in the right panel
 
 ## Quick Start
 
