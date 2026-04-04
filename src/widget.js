@@ -478,6 +478,10 @@ class PresenterWidget extends api.NoteContextAwareWidget {
         // Don't process text inside <pre>/<code> tags
         if (text.includes('<pre>') || text.includes('<code>')) return text;
 
+        // Escape HTML entities before processing markdown
+        // (preserves markdown syntax characters while preventing raw HTML interpretation)
+        text = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
         // Images with CSS classes: ![alt](src){.class1 .class2}
         text = text.replace(/!\[([^\]]*)\]\(([^)]+)\)\{([^}]+)\}/g, (m, alt, src, attrs) => {
             const classes = attrs.replace(/\./g, '').split(/\s+/).join(' ');

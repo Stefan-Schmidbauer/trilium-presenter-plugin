@@ -79,7 +79,6 @@ See the [docs/](docs/) folder:
 - [Slide Content](docs/slide-content.md) -- full Markdown & Pandoc syntax reference
 - [Themes](docs/themes.md) -- creating custom themes
 - [Content Organization](docs/content-organization.md) -- clone-based slide library workflow
-- [Roadmap](docs/roadmap.md)
 
 ## License
 
