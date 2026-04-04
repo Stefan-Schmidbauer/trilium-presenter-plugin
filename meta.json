@@ -209,48 +209,13 @@
                         },
                         {
                             "isClone": false,
-                            "noteId": "mlyD0nuxNBi9",
-                            "notePath": [
-                                "sz8LLp5WBbzT",
-                                "PKgJRT5kNciP",
-                                "mlyD0nuxNBi9"
-                            ],
-                            "title": "Image Demo",
-                            "notePosition": 25,
-                            "prefix": null,
-                            "isExpanded": false,
-                            "type": "code",
-                            "mime": "text/x-markdown",
-                            "attributes": [
-                                {
-                                    "type": "label",
-                                    "name": "slideType",
-                                    "value": "content",
-                                    "isInheritable": false,
-                                    "position": 10
-                                }
-                            ],
-                            "dataFileName": "Image Demo.mkd",
-                            "attachments": [
-                                {
-                                    "attachmentId": "Ec8luxgNa813",
-                                    "title": "mandelbrot.png",
-                                    "role": "image",
-                                    "mime": "image/png",
-                                    "position": 10,
-                                    "dataFileName": "Image Demo_mandelbrot.png"
-                                }
-                            ]
-                        },
-                        {
-                            "isClone": false,
                             "noteId": "JdMqaMaY0EKC",
                             "notePath": [
                                 "sz8LLp5WBbzT",
                                 "PKgJRT5kNciP",
                                 "JdMqaMaY0EKC"
                             ],
-                            "title": "Before vs After",
+                            "title": "Getting Started",
                             "notePosition": 30,
                             "prefix": null,
                             "isExpanded": false,
@@ -265,7 +230,7 @@
                                     "position": 10
                                 }
                             ],
-                            "dataFileName": "Before vs After.mkd",
+                            "dataFileName": "Getting Started.mkd",
                             "attachments": []
                         },
                         {
@@ -276,7 +241,109 @@
                                 "PKgJRT5kNciP",
                                 "oxLRiJmyOcDh"
                             ],
-                            "title": "Under the Hood",
+                            "title": "Markdown & Layouts",
+                            "notePosition": 40,
+                            "prefix": null,
+                            "isExpanded": false,
+                            "type": "code",
+                            "mime": "text/x-markdown",
+                            "attributes": [
+                                {
+                                    "type": "label",
+                                    "name": "slideType",
+                                    "value": "chapter",
+                                    "isInheritable": false,
+                                    "position": 10
+                                }
+                            ],
+                            "dataFileName": "Markdown and Layouts.mkd",
+                            "attachments": [],
+                            "dirFileName": "Markdown and Layouts",
+                            "children": [
+                                {
+                                    "isClone": false,
+                                    "noteId": "EXpVUaXZam1L",
+                                    "notePath": [
+                                        "sz8LLp5WBbzT",
+                                        "PKgJRT5kNciP",
+                                        "oxLRiJmyOcDh",
+                                        "EXpVUaXZam1L"
+                                    ],
+                                    "title": "Markdown Syntax",
+                                    "notePosition": 10,
+                                    "prefix": null,
+                                    "isExpanded": false,
+                                    "type": "code",
+                                    "mime": "text/x-markdown",
+                                    "attributes": [],
+                                    "dataFileName": "Markdown Syntax.mkd",
+                                    "attachments": []
+                                },
+                                {
+                                    "isClone": false,
+                                    "noteId": "75FJnUtCxN7o",
+                                    "notePath": [
+                                        "sz8LLp5WBbzT",
+                                        "PKgJRT5kNciP",
+                                        "oxLRiJmyOcDh",
+                                        "75FJnUtCxN7o"
+                                    ],
+                                    "title": "Columns and Speaker Notes",
+                                    "notePosition": 20,
+                                    "prefix": null,
+                                    "isExpanded": false,
+                                    "type": "code",
+                                    "mime": "text/x-markdown",
+                                    "attributes": [],
+                                    "dataFileName": "Columns and Speaker Notes.mkd",
+                                    "attachments": []
+                                }
+                            ]
+                        },
+                        {
+                            "isClone": false,
+                            "noteId": "mlyD0nuxNBi9",
+                            "notePath": [
+                                "sz8LLp5WBbzT",
+                                "PKgJRT5kNciP",
+                                "mlyD0nuxNBi9"
+                            ],
+                            "title": "Images in Slides",
+                            "notePosition": 50,
+                            "prefix": null,
+                            "isExpanded": false,
+                            "type": "code",
+                            "mime": "text/x-markdown",
+                            "attributes": [
+                                {
+                                    "type": "label",
+                                    "name": "slideType",
+                                    "value": "content",
+                                    "isInheritable": false,
+                                    "position": 10
+                                }
+                            ],
+                            "dataFileName": "Images in Slides.mkd",
+                            "attachments": [
+                                {
+                                    "attachmentId": "wkflSvg00001",
+                                    "title": "workflow.svg",
+                                    "role": "image",
+                                    "mime": "image/svg+xml",
+                                    "position": 10,
+                                    "dataFileName": "Images in Slides_workflow.svg"
+                                }
+                            ]
+                        },
+                        {
+                            "isClone": false,
+                            "noteId": "clnWkfl00001",
+                            "notePath": [
+                                "sz8LLp5WBbzT",
+                                "PKgJRT5kNciP",
+                                "clnWkfl00001"
+                            ],
+                            "title": "Reusable Slides",
                             "notePosition": 60,
                             "prefix": null,
                             "isExpanded": false,
@@ -291,46 +358,46 @@
                                     "position": 10
                                 }
                             ],
-                            "dataFileName": "Under the Hood.mkd",
+                            "dataFileName": "Reusable Slides.mkd",
                             "attachments": [],
-                            "dirFileName": "Under the Hood",
+                            "dirFileName": "Reusable Slides",
                             "children": [
                                 {
                                     "isClone": false,
-                                    "noteId": "EXpVUaXZam1L",
+                                    "noteId": "clnWkfl00002",
                                     "notePath": [
                                         "sz8LLp5WBbzT",
                                         "PKgJRT5kNciP",
-                                        "oxLRiJmyOcDh",
-                                        "EXpVUaXZam1L"
+                                        "clnWkfl00001",
+                                        "clnWkfl00002"
                                     ],
-                                    "title": "How It Works",
+                                    "title": "Build a Slide Library",
                                     "notePosition": 10,
                                     "prefix": null,
                                     "isExpanded": false,
                                     "type": "code",
                                     "mime": "text/x-markdown",
                                     "attributes": [],
-                                    "dataFileName": "How It Works.mkd",
+                                    "dataFileName": "Build a Slide Library.mkd",
                                     "attachments": []
                                 },
                                 {
                                     "isClone": false,
-                                    "noteId": "75FJnUtCxN7o",
+                                    "noteId": "clnWkfl00003",
                                     "notePath": [
                                         "sz8LLp5WBbzT",
                                         "PKgJRT5kNciP",
-                                        "oxLRiJmyOcDh",
-                                        "75FJnUtCxN7o"
+                                        "clnWkfl00001",
+                                        "clnWkfl00003"
                                     ],
-                                    "title": "Architecture",
+                                    "title": "How Clones Work",
                                     "notePosition": 20,
                                     "prefix": null,
                                     "isExpanded": false,
                                     "type": "code",
                                     "mime": "text/x-markdown",
                                     "attributes": [],
-                                    "dataFileName": "Architecture.mkd",
+                                    "dataFileName": "How Clones Work.mkd",
                                     "attachments": []
                                 }
                             ]
@@ -343,7 +410,7 @@
                                 "PKgJRT5kNciP",
                                 "DmXzEBxoyKVV"
                             ],
-                            "title": "Thank You",
+                            "title": "Get Started",
                             "notePosition": 70,
                             "prefix": null,
                             "isExpanded": false,
@@ -358,7 +425,7 @@
                                     "position": 10
                                 }
                             ],
-                            "dataFileName": "Thank You.mkd",
+                            "dataFileName": "Get Started.mkd",
                             "attachments": []
                         }
                     ]

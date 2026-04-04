@@ -1,8 +1,7 @@
-# Under the Hood
+# Markdown & Layouts
 
-## How the plugin works internally
+## Everything you can put on a slide
 
 ::: {.notes}
-This section dives into the technical details.
-Two slides follow: How It Works (code walkthrough) and Architecture (component overview).
+The next slides show the supported Markdown syntax and layout options.
 :::

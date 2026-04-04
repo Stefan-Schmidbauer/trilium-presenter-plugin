@@ -1,33 +1,32 @@
-## Plugin Architecture
+## Columns & Speaker Notes
 
+### Multi-Column Layouts
+
+Wrap content in Pandoc fenced divs:
+
+```markdown
 ::: {.columns}
 ::: {.column}
-### Data Collection
-
-- `api.runOnBackend()`
-- Depth-first traversal
-- Content & attachment fetching
-- Theme CSS loading
+Left side
 :::
 ::: {.column}
-### Rendering Engine
+Right side
+:::
+:::
+```
 
-- Markdown → HTML
-- Pandoc div processing
-- Image URL resolution
-- SPA assembly
-:::
-::: {.column}
-### Presentation
+Up to **4 columns** are supported — the layout adjusts automatically.
 
-- Widget (right panel)
-- Keyboard & click navigation
-- Presenter mode + notes
-- BroadcastChannel sync
+### Speaker Notes
+
+Add notes that only appear in Presenter Mode:
+
+```markdown
+::: {.notes}
+Only visible in Presenter Mode — not on the slide itself.
 :::
-:::
+```
 
 ::: {.notes}
-Single widget note handles everything — backend call collects data,
-then the rendering engine and presentation layer run client-side.
+This text is a speaker note — it only shows in Presenter Mode, not on the projected slide.
 :::

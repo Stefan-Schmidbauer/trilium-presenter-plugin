@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" font-family="Segoe UI, system-ui, sans-serif">
+  <!-- Background -->
+  <rect width="800" height="400" fill="#f8fafc" rx="12"/>
+
+  <!-- Left: Note Tree -->
+  <rect x="40" y="30" width="300" height="340" fill="white" stroke="#e2e8f0" stroke-width="2" rx="8"/>
+  <text x="190" y="62" text-anchor="middle" font-size="16" font-weight="600" fill="#1e293b">Trilium Notes</text>
+  <line x1="60" y1="75" x2="320" y2="75" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Tree nodes -->
+  <text x="80" y="105" font-size="14" fill="#475569">📂 My Presentation</text>
+  <rect x="100" y="118" width="200" height="28" fill="#dbeafe" stroke="#93c5fd" stroke-width="1" rx="4"/>
+  <text x="110" y="137" font-size="13" fill="#1e40af">📝 Title Slide</text>
+  <rect x="100" y="152" width="200" height="28" fill="#dbeafe" stroke="#93c5fd" stroke-width="1" rx="4"/>
+  <text x="110" y="171" font-size="13" fill="#1e40af">📝 Introduction</text>
+  <rect x="100" y="186" width="200" height="28" fill="#dbeafe" stroke="#93c5fd" stroke-width="1" rx="4"/>
+  <text x="110" y="205" font-size="13" fill="#1e40af">📝 Deep Dive</text>
+  <rect x="120" y="220" width="180" height="28" fill="#e0e7ff" stroke="#a5b4fc" stroke-width="1" rx="4"/>
+  <text x="130" y="239" font-size="13" fill="#3730a3">📝 Details A</text>
+  <rect x="120" y="254" width="180" height="28" fill="#e0e7ff" stroke="#a5b4fc" stroke-width="1" rx="4"/>
+  <text x="130" y="273" font-size="13" fill="#3730a3">📝 Details B</text>
+  <rect x="100" y="288" width="200" height="28" fill="#dbeafe" stroke="#93c5fd" stroke-width="1" rx="4"/>
+  <text x="110" y="307" font-size="13" fill="#1e40af">📝 Thank You</text>
+
+  <text x="190" y="345" text-anchor="middle" font-size="12" fill="#94a3b8">Depth-first traversal</text>
+
+  <!-- Arrow -->
+  <path d="M 360 200 L 430 200" stroke="#3b82f6" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+  <text x="395" y="185" text-anchor="middle" font-size="13" font-weight="600" fill="#3b82f6">Present</text>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#3b82f6"/>
+    </marker>
+  </defs>
+
+  <!-- Right: Presentation -->
+  <rect x="450" y="30" width="310" height="340" fill="#1e293b" stroke="#334155" stroke-width="2" rx="8"/>
+
+  <!-- Slide mockup -->
+  <rect x="475" y="65" width="260" height="160" fill="#0f172a" rx="4"/>
+  <text x="605" y="120" text-anchor="middle" font-size="20" font-weight="700" fill="white">Deep Dive</text>
+  <text x="605" y="150" text-anchor="middle" font-size="13" fill="#94a3b8">Details A • Details B</text>
+  <rect x="605" y="170" width="40" height="4" rx="2" fill="#3b82f6"/>
+  <text x="592" y="185" text-anchor="middle" font-size="11" fill="#64748b">▶</text>
+  <text x="618" y="185" text-anchor="middle" font-size="11" fill="#64748b">▶</text>
+
+  <!-- Slide counter -->
+  <text x="605" y="205" text-anchor="middle" font-size="11" fill="#64748b">3 / 6</text>
+
+  <!-- Progress bar -->
+  <rect x="475" y="215" width="260" height="3" fill="#334155" rx="1"/>
+  <rect x="475" y="215" width="130" height="3" fill="#3b82f6" rx="1"/>
+
+  <!-- Features list -->
+  <text x="485" y="250" font-size="12" fill="#94a3b8">✓ Fullscreen presentation</text>
+  <text x="485" y="272" font-size="12" fill="#94a3b8">✓ Presenter mode + speaker notes</text>
+  <text x="485" y="294" font-size="12" fill="#94a3b8">✓ Keyboard &amp; touch navigation</text>
+  <text x="485" y="316" font-size="12" fill="#94a3b8">✓ Handout / PDF export</text>
+  <text x="485" y="338" font-size="12" fill="#94a3b8">✓ Themes &amp; templates</text>
+</svg>

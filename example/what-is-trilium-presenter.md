@@ -1,9 +1,13 @@
 ## What is Trilium Presenter?
 
-- Build a **reusable slide library** in Trilium
-- Assemble presentations from your knowledge base
-- One click to present — no export needed
-- Presenter mode with speaker notes
-- Full keyboard and touch navigation
+A plugin that turns any Trilium note into a fullscreen presentation.
 
-> Write once, present everywhere.
+- Each **child note** becomes a slide
+- Write slides in **Markdown** (Code note, language: Markdown)
+- Click **Present** in the right panel — done
+
+> No export, no conversion, no external tools.
+
+::: {.notes}
+This is what you're looking at right now — a presentation built entirely from Trilium notes.
+:::

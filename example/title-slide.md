@@ -1,5 +1,5 @@
 # Trilium Presenter
 
-## Presentations from your Knowledge Base
+## Turn your notes into presentations
 
-*Stefan Schmidbauer — 2026*
+*One click. No export. No conversion.*

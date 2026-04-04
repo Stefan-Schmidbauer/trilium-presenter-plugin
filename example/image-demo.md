@@ -1,36 +1,20 @@
-## Images & Size Classes
+## Images in Slides
 
-Control image size with CSS classes:
+Attach an image to your slide note, then reference it by filename:
 
-::: {.columns}
-::: {.column}
-### Available Sizes
+```markdown
+![Workflow](workflow.svg){.img-large .center}
+```
+
+![Workflow](workflow.svg){.img-large .center}
 
 | Class | Height | Use Case |
 |-------|--------|----------|
-| `.img-tiny` | 64px | Icons |
 | `.img-small` | 128px | Logos |
 | `.img-medium` | 192px | Diagrams |
 | `.img-large` | 384px | Charts |
 | `.img-xlarge` | 480px | Full-size |
 
-Add `.center` to center horizontally.
-:::
-::: {.column}
-### Syntax
-
-```markdown
-![Alt text](file.png){.img-medium .center}
-```
-
-Images are attached to the slide note and referenced by filename — the plugin resolves the URL automatically.
-
-Without classes, images display at natural size (max-width: 100%).
-:::
-:::
-
 ::: {.notes}
-- Point out that attachment filenames must match exactly
-- Show how to attach an image to a note in Trilium
-- Demonstrate different size classes if time permits
+The image above is an SVG attachment on this slide note. The plugin resolves filenames to Trilium API URLs automatically. Add `.center` to center horizontally.
 :::

@@ -1,22 +1,28 @@
-## Before vs After
+## Getting Started
 
 ::: {.columns}
 ::: {.column}
-### Old Workflow
+### Create a Presentation
 
-1. Export from Trilium
-2. Convert to Markdown
-3. Generate HTML
-4. Start web server
-5. Open browser
-
-**5 steps, multiple tools**
+1. Create a new note (your presentation)
+2. Add child notes (your slides)
+3. Set each slide to **Code** / **Markdown**
+4. Write your content
+5. Click **Present**
 :::
 ::: {.column}
-### New Plugin
+### Slide Types
 
-1. Click "Present"
+The first slide automatically gets the **title** layout, all others get **content**.
 
-**1 step, zero friction**
+Override with a label on the note:
+
+- `#slideType=title`
+- `#slideType=content`
+- `#slideType=chapter`
 :::
+:::
+
+::: {.notes}
+Emphasize that the note type must be Code with language Markdown — not the default rich text editor.
 :::

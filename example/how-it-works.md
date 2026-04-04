@@ -1,28 +1,41 @@
-## How It Works
+## Markdown Syntax
 
-The widget reads your note tree via `api.runOnBackend()`:
+::: {.columns}
+::: {.column}
+### Text Formatting
+
+- **Bold** and *italic*
+- `inline code`
+- [Links](https://example.com)
+- Blockquotes with `>`
+
+### Lists
+
+1. Ordered lists
+2. With numbers
+
+- Unordered lists
+- With bullets
+:::
+::: {.column}
+### Code Blocks
 
 ```javascript
-function collectSlides(note, visited) {
-    if (visited.has(note.noteId)) return;
-    visited.add(note.noteId);
-
-    slides.push({
-        title: note.title,
-        content: note.getContent(),
-        type: note.getLabelValue('slideType')
-    });
-
-    for (const child of getSortedChildren(note)) {
-        collectSlides(child, visited);
-    }
+function greet(name) {
+    return `Hello, ${name}!`;
 }
 ```
 
-Depth-first traversal — no export, no conversion, **direct rendering**.
+### Tables
+
+| Feature | Status |
+|---------|--------|
+| Columns | Done |
+| Tables | Done |
+| Images | Done |
+:::
+:::
 
 ::: {.notes}
-- Explain depth-first: parent slide first, then children, then next sibling
-- Mention that text/html container notes are skipped (only code/markdown becomes slides)
-- Demo: show the Trilium tree while presenting
+All standard Markdown is supported. Pandoc-style fenced divs add columns and speaker notes.
 :::

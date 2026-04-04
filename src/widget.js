@@ -475,8 +475,9 @@ class PresenterWidget extends api.NoteContextAwareWidget {
      * Process inline formatting: bold, italic, code, links, images.
      */
     inlineFormat(text) {
-        // Don't process text inside <pre>/<code> tags
+        // Don't process text inside <pre>/<code> tags or placeholders
         if (text.includes('<pre>') || text.includes('<code>')) return text;
+        if (text.match(/^<!--\w+-->$/)) return text;
 
         // Escape HTML entities before processing markdown
         // (preserves markdown syntax characters while preventing raw HTML interpretation)
@@ -516,14 +517,18 @@ class PresenterWidget extends api.NoteContextAwareWidget {
     processPandocDivs(content) {
         let notes = '';
 
-        // Extract notes sections
-        content = content.replace(/:::+\s*\{\.notes\}([\s\S]*?):::+/g, (m, noteContent) => {
+        // Extract notes sections (skip fenced code blocks)
+        content = content.replace(/(```[\s\S]*?```)|:::+\s*\{\.notes\}([\s\S]*?):::+/g, (m, codeBlock, noteContent) => {
+            if (codeBlock) return codeBlock;
             notes = noteContent.trim();
             return '';
         });
 
-        // Remove page breaks
-        content = content.replace(/:::+\s*\{\.page-?break\}\s*:::+/g, '');
+        // Remove page breaks (skip fenced code blocks)
+        content = content.replace(/(```[\s\S]*?```)|:::+\s*\{\.page-?break\}\s*:::+/g, (m, codeBlock) => {
+            if (codeBlock) return codeBlock;
+            return '';
+        });
 
         // Process columns — replace with placeholders before markdown processing
         const columnsHtml = [];
@@ -551,11 +556,20 @@ class PresenterWidget extends api.NoteContextAwareWidget {
         const lines = content.split('\n');
         const result = [];
         let i = 0;
+        let inCodeBlock = false;
 
         while (i < lines.length) {
             const line = lines[i];
 
-            if (line.match(/^:::+\s*\{\.columns\}/)) {
+            // Track fenced code blocks so ::: inside them is not parsed
+            if (line.match(/^```/)) {
+                inCodeBlock = !inCodeBlock;
+                result.push(line);
+                i++;
+                continue;
+            }
+
+            if (!inCodeBlock && line.match(/^:::+\s*\{\.columns\}/)) {
                 let depth = 1;
                 const block = [];
                 i++;
@@ -621,12 +635,13 @@ class PresenterWidget extends api.NoteContextAwareWidget {
     processSlideContent(slide, baseUrl) {
         let content = slide.content;
 
-        // Resolve attachment filenames to full URLs
+        // Resolve attachment filenames to full URLs (skip fenced code blocks)
         const attMap = {};
         for (const att of (slide.attachments || [])) {
             attMap[att.title] = att.url;
         }
-        content = content.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, src) => {
+        content = content.replace(/(```[\s\S]*?```)|!\[([^\]]*)\]\(([^)]+)\)/g, (match, codeBlock, alt, src) => {
+            if (codeBlock) return codeBlock;
             if (!src.startsWith('api/') && !src.startsWith('http') && !src.includes('/')) {
                 const resolved = attMap[src];
                 if (resolved) {

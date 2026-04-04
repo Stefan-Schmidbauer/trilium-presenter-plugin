@@ -1,11 +1,13 @@
-# Thank You!
+# Get Started
 
-## Questions?
+## Create your first presentation now
 
 ---
 
-**Trilium Presenter Plugin**
+1. Add child notes to any note
+2. Set type to **Code / Markdown**
+3. Click **Present**
+
+---
 
 [GitHub: Stefan-Schmidbauer/trilium-presenter-plugin](https://github.com/Stefan-Schmidbauer/trilium-presenter-plugin)
-
-*Built with Trilium Next*

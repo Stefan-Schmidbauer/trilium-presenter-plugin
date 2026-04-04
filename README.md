@@ -24,6 +24,10 @@ Turn any Trilium note into a fullscreen presentation -- directly from Trilium, w
 
 ## Quick Start
 
+**Fastest way:** Navigate to the imported **Example Presentation** note and click **Present** -- it walks you through all features including Markdown syntax, columns, images, and the Master/Clone workflow.
+
+**From scratch:**
+
 1. Create a note and add child notes -- each child becomes a slide
 2. Set child note type to **Code** with language **Markdown** (`text/x-markdown`)
 3. Navigate to your presentation note and click **Present** in the right panel
