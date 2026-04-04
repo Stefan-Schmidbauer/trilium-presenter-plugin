@@ -1,0 +1,1016 @@
+{
+    "formatVersion": 2,
+    "appVersion": "0.102.1",
+    "files": [
+        {
+            "isClone": false,
+            "noteId": "sz8LLp5WBbzT",
+            "notePath": [
+                "sz8LLp5WBbzT"
+            ],
+            "title": "Trilium Presenter",
+            "notePosition": 120,
+            "prefix": null,
+            "isExpanded": false,
+            "type": "text",
+            "mime": "text/html",
+            "attributes": [],
+            "format": "html",
+            "dataFileName": "Trilium Presenter.html",
+            "attachments": [],
+            "dirFileName": "Trilium Presenter",
+            "children": [
+                {
+                    "isClone": false,
+                    "noteId": "4cXLWsv5HsQt",
+                    "notePath": [
+                        "sz8LLp5WBbzT",
+                        "4cXLWsv5HsQt"
+                    ],
+                    "title": "Widget",
+                    "notePosition": 30,
+                    "prefix": null,
+                    "isExpanded": false,
+                    "type": "code",
+                    "mime": "application/javascript;env=frontend",
+                    "attributes": [
+                        {
+                            "type": "label",
+                            "name": "widget",
+                            "value": "",
+                            "isInheritable": false,
+                            "position": 10
+                        }
+                    ],
+                    "dataFileName": "Widget.js",
+                    "attachments": []
+                },
+                {
+                    "isClone": false,
+                    "noteId": "Pya9YOpRXM07",
+                    "notePath": [
+                        "sz8LLp5WBbzT",
+                        "Pya9YOpRXM07"
+                    ],
+                    "title": "Documentation",
+                    "notePosition": 40,
+                    "prefix": null,
+                    "isExpanded": false,
+                    "type": "text",
+                    "mime": "text/html",
+                    "attributes": [],
+                    "format": "html",
+                    "attachments": [],
+                    "dirFileName": "Documentation",
+                    "children": [
+                        {
+                            "isClone": false,
+                            "noteId": "DYEDNZi8sGn4",
+                            "notePath": [
+                                "sz8LLp5WBbzT",
+                                "Pya9YOpRXM07",
+                                "DYEDNZi8sGn4"
+                            ],
+                            "title": "Getting Started",
+                            "notePosition": 10,
+                            "prefix": null,
+                            "isExpanded": false,
+                            "type": "code",
+                            "mime": "text/x-markdown",
+                            "attributes": [],
+                            "dataFileName": "Getting Started.mkd",
+                            "attachments": []
+                        },
+                        {
+                            "isClone": false,
+                            "noteId": "mHLeFmMCxSK9",
+                            "notePath": [
+                                "sz8LLp5WBbzT",
+                                "Pya9YOpRXM07",
+                                "mHLeFmMCxSK9"
+                            ],
+                            "title": "Slide Content",
+                            "notePosition": 20,
+                            "prefix": null,
+                            "isExpanded": false,
+                            "type": "code",
+                            "mime": "text/x-markdown",
+                            "attributes": [],
+                            "dataFileName": "Slide Content.mkd",
+                            "attachments": []
+                        },
+                        {
+                            "isClone": false,
+                            "noteId": "shuk0RB7DYc6",
+                            "notePath": [
+                                "sz8LLp5WBbzT",
+                                "Pya9YOpRXM07",
+                                "shuk0RB7DYc6"
+                            ],
+                            "title": "Themes",
+                            "notePosition": 30,
+                            "prefix": null,
+                            "isExpanded": false,
+                            "type": "code",
+                            "mime": "text/x-markdown",
+                            "attributes": [],
+                            "dataFileName": "Themes.mkd",
+                            "attachments": []
+                        },
+                        {
+                            "isClone": false,
+                            "noteId": "eHqbaSiEAfnC",
+                            "notePath": [
+                                "sz8LLp5WBbzT",
+                                "Pya9YOpRXM07",
+                                "eHqbaSiEAfnC"
+                            ],
+                            "title": "Content Organization",
+                            "notePosition": 35,
+                            "prefix": null,
+                            "isExpanded": false,
+                            "type": "code",
+                            "mime": "text/x-markdown",
+                            "attributes": [],
+                            "dataFileName": "Content Organization.mkd",
+                            "attachments": []
+                        }
+                    ]
+                },
+                {
+                    "isClone": false,
+                    "noteId": "PKgJRT5kNciP",
+                    "notePath": [
+                        "sz8LLp5WBbzT",
+                        "PKgJRT5kNciP"
+                    ],
+                    "title": "Example Presentation",
+                    "notePosition": 50,
+                    "prefix": null,
+                    "isExpanded": false,
+                    "type": "text",
+                    "mime": "text/html",
+                    "attributes": [],
+                    "format": "html",
+                    "attachments": [],
+                    "dirFileName": "Example Presentation",
+                    "children": [
+                        {
+                            "isClone": false,
+                            "noteId": "8OiXNZ7wWjLO",
+                            "notePath": [
+                                "sz8LLp5WBbzT",
+                                "PKgJRT5kNciP",
+                                "8OiXNZ7wWjLO"
+                            ],
+                            "title": "Title Slide",
+                            "notePosition": 10,
+                            "prefix": null,
+                            "isExpanded": false,
+                            "type": "code",
+                            "mime": "text/x-markdown",
+                            "attributes": [
+                                {
+                                    "type": "label",
+                                    "name": "slideType",
+                                    "value": "title",
+                                    "isInheritable": false,
+                                    "position": 10
+                                }
+                            ],
+                            "dataFileName": "Title Slide.mkd",
+                            "attachments": []
+                        },
+                        {
+                            "isClone": false,
+                            "noteId": "VhSFJO74mIvi",
+                            "notePath": [
+                                "sz8LLp5WBbzT",
+                                "PKgJRT5kNciP",
+                                "VhSFJO74mIvi"
+                            ],
+                            "title": "What is Trilium Presenter?",
+                            "notePosition": 20,
+                            "prefix": null,
+                            "isExpanded": false,
+                            "type": "code",
+                            "mime": "text/x-markdown",
+                            "attributes": [
+                                {
+                                    "type": "label",
+                                    "name": "slideType",
+                                    "value": "content",
+                                    "isInheritable": false,
+                                    "position": 10
+                                }
+                            ],
+                            "dataFileName": "What is Trilium Presenter.mkd",
+                            "attachments": []
+                        },
+                        {
+                            "isClone": false,
+                            "noteId": "mlyD0nuxNBi9",
+                            "notePath": [
+                                "sz8LLp5WBbzT",
+                                "PKgJRT5kNciP",
+                                "mlyD0nuxNBi9"
+                            ],
+                            "title": "Image Demo",
+                            "notePosition": 25,
+                            "prefix": null,
+                            "isExpanded": false,
+                            "type": "code",
+                            "mime": "text/x-markdown",
+                            "attributes": [
+                                {
+                                    "type": "label",
+                                    "name": "slideType",
+                                    "value": "content",
+                                    "isInheritable": false,
+                                    "position": 10
+                                }
+                            ],
+                            "dataFileName": "Image Demo.mkd",
+                            "attachments": [
+                                {
+                                    "attachmentId": "Ec8luxgNa813",
+                                    "title": "mandelbrot.png",
+                                    "role": "image",
+                                    "mime": "image/png",
+                                    "position": 10,
+                                    "dataFileName": "Image Demo_mandelbrot.png"
+                                }
+                            ]
+                        },
+                        {
+                            "isClone": false,
+                            "noteId": "JdMqaMaY0EKC",
+                            "notePath": [
+                                "sz8LLp5WBbzT",
+                                "PKgJRT5kNciP",
+                                "JdMqaMaY0EKC"
+                            ],
+                            "title": "Before vs After",
+                            "notePosition": 30,
+                            "prefix": null,
+                            "isExpanded": false,
+                            "type": "code",
+                            "mime": "text/x-markdown",
+                            "attributes": [
+                                {
+                                    "type": "label",
+                                    "name": "slideType",
+                                    "value": "content",
+                                    "isInheritable": false,
+                                    "position": 10
+                                }
+                            ],
+                            "dataFileName": "Before vs After.mkd",
+                            "attachments": []
+                        },
+                        {
+                            "isClone": false,
+                            "noteId": "oxLRiJmyOcDh",
+                            "notePath": [
+                                "sz8LLp5WBbzT",
+                                "PKgJRT5kNciP",
+                                "oxLRiJmyOcDh"
+                            ],
+                            "title": "Under the Hood",
+                            "notePosition": 60,
+                            "prefix": null,
+                            "isExpanded": false,
+                            "type": "code",
+                            "mime": "text/x-markdown",
+                            "attributes": [
+                                {
+                                    "type": "label",
+                                    "name": "slideType",
+                                    "value": "chapter",
+                                    "isInheritable": false,
+                                    "position": 10
+                                }
+                            ],
+                            "dataFileName": "Under the Hood.mkd",
+                            "attachments": [],
+                            "dirFileName": "Under the Hood",
+                            "children": [
+                                {
+                                    "isClone": false,
+                                    "noteId": "EXpVUaXZam1L",
+                                    "notePath": [
+                                        "sz8LLp5WBbzT",
+                                        "PKgJRT5kNciP",
+                                        "oxLRiJmyOcDh",
+                                        "EXpVUaXZam1L"
+                                    ],
+                                    "title": "How It Works",
+                                    "notePosition": 10,
+                                    "prefix": null,
+                                    "isExpanded": false,
+                                    "type": "code",
+                                    "mime": "text/x-markdown",
+                                    "attributes": [],
+                                    "dataFileName": "How It Works.mkd",
+                                    "attachments": []
+                                },
+                                {
+                                    "isClone": false,
+                                    "noteId": "75FJnUtCxN7o",
+                                    "notePath": [
+                                        "sz8LLp5WBbzT",
+                                        "PKgJRT5kNciP",
+                                        "oxLRiJmyOcDh",
+                                        "75FJnUtCxN7o"
+                                    ],
+                                    "title": "Architecture",
+                                    "notePosition": 20,
+                                    "prefix": null,
+                                    "isExpanded": false,
+                                    "type": "code",
+                                    "mime": "text/x-markdown",
+                                    "attributes": [],
+                                    "dataFileName": "Architecture.mkd",
+                                    "attachments": []
+                                }
+                            ]
+                        },
+                        {
+                            "isClone": false,
+                            "noteId": "DmXzEBxoyKVV",
+                            "notePath": [
+                                "sz8LLp5WBbzT",
+                                "PKgJRT5kNciP",
+                                "DmXzEBxoyKVV"
+                            ],
+                            "title": "Thank You",
+                            "notePosition": 70,
+                            "prefix": null,
+                            "isExpanded": false,
+                            "type": "code",
+                            "mime": "text/x-markdown",
+                            "attributes": [
+                                {
+                                    "type": "label",
+                                    "name": "slideType",
+                                    "value": "title",
+                                    "isInheritable": false,
+                                    "position": 10
+                                }
+                            ],
+                            "dataFileName": "Thank You.mkd",
+                            "attachments": []
+                        }
+                    ]
+                },
+                {
+                    "isClone": false,
+                    "noteId": "w204RcJ9vzXO",
+                    "notePath": [
+                        "sz8LLp5WBbzT",
+                        "w204RcJ9vzXO"
+                    ],
+                    "title": "Themes",
+                    "notePosition": 120,
+                    "prefix": null,
+                    "isExpanded": false,
+                    "type": "text",
+                    "mime": "text/html",
+                    "attributes": [],
+                    "format": "html",
+                    "dataFileName": "Themes.html",
+                    "attachments": [],
+                    "dirFileName": "Themes",
+                    "children": [
+                        {
+                            "isClone": false,
+                            "noteId": "pQ3SjPpcsfL7",
+                            "notePath": [
+                                "sz8LLp5WBbzT",
+                                "w204RcJ9vzXO",
+                                "pQ3SjPpcsfL7"
+                            ],
+                            "title": "Default",
+                            "notePosition": 10,
+                            "prefix": null,
+                            "isExpanded": false,
+                            "type": "text",
+                            "mime": "text/html",
+                            "attributes": [
+                                {
+                                    "type": "label",
+                                    "name": "presenterTheme",
+                                    "value": "",
+                                    "isInheritable": false,
+                                    "position": 10
+                                }
+                            ],
+                            "format": "html",
+                            "dataFileName": "Default.html",
+                            "attachments": [],
+                            "dirFileName": "Default",
+                            "children": [
+                                {
+                                    "isClone": false,
+                                    "noteId": "Wg0FZQTDY7uO",
+                                    "notePath": [
+                                        "sz8LLp5WBbzT",
+                                        "w204RcJ9vzXO",
+                                        "pQ3SjPpcsfL7",
+                                        "Wg0FZQTDY7uO"
+                                    ],
+                                    "title": "Base",
+                                    "notePosition": 10,
+                                    "prefix": null,
+                                    "isExpanded": false,
+                                    "type": "code",
+                                    "mime": "text/css",
+                                    "attributes": [],
+                                    "dataFileName": "Base.css",
+                                    "attachments": []
+                                },
+                                {
+                                    "isClone": false,
+                                    "noteId": "31BuwQuYkgdz",
+                                    "notePath": [
+                                        "sz8LLp5WBbzT",
+                                        "w204RcJ9vzXO",
+                                        "pQ3SjPpcsfL7",
+                                        "31BuwQuYkgdz"
+                                    ],
+                                    "title": "Title Slide",
+                                    "notePosition": 20,
+                                    "prefix": null,
+                                    "isExpanded": false,
+                                    "type": "code",
+                                    "mime": "text/css",
+                                    "attributes": [],
+                                    "dataFileName": "Title Slide.css",
+                                    "attachments": [
+                                        {
+                                            "attachmentId": "x2s7NGDZ9Tau",
+                                            "title": "background.svg",
+                                            "role": "image",
+                                            "mime": "image/svg+xml",
+                                            "position": 10,
+                                            "dataFileName": "Title Slide_background.svg"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "isClone": false,
+                                    "noteId": "pQpZovAPlDIk",
+                                    "notePath": [
+                                        "sz8LLp5WBbzT",
+                                        "w204RcJ9vzXO",
+                                        "pQ3SjPpcsfL7",
+                                        "pQpZovAPlDIk"
+                                    ],
+                                    "title": "Content Slide",
+                                    "notePosition": 30,
+                                    "prefix": null,
+                                    "isExpanded": false,
+                                    "type": "code",
+                                    "mime": "text/css",
+                                    "attributes": [],
+                                    "dataFileName": "Content Slide.css",
+                                    "attachments": [
+                                        {
+                                            "attachmentId": "1voGLj9Z3o6Q",
+                                            "title": "background.svg",
+                                            "role": "image",
+                                            "mime": "image/svg+xml",
+                                            "position": 10,
+                                            "dataFileName": "Content Slide_background.svg"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "isClone": false,
+                                    "noteId": "0ujRNQxFoq48",
+                                    "notePath": [
+                                        "sz8LLp5WBbzT",
+                                        "w204RcJ9vzXO",
+                                        "pQ3SjPpcsfL7",
+                                        "0ujRNQxFoq48"
+                                    ],
+                                    "title": "Handout",
+                                    "notePosition": 40,
+                                    "prefix": null,
+                                    "isExpanded": false,
+                                    "type": "code",
+                                    "mime": "text/css",
+                                    "attributes": [],
+                                    "dataFileName": "Handout.css",
+                                    "attachments": []
+                                },
+                                {
+                                    "isClone": false,
+                                    "noteId": "exgB3dQqefIm",
+                                    "notePath": [
+                                        "sz8LLp5WBbzT",
+                                        "w204RcJ9vzXO",
+                                        "pQ3SjPpcsfL7",
+                                        "exgB3dQqefIm"
+                                    ],
+                                    "title": "Chapter Slide",
+                                    "notePosition": 50,
+                                    "prefix": null,
+                                    "isExpanded": false,
+                                    "type": "code",
+                                    "mime": "text/css",
+                                    "attributes": [],
+                                    "dataFileName": "Chapter Slide.css",
+                                    "attachments": []
+                                }
+                            ]
+                        },
+                        {
+                            "isClone": false,
+                            "noteId": "0pZYFBHfTwjB",
+                            "notePath": [
+                                "sz8LLp5WBbzT",
+                                "w204RcJ9vzXO",
+                                "0pZYFBHfTwjB"
+                            ],
+                            "title": "Dark",
+                            "notePosition": 30,
+                            "prefix": null,
+                            "isExpanded": false,
+                            "type": "text",
+                            "mime": "text/html",
+                            "attributes": [
+                                {
+                                    "type": "label",
+                                    "name": "presenterTheme",
+                                    "value": "",
+                                    "isInheritable": false,
+                                    "position": 10
+                                }
+                            ],
+                            "format": "html",
+                            "dataFileName": "Dark.html",
+                            "attachments": [],
+                            "dirFileName": "Dark",
+                            "children": [
+                                {
+                                    "isClone": false,
+                                    "noteId": "DRduxVb80t4v",
+                                    "notePath": [
+                                        "sz8LLp5WBbzT",
+                                        "w204RcJ9vzXO",
+                                        "0pZYFBHfTwjB",
+                                        "DRduxVb80t4v"
+                                    ],
+                                    "title": "Base",
+                                    "notePosition": 10,
+                                    "prefix": null,
+                                    "isExpanded": false,
+                                    "type": "code",
+                                    "mime": "text/css",
+                                    "attributes": [],
+                                    "dataFileName": "Base.css",
+                                    "attachments": []
+                                },
+                                {
+                                    "isClone": false,
+                                    "noteId": "SGDNUOeNm9Bw",
+                                    "notePath": [
+                                        "sz8LLp5WBbzT",
+                                        "w204RcJ9vzXO",
+                                        "0pZYFBHfTwjB",
+                                        "SGDNUOeNm9Bw"
+                                    ],
+                                    "title": "Title Slide",
+                                    "notePosition": 20,
+                                    "prefix": null,
+                                    "isExpanded": false,
+                                    "type": "code",
+                                    "mime": "text/css",
+                                    "attributes": [],
+                                    "dataFileName": "Title Slide.css",
+                                    "attachments": [
+                                        {
+                                            "attachmentId": "cXuZw4csuPHC",
+                                            "title": "background.svg",
+                                            "role": "image",
+                                            "mime": "image/svg+xml",
+                                            "position": 10,
+                                            "dataFileName": "Title Slide_background.svg"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "isClone": false,
+                                    "noteId": "TCPR9Yfl0qgO",
+                                    "notePath": [
+                                        "sz8LLp5WBbzT",
+                                        "w204RcJ9vzXO",
+                                        "0pZYFBHfTwjB",
+                                        "TCPR9Yfl0qgO"
+                                    ],
+                                    "title": "Content Slide",
+                                    "notePosition": 30,
+                                    "prefix": null,
+                                    "isExpanded": false,
+                                    "type": "code",
+                                    "mime": "text/css",
+                                    "attributes": [],
+                                    "dataFileName": "Content Slide.css",
+                                    "attachments": [
+                                        {
+                                            "attachmentId": "AvRqLcbBssJE",
+                                            "title": "background.svg",
+                                            "role": "image",
+                                            "mime": "image/svg+xml",
+                                            "position": 10,
+                                            "dataFileName": "Content Slide_background.svg"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "isClone": false,
+                                    "noteId": "IVWaCIWPUvf6",
+                                    "notePath": [
+                                        "sz8LLp5WBbzT",
+                                        "w204RcJ9vzXO",
+                                        "0pZYFBHfTwjB",
+                                        "IVWaCIWPUvf6"
+                                    ],
+                                    "title": "Handout",
+                                    "notePosition": 40,
+                                    "prefix": null,
+                                    "isExpanded": false,
+                                    "type": "code",
+                                    "mime": "text/css",
+                                    "attributes": [],
+                                    "dataFileName": "Handout.css",
+                                    "attachments": []
+                                },
+                                {
+                                    "isClone": false,
+                                    "noteId": "3zXJH4ZICXxc",
+                                    "notePath": [
+                                        "sz8LLp5WBbzT",
+                                        "w204RcJ9vzXO",
+                                        "0pZYFBHfTwjB",
+                                        "3zXJH4ZICXxc"
+                                    ],
+                                    "title": "Chapter Slide",
+                                    "notePosition": 50,
+                                    "prefix": null,
+                                    "isExpanded": false,
+                                    "type": "code",
+                                    "mime": "text/css",
+                                    "attributes": [],
+                                    "dataFileName": "Chapter Slide.css",
+                                    "attachments": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "isClone": false,
+                    "noteId": "T1qG82G8sIgq",
+                    "notePath": [
+                        "sz8LLp5WBbzT",
+                        "T1qG82G8sIgq"
+                    ],
+                    "title": "Templates",
+                    "notePosition": 150,
+                    "prefix": null,
+                    "isExpanded": false,
+                    "type": "text",
+                    "mime": "text/html",
+                    "attributes": [],
+                    "format": "html",
+                    "dataFileName": "Templates.html",
+                    "attachments": [],
+                    "dirFileName": "Templates",
+                    "children": [
+                        {
+                            "isClone": false,
+                            "noteId": "SEfpuIhXdoRO",
+                            "notePath": [
+                                "sz8LLp5WBbzT",
+                                "T1qG82G8sIgq",
+                                "SEfpuIhXdoRO"
+                            ],
+                            "title": "Title",
+                            "notePosition": 10,
+                            "prefix": null,
+                            "isExpanded": false,
+                            "type": "code",
+                            "mime": "text/x-markdown",
+                            "attributes": [
+                                {
+                                    "type": "label",
+                                    "name": "template",
+                                    "value": "",
+                                    "isInheritable": false,
+                                    "position": 10
+                                },
+                                {
+                                    "type": "label",
+                                    "name": "slideType",
+                                    "value": "title",
+                                    "isInheritable": false,
+                                    "position": 20
+                                }
+                            ],
+                            "dataFileName": "Title.mkd",
+                            "attachments": []
+                        },
+                        {
+                            "isClone": false,
+                            "noteId": "Dhv0kj49rGep",
+                            "notePath": [
+                                "sz8LLp5WBbzT",
+                                "T1qG82G8sIgq",
+                                "Dhv0kj49rGep"
+                            ],
+                            "title": "Agenda",
+                            "notePosition": 20,
+                            "prefix": null,
+                            "isExpanded": false,
+                            "type": "code",
+                            "mime": "text/x-markdown",
+                            "attributes": [
+                                {
+                                    "type": "label",
+                                    "name": "template",
+                                    "value": "",
+                                    "isInheritable": false,
+                                    "position": 10
+                                }
+                            ],
+                            "dataFileName": "Agenda.mkd",
+                            "attachments": []
+                        },
+                        {
+                            "isClone": false,
+                            "noteId": "egIOT2OtfFWJ",
+                            "notePath": [
+                                "sz8LLp5WBbzT",
+                                "T1qG82G8sIgq",
+                                "egIOT2OtfFWJ"
+                            ],
+                            "title": "Bullet Points",
+                            "notePosition": 30,
+                            "prefix": null,
+                            "isExpanded": false,
+                            "type": "code",
+                            "mime": "text/x-markdown",
+                            "attributes": [
+                                {
+                                    "type": "label",
+                                    "name": "template",
+                                    "value": "",
+                                    "isInheritable": false,
+                                    "position": 10
+                                }
+                            ],
+                            "dataFileName": "Bullet Points.mkd",
+                            "attachments": []
+                        },
+                        {
+                            "isClone": false,
+                            "noteId": "GvaGQkoemK3R",
+                            "notePath": [
+                                "sz8LLp5WBbzT",
+                                "T1qG82G8sIgq",
+                                "GvaGQkoemK3R"
+                            ],
+                            "title": "Two Columns",
+                            "notePosition": 40,
+                            "prefix": null,
+                            "isExpanded": false,
+                            "type": "code",
+                            "mime": "text/x-markdown",
+                            "attributes": [
+                                {
+                                    "type": "label",
+                                    "name": "template",
+                                    "value": "",
+                                    "isInheritable": false,
+                                    "position": 10
+                                }
+                            ],
+                            "dataFileName": "Two Columns.mkd",
+                            "attachments": []
+                        },
+                        {
+                            "isClone": false,
+                            "noteId": "by1YceJOVDnF",
+                            "notePath": [
+                                "sz8LLp5WBbzT",
+                                "T1qG82G8sIgq",
+                                "by1YceJOVDnF"
+                            ],
+                            "title": "Three Columns",
+                            "notePosition": 50,
+                            "prefix": null,
+                            "isExpanded": false,
+                            "type": "code",
+                            "mime": "text/x-markdown",
+                            "attributes": [
+                                {
+                                    "type": "label",
+                                    "name": "template",
+                                    "value": "",
+                                    "isInheritable": false,
+                                    "position": 10
+                                }
+                            ],
+                            "dataFileName": "Three Columns.mkd",
+                            "attachments": []
+                        },
+                        {
+                            "isClone": false,
+                            "noteId": "CRrQc5Upc1FA",
+                            "notePath": [
+                                "sz8LLp5WBbzT",
+                                "T1qG82G8sIgq",
+                                "CRrQc5Upc1FA"
+                            ],
+                            "title": "Image",
+                            "notePosition": 60,
+                            "prefix": null,
+                            "isExpanded": false,
+                            "type": "code",
+                            "mime": "text/x-markdown",
+                            "attributes": [
+                                {
+                                    "type": "label",
+                                    "name": "template",
+                                    "value": "",
+                                    "isInheritable": false,
+                                    "position": 10
+                                }
+                            ],
+                            "dataFileName": "Image.mkd",
+                            "attachments": []
+                        },
+                        {
+                            "isClone": false,
+                            "noteId": "N0byvSFG0ndQ",
+                            "notePath": [
+                                "sz8LLp5WBbzT",
+                                "T1qG82G8sIgq",
+                                "N0byvSFG0ndQ"
+                            ],
+                            "title": "Image with Text",
+                            "notePosition": 70,
+                            "prefix": null,
+                            "isExpanded": false,
+                            "type": "code",
+                            "mime": "text/x-markdown",
+                            "attributes": [
+                                {
+                                    "type": "label",
+                                    "name": "template",
+                                    "value": "",
+                                    "isInheritable": false,
+                                    "position": 10
+                                }
+                            ],
+                            "dataFileName": "Image with Text.mkd",
+                            "attachments": []
+                        },
+                        {
+                            "isClone": false,
+                            "noteId": "LrKOBEaBvpOY",
+                            "notePath": [
+                                "sz8LLp5WBbzT",
+                                "T1qG82G8sIgq",
+                                "LrKOBEaBvpOY"
+                            ],
+                            "title": "Code",
+                            "notePosition": 80,
+                            "prefix": null,
+                            "isExpanded": false,
+                            "type": "code",
+                            "mime": "text/x-markdown",
+                            "attributes": [
+                                {
+                                    "type": "label",
+                                    "name": "template",
+                                    "value": "",
+                                    "isInheritable": false,
+                                    "position": 10
+                                }
+                            ],
+                            "dataFileName": "Code.mkd",
+                            "attachments": []
+                        },
+                        {
+                            "isClone": false,
+                            "noteId": "dQZy62PMaJs4",
+                            "notePath": [
+                                "sz8LLp5WBbzT",
+                                "T1qG82G8sIgq",
+                                "dQZy62PMaJs4"
+                            ],
+                            "title": "Quote",
+                            "notePosition": 90,
+                            "prefix": null,
+                            "isExpanded": false,
+                            "type": "code",
+                            "mime": "text/x-markdown",
+                            "attributes": [
+                                {
+                                    "type": "label",
+                                    "name": "template",
+                                    "value": "",
+                                    "isInheritable": false,
+                                    "position": 10
+                                }
+                            ],
+                            "dataFileName": "Quote.mkd",
+                            "attachments": []
+                        },
+                        {
+                            "isClone": false,
+                            "noteId": "sThnH1l7pqE4",
+                            "notePath": [
+                                "sz8LLp5WBbzT",
+                                "T1qG82G8sIgq",
+                                "sThnH1l7pqE4"
+                            ],
+                            "title": "Chapter",
+                            "notePosition": 100,
+                            "prefix": null,
+                            "isExpanded": false,
+                            "type": "code",
+                            "mime": "text/x-markdown",
+                            "attributes": [
+                                {
+                                    "type": "label",
+                                    "name": "template",
+                                    "value": "",
+                                    "isInheritable": false,
+                                    "position": 10
+                                },
+                                {
+                                    "type": "label",
+                                    "name": "slideType",
+                                    "value": "chapter",
+                                    "isInheritable": false,
+                                    "position": 20
+                                }
+                            ],
+                            "dataFileName": "Chapter.mkd",
+                            "attachments": []
+                        },
+                        {
+                            "isClone": false,
+                            "noteId": "2gLDoVZNmC6D",
+                            "notePath": [
+                                "sz8LLp5WBbzT",
+                                "T1qG82G8sIgq",
+                                "2gLDoVZNmC6D"
+                            ],
+                            "title": "Thank You",
+                            "notePosition": 110,
+                            "prefix": null,
+                            "isExpanded": false,
+                            "type": "code",
+                            "mime": "text/x-markdown",
+                            "attributes": [
+                                {
+                                    "type": "label",
+                                    "name": "template",
+                                    "value": "",
+                                    "isInheritable": false,
+                                    "position": 10
+                                },
+                                {
+                                    "type": "label",
+                                    "name": "slideType",
+                                    "value": "title",
+                                    "isInheritable": false,
+                                    "position": 20
+                                }
+                            ],
+                            "dataFileName": "Thank You.mkd",
+                            "attachments": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "noImport": true,
+            "dataFileName": "navigation.html"
+        },
+        {
+            "noImport": true,
+            "dataFileName": "index.html"
+        },
+        {
+            "noImport": true,
+            "dataFileName": "style.css"
+        }
+    ]
+}
