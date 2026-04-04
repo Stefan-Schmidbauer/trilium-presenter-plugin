@@ -30,6 +30,7 @@ cp example/how-it-works.md "$ROOT/Example Presentation/Markdown and Layouts/Mark
 cp example/architecture.md "$ROOT/Example Presentation/Markdown and Layouts/Columns and Speaker Notes.mkd"
 cp example/image-demo.md "$ROOT/Example Presentation/Images in Slides.mkd"
 cp assets/images/workflow.svg "$ROOT/Example Presentation/Images in Slides_workflow.svg"
+cp example/presenter-mode.md "$ROOT/Example Presentation/Three Ways to Present.mkd"
 cp example/clone-workflow.md "$ROOT/Example Presentation/Reusable Slides.mkd"
 cp example/master-library.md "$ROOT/Example Presentation/Reusable Slides/Build a Slide Library.mkd"
 cp example/clones-explained.md "$ROOT/Example Presentation/Reusable Slides/How Clones Work.mkd"

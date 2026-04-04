@@ -337,6 +337,32 @@
                         },
                         {
                             "isClone": false,
+                            "noteId": "prsMde00000001",
+                            "notePath": [
+                                "sz8LLp5WBbzT",
+                                "PKgJRT5kNciP",
+                                "prsMde00000001"
+                            ],
+                            "title": "Three Ways to Present",
+                            "notePosition": 55,
+                            "prefix": null,
+                            "isExpanded": false,
+                            "type": "code",
+                            "mime": "text/x-markdown",
+                            "attributes": [
+                                {
+                                    "type": "label",
+                                    "name": "slideType",
+                                    "value": "content",
+                                    "isInheritable": false,
+                                    "position": 10
+                                }
+                            ],
+                            "dataFileName": "Three Ways to Present.mkd",
+                            "attachments": []
+                        },
+                        {
+                            "isClone": false,
                             "noteId": "clnWkfl00001",
                             "notePath": [
                                 "sz8LLp5WBbzT",
