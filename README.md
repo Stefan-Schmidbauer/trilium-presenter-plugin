@@ -85,6 +85,12 @@ See the [docs/](docs/) folder:
 - [Themes](docs/themes.md) -- creating custom themes
 - [Content Organization](docs/content-organization.md) -- clone-based slide library workflow
 
+## Author
+
+**Stefan Schmidbauer** -- [GitHub](https://github.com/Stefan-Schmidbauer)
+
+Built with [Claude Code](https://claude.ai/claude-code) as co-author.
+
 ## License
 
-MIT
+MIT -- see [LICENSE](LICENSE)
