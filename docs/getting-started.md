@@ -126,7 +126,7 @@ The plugin includes ready-made templates for common slide layouts:
 | **Image with Text** | Text left, image right |
 | **Code** | Code block with explanation |
 | **Quote** | Blockquote with attribution |
-| **Section Break** | Chapter divider (title style) |
+| **Chapter** | Chapter divider (title style) |
 | **Thank You** | Closing slide with contact info |
 
 To use a template: Right-click your presentation note, select **Insert child note**, and choose from the template list. Each template includes sample speaker notes.
