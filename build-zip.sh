@@ -19,6 +19,7 @@ cp docs/getting-started.md "$ROOT/Documentation/Getting Started.mkd"
 cp docs/slide-content.md "$ROOT/Documentation/Slide Content.mkd"
 cp docs/themes.md "$ROOT/Documentation/Themes.mkd"
 cp docs/content-organization.md "$ROOT/Documentation/Content Organization.mkd"
+cp docs/about.md "$ROOT/Documentation/About.mkd"
 
 # Example Presentation
 mkdir -p "$ROOT/Example Presentation/Markdown and Layouts" "$ROOT/Example Presentation/Reusable Slides"
@@ -67,9 +68,6 @@ cp templates/code.md "$ROOT/Templates/Code.mkd"
 cp templates/quote.md "$ROOT/Templates/Quote.mkd"
 cp templates/section-break.md "$ROOT/Templates/Chapter.mkd"
 cp templates/thank-you.md "$ROOT/Templates/Thank You.mkd"
-
-# About
-cp docs/about.md "$ROOT/About.mkd"
 
 # Meta
 cp meta.json "$OUTDIR/!!!meta.json"
