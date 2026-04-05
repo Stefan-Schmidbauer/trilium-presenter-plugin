@@ -63,7 +63,7 @@ class PresenterWidget extends api.NoteContextAwareWidget {
 
     /**
      * Load available themes into the combobox.
-     * Pre-selects: #presenterTheme label value > "Default"
+     * Pre-selects the theme named "Default" if available.
      */
     async loadThemes(note) {
         const $select = this.$widget.find('.tp-theme-select');
@@ -239,8 +239,10 @@ class PresenterWidget extends api.NoteContextAwareWidget {
             const blob = new Blob([html], { type: 'text/html' });
             const url = URL.createObjectURL(blob);
 
-            if (presenterMode) {
+            if (presenterMode === true) {
                 window.open(url, 'trilium-presenter-mode', 'width=1200,height=800');
+            } else if (presenterMode === 'handout') {
+                window.open(url, 'trilium-presenter-handout');
             } else {
                 window.open(url, 'trilium-presentation');
             }
@@ -524,10 +526,10 @@ class PresenterWidget extends api.NoteContextAwareWidget {
             return '';
         });
 
-        // Remove page breaks (skip fenced code blocks)
+        // Convert page breaks to HTML (skip fenced code blocks)
         content = content.replace(/(```[\s\S]*?```)|:::+\s*\{\.page-?break\}\s*:::+/g, (m, codeBlock) => {
             if (codeBlock) return codeBlock;
-            return '';
+            return '<div class="page-break"></div>';
         });
 
         // Process columns — replace with placeholders before markdown processing
@@ -824,10 +826,14 @@ class PresenterWidget extends api.NoteContextAwareWidget {
         });
 
         document.addEventListener('keydown', (e) => {
-            if ((e.key === 'ArrowRight' || e.key === ' ') && current < total) { current++; updateDisplay(); }
-            if (e.key === 'ArrowLeft' && current > 1) { current--; updateDisplay(); }
-            if (e.key === 'Home') { current = 1; updateDisplay(); }
-            if (e.key === 'End') { current = total; updateDisplay(); }
+            switch(e.key) {
+                case 'ArrowRight': case 'ArrowDown': case ' ': case 'PageDown':
+                    e.preventDefault(); if (current < total) { current++; updateDisplay(); } break;
+                case 'ArrowLeft': case 'ArrowUp': case 'Backspace': case 'PageUp':
+                    e.preventDefault(); if (current > 1) { current--; updateDisplay(); } break;
+                case 'Home': e.preventDefault(); current = 1; updateDisplay(); break;
+                case 'End': e.preventDefault(); current = total; updateDisplay(); break;
+            }
         });
 
         channel.onmessage = (e) => {
@@ -979,6 +985,8 @@ class PresenterWidget extends api.NoteContextAwareWidget {
         .img-medium { height: 12rem; width: auto; }
         .img-large { height: 24rem; width: auto; }
         .img-xlarge { height: 30rem; width: auto; }
+        .img-fill { height: 100%; width: 100%; object-fit: contain; }
+        .img-fit { max-height: 100%; max-width: 100%; width: auto; height: auto; }
         .center { display: block; margin-left: auto; margin-right: auto; }
 
         /* Progress bar */
@@ -1008,7 +1016,7 @@ class PresenterWidget extends api.NoteContextAwareWidget {
             // Navigation hint
             const hint = document.createElement('div');
             hint.className = 'nav-hint';
-            hint.textContent = '← → Navigate | Esc Fullscreen';
+            hint.textContent = '← → Navigate | Home/End | h Help | Esc Fullscreen';
             document.body.appendChild(hint);
             hint.classList.add('visible');
             setTimeout(() => hint.classList.remove('visible'), 3000);
