@@ -13,7 +13,7 @@ Turn any Trilium note into a fullscreen presentation -- directly from Trilium, w
 - **Handout/PDF export** with one page per slide
 - **Theme system** -- CSS + SVG backgrounds as Trilium notes, selectable per presentation
 - **Slide templates** -- 11 ready-made layouts for quick slide creation
-- **Keyboard, mouse & touch navigation** with progress bar
+- **Keyboard & mouse navigation** with progress bar
 - **Configurable language** via `#presenterLang` label
 
 ## Installation
@@ -61,6 +61,7 @@ Container notes (`text/html` type) are skipped but their children are included. 
 | **Present** | Fullscreen presentation in a new window |
 | **Presenter Mode** | Speaker view with notes, slide list, and BroadcastChannel sync |
 | **Handout (PDF)** | Print-optimized view, one page per slide, auto-opens print dialog |
+| **Show Slide** | Preview a single Markdown slide with theme (visible on individual slide notes) |
 
 ![Presenter mode with speaker notes and slide list](trilium-presenter-plugin-presenter.png)
 
