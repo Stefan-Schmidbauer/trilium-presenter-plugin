@@ -2,6 +2,8 @@
 
 Turn any Trilium note into a fullscreen presentation -- directly from Trilium, with one click.
 
+![Trilium Presenter — note tree, slide overview, and widget](trilium-presenter-plugin.png)
+
 ## Features
 
 - **One-click presentations** from any note with children
@@ -32,6 +34,10 @@ Turn any Trilium note into a fullscreen presentation -- directly from Trilium, w
 2. Set child note type to **Code** with language **Markdown** (`text/x-markdown`)
 3. Navigate to your presentation note and click **Present** in the right panel
 
+![A slide in the Markdown editor](trilium-presenter-plugin-one-slide.png)
+
+![The same slide rendered as a presentation](trilium-presenter-plugin-slide.png)
+
 ## Slide Organization
 
 Slides are collected via **depth-first pre-order traversal**:
@@ -55,6 +61,8 @@ Container notes (`text/html` type) are skipped but their children are included. 
 | **Present** | Fullscreen presentation in a new window |
 | **Presenter Mode** | Speaker view with notes, slide list, and BroadcastChannel sync |
 | **Handout (PDF)** | Print-optimized view, one page per slide, auto-opens print dialog |
+
+![Presenter mode with speaker notes and slide list](trilium-presenter-plugin-presenter.png)
 
 ## Themes
 
