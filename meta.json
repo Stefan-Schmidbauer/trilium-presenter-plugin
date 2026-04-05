@@ -1090,6 +1090,23 @@
                             "attachments": []
                         }
                     ]
+                },
+                {
+                    "isClone": false,
+                    "noteId": "abt0About0001",
+                    "notePath": [
+                        "sz8LLp5WBbzT",
+                        "abt0About0001"
+                    ],
+                    "title": "About",
+                    "notePosition": 160,
+                    "prefix": null,
+                    "isExpanded": false,
+                    "type": "code",
+                    "mime": "text/x-markdown",
+                    "attributes": [],
+                    "dataFileName": "About.mkd",
+                    "attachments": []
                 }
             ]
         },

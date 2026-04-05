@@ -68,6 +68,9 @@ cp templates/quote.md "$ROOT/Templates/Quote.mkd"
 cp templates/section-break.md "$ROOT/Templates/Chapter.mkd"
 cp templates/thank-you.md "$ROOT/Templates/Thank You.mkd"
 
+# About
+cp docs/about.md "$ROOT/About.mkd"
+
 # Meta
 cp meta.json "$OUTDIR/!!!meta.json"
 
