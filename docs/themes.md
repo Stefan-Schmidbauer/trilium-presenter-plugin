@@ -32,7 +32,6 @@ My Theme
 | Theme | Description |
 |-------|-------------|
 | **Default** | Clean light theme with blue accents |
-| **SSC-KI** | Stefan Schmidbauer Consulting — corporate branding with custom backgrounds |
 | **Dark** | Dark background with red accents, light text |
 
 ## Creating a Custom Theme
