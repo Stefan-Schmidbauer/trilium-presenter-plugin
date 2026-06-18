@@ -2,6 +2,26 @@
 
 Trilium Presenter uses **Pandoc-compatible Markdown** for slide content. This reference covers all supported syntax.
 
+## Slide Style
+
+A few conventions keep slides consistent and presentation-ready:
+
+- **One H1 per slide** — start each slide with a level-1 heading (`# Title`). An emoji prefix is optional (`# 🎯 Title`).
+- **Short bullets** — one line each; split dense points across multiple slides.
+- **No `---`** — see *Horizontal Rules* below.
+- **Contrast for clarity** — pair `❌` (anti-pattern) with `✅` (recommended) where it helps.
+- **Short code blocks** — keep code to ~10 lines so it stays readable on screen.
+
+## Conventions & Voice
+
+Language, address form (formal vs. informal), and tone are **not fixed** by the plugin — they depend on you and your audience.
+
+> **No conventions defined.** When creating slides, ask the author for **language**, **address form** (formal / informal), and **tone**, then apply them consistently. Offer to record the answers in this section so they become the single source for future slides.
+
+Replace the quote above with your own conventions to pin them, for example:
+
+> Language: German · Address: formal ("Sie") · Tone: direct, practical.
+
 ## Basic Formatting
 
 ```markdown
@@ -41,11 +61,11 @@ Regular paragraph text.
 > It can span multiple lines.
 ```
 
-## Horizontal Rules
+## Horizontal Rules — Do Not Use
 
-```markdown
----
-```
+Do **not** use `---` in slides. Each slide is its own Trilium note, so there is
+no need for an in-slide separator — and `---` is reserved/avoided to prevent
+confusion with slide boundaries.
 
 ## Code Blocks
 
@@ -100,7 +120,7 @@ The number of columns is detected automatically. Up to 4 columns are supported.
 Add notes visible only in Presenter Mode:
 
 ```markdown
-## My Slide Content
+# My Slide
 
 Visible content here.
 
@@ -164,7 +184,7 @@ The first row becomes the table header, the separator row (`|---|---|`) is requi
 ## Complete Slide Example
 
 ```markdown
-## Project Architecture
+# Project Architecture
 
 ::: {.columns}
 ::: {.column}

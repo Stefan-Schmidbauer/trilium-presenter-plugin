@@ -83,6 +83,32 @@
                         },
                         {
                             "isClone": false,
+                            "noteId": "fMtBlk7xQz2a",
+                            "notePath": [
+                                "sz8LLp5WBbzT",
+                                "Pya9YOpRXM07",
+                                "fMtBlk7xQz2a"
+                            ],
+                            "title": "Slide Format",
+                            "notePosition": 15,
+                            "prefix": null,
+                            "isExpanded": false,
+                            "type": "code",
+                            "mime": "text/x-markdown",
+                            "attributes": [
+                                {
+                                    "type": "label",
+                                    "name": "presenterSlideFormat",
+                                    "value": "",
+                                    "isInheritable": false,
+                                    "position": 10
+                                }
+                            ],
+                            "dataFileName": "Slide Format.mkd",
+                            "attachments": []
+                        },
+                        {
+                            "isClone": false,
                             "noteId": "mHLeFmMCxSK9",
                             "notePath": [
                                 "sz8LLp5WBbzT",
@@ -151,6 +177,23 @@
                             "mime": "text/x-markdown",
                             "attributes": [],
                             "dataFileName": "About.mkd",
+                            "attachments": []
+                        },
+                        {
+                            "isClone": false,
+                            "noteId": "FmVRHIs4wJ9k",
+                            "notePath": [
+                                "sz8LLp5WBbzT",
+                                "Pya9YOpRXM07",
+                                "FmVRHIs4wJ9k"
+                            ],
+                            "title": "MCP Server",
+                            "notePosition": 50,
+                            "prefix": null,
+                            "isExpanded": false,
+                            "type": "code",
+                            "mime": "text/x-markdown",
+                            "dataFileName": "MCP Server.mkd",
                             "attachments": []
                         }
                     ]
@@ -349,7 +392,7 @@
                                     "role": "image",
                                     "mime": "image/svg+xml",
                                     "position": 10,
-                                    "dataFileName": "Images in Slides_workflow.svg"
+                                    "dataFileName": "workflow.svg"
                                 }
                             ]
                         },

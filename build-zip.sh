@@ -16,10 +16,12 @@ cp src/widget.js "$ROOT/Widget.js"
 # Documentation
 mkdir -p "$ROOT/Documentation"
 cp docs/getting-started.md "$ROOT/Documentation/Getting Started.mkd"
+cp docs/slide-format.md "$ROOT/Documentation/Slide Format.mkd"
 cp docs/slide-content.md "$ROOT/Documentation/Slide Content.mkd"
 cp docs/themes.md "$ROOT/Documentation/Themes.mkd"
 cp docs/content-organization.md "$ROOT/Documentation/Content Organization.mkd"
 cp docs/about.md "$ROOT/Documentation/About.mkd"
+cp docs/mcp.md "$ROOT/Documentation/MCP Server.mkd"
 
 # Example Presentation
 mkdir -p "$ROOT/Example Presentation/Markdown and Layouts" "$ROOT/Example Presentation/Reusable Slides"
@@ -30,7 +32,7 @@ cp example/under-the-hood.md "$ROOT/Example Presentation/Markdown and Layouts.mk
 cp example/how-it-works.md "$ROOT/Example Presentation/Markdown and Layouts/Markdown Syntax.mkd"
 cp example/architecture.md "$ROOT/Example Presentation/Markdown and Layouts/Columns and Speaker Notes.mkd"
 cp example/image-demo.md "$ROOT/Example Presentation/Images in Slides.mkd"
-cp assets/images/workflow.svg "$ROOT/Example Presentation/Images in Slides_workflow.svg"
+cp assets/images/workflow.svg "$ROOT/Example Presentation/workflow.svg"
 cp example/presenter-mode.md "$ROOT/Example Presentation/Three Ways to Present.mkd"
 cp example/clone-workflow.md "$ROOT/Example Presentation/Reusable Slides.mkd"
 cp example/master-library.md "$ROOT/Example Presentation/Reusable Slides/Build a Slide Library.mkd"

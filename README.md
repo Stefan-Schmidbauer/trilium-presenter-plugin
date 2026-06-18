@@ -15,6 +15,7 @@ Turn any Trilium note into a fullscreen presentation -- directly from Trilium, w
 - **Slide templates** -- 11 ready-made layouts for quick slide creation
 - **Keyboard & mouse navigation** with progress bar
 - **Configurable language** via `#presenterLang` label
+- **AI slide authoring** -- an [MCP server](#mcp-server-ai-slide-authoring) lets an AI assistant create & manage presentations directly in Trilium
 
 ## Installation
 
@@ -37,6 +38,12 @@ Turn any Trilium note into a fullscreen presentation -- directly from Trilium, w
 ![A slide in the Markdown editor](trilium-presenter-plugin-one-slide.png)
 
 ![The same slide rendered as a presentation](trilium-presenter-plugin-slide.png)
+
+## MCP Server (AI slide authoring)
+
+Let an AI assistant build your decks. The [`mcp/`](mcp/) folder ships a Model Context Protocol server that creates and manages presentations directly in Trilium via the ETAPI -- ask Claude something like *"Create a 5-slide intro to our Q3 roadmap"* and the slides appear in your note tree, ready to present.
+
+The slide format the AI follows is loaded live from the **Slide Content** documentation note (label `#presenterSlideFormat`) -- so the format reference in these docs is the single source of truth for both humans and the AI. See [mcp/README.md](mcp/README.md) for setup.
 
 ## Slide Organization
 
