@@ -1056,9 +1056,11 @@ class PresenterWidget extends api.NoteContextAwareWidget {
                 }
             };
 
-            // Click navigation (skip links and interactive elements)
+            // Click navigation (skip links, interactive elements, and text selection)
             document.addEventListener('click', (e) => {
                 if (e.target.closest('a, button, input, textarea, select')) return;
+                const sel = window.getSelection();
+                if (sel && sel.toString().length > 0) return;
                 if (e.clientX > window.innerWidth / 2) showSlide(current + 1);
                 else showSlide(current - 1);
             });
