@@ -98,8 +98,10 @@ The first slide defaults to `title` layout, others to `content`. Override with `
 See the [docs/](docs/) folder:
 - [Getting Started](docs/getting-started.md)
 - [Slide Content](docs/slide-content.md) -- full Markdown & Pandoc syntax reference
+- [Slide Format](docs/slide-format.md) -- compact format reference (also drives the MCP server)
 - [Themes](docs/themes.md) -- creating custom themes
 - [Content Organization](docs/content-organization.md) -- clone-based slide library workflow
+- [MCP Server](docs/mcp.md) -- AI slide authoring overview ([setup](mcp/README.md))
 - [About](docs/about.md) -- author, license, and links
 
 ## Author
