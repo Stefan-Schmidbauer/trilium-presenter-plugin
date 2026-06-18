@@ -1,6 +1,6 @@
 # trilium-mcp
 
-MCP server for [Trilium Notes](https://github.com/TriliumNext/Notes) — create and manage [Trilium Presenter](https://github.com/Stefan-Schmidbauer/trilium-presenter-plugin) slide presentations via the ETAPI.
+MCP server for [Trilium Notes](https://github.com/TriliumNext/Trilium) — create and manage [Trilium Presenter](https://github.com/Stefan-Schmidbauer/trilium-presenter-plugin) slide presentations via the ETAPI.
 
 This server lives in the `mcp/` folder of the **trilium-presenter-plugin** repository. The slide format it follows is loaded live from the Trilium note labelled `#presenterSlideFormat` (the compact **Slide Format** note) and embedded directly into the `create_slide` / `update_slide` tool descriptions, so it reliably reaches the model on every client. Format and conventions stay in a single place — editable directly in Trilium. Changes take effect on the next connection; if the note is missing, a built-in fallback keeps the tools working.
 
