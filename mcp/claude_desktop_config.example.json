@@ -1,8 +1,8 @@
 {
   "mcpServers": {
     "trilium-presenter": {
-      "command": "/path/to/trilium-mcp/.venv/bin/python",
-      "args": ["/path/to/trilium-mcp/server.py"],
+      "command": "/path/to/trilium-presenter-plugin/mcp/.venv/bin/python",
+      "args": ["/path/to/trilium-presenter-plugin/mcp/server.py"],
       "env": {
         "TRILIUM_URL": "http://localhost:9160",
         "TRILIUM_API_KEY": "",
