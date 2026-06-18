@@ -1,5 +1,10 @@
 # Trilium Presenter Plugin
 
+[![Release](https://img.shields.io/github/v/release/Stefan-Schmidbauer/trilium-presenter-plugin?sort=semver)](https://github.com/Stefan-Schmidbauer/trilium-presenter-plugin/releases/latest)
+[![License: MIT](https://img.shields.io/github/license/Stefan-Schmidbauer/trilium-presenter-plugin)](LICENSE)
+[![TriliumNext](https://img.shields.io/badge/Trilium-Next-blue)](https://github.com/TriliumNext/Notes)
+[![MCP server](https://img.shields.io/badge/MCP-server-7c3aed)](mcp/README.md)
+
 Turn any Trilium note into a fullscreen presentation -- directly from Trilium, with one click.
 
 ![Trilium Presenter — note tree, slide overview, and widget](trilium-presenter-plugin.png)
