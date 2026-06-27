@@ -8,7 +8,7 @@ import httpx
 from mcp.server.fastmcp import FastMCP
 from mcp.types import TextContent
 
-TRILIUM_URL = os.getenv("TRILIUM_URL", "http://localhost:9160")
+TRILIUM_URL = os.getenv("TRILIUM_URL", "http://localhost:8080")
 TRILIUM_API_KEY = os.getenv("TRILIUM_API_KEY", "")
 DEFAULT_PARENT = os.getenv("TRILIUM_DEFAULT_PARENT", "root")
 

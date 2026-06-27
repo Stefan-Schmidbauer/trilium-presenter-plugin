@@ -2,7 +2,7 @@
 
 MCP server for [Trilium Notes](https://github.com/TriliumNext/Trilium) — create and manage [Trilium Presenter](https://github.com/Stefan-Schmidbauer/trilium-presenter-plugin) slide presentations via the ETAPI.
 
-This server lives in the `mcp/` folder of the **trilium-presenter-plugin** repository. The slide format it follows is loaded live from the Trilium note labelled `#presenterSlideFormat` (the compact **Slide Format** note) and embedded directly into the `create_slide` / `update_slide` tool descriptions, so it reliably reaches the model on every client. Format and conventions stay in a single place — editable directly in Trilium. Changes take effect on the next connection; if the note is missing, a built-in fallback keeps the tools working.
+This server lives in the `mcp/` folder of the **trilium-presenter-plugin** repository. The slide format it follows is loaded live from the Trilium note labelled `#presenterSlideFormat` (the compact **Slide Format** note) and embedded directly into the `create_slide` / `update_slide` tool descriptions, so it reliably reaches the model on every client. Format and conventions stay in a single place — editable directly in Trilium. Changes take effect on the next connection; if the note is missing or unreachable, the tools emit a loud "format unavailable — do not guess" notice instead of a silent substitute, so a missing format can never masquerade as the real one.
 
 ## Tools
 
@@ -24,7 +24,7 @@ This server lives in the `mcp/` folder of the **trilium-presenter-plugin** repos
 
 | Prompt | Description |
 |---|---|
-| `slide_creation_guide` | Full slide guide + conventions, loaded live from the Trilium note labelled `#presenterSlideFormat` (falls back to a built-in guide). Note: the same format is also embedded into the `create_slide` / `update_slide` tool descriptions, which is the path guaranteed to reach the model — prompts are not injected by every client. |
+| `slide_creation_guide` | Full slide guide + conventions, loaded live from the Trilium note labelled `#presenterSlideFormat` (returns a STOP "do-not-guess" notice if that note is missing or unreachable — never a built-in substitute). Note: the same format is also embedded into the `create_slide` / `update_slide` tool descriptions, which is the path guaranteed to reach the model — prompts are not injected by every client. |
 
 ## Setup
 
@@ -40,39 +40,76 @@ The server ships inside the [trilium-presenter-plugin](https://github.com/Stefan
 ```bash
 git clone https://github.com/Stefan-Schmidbauer/trilium-presenter-plugin
 cd trilium-presenter-plugin/mcp
-python3 -m venv .venv
-.venv/bin/pip install mcp httpx
+python3 -m venv venv
+venv/bin/pip install -r requirements.txt
 ```
 
-### 3. Configure
+This creates the `venv/` folder the config below points at.
+
+> **Windows:** use the `venv\Scripts\` paths instead of `venv/bin/` throughout
+> this guide — e.g. `venv\Scripts\pip.exe install -r requirements.txt` to
+> install and `venv\Scripts\python.exe` as the `command` in the config below.
+
+### 3. Register the server in your MCP client
+
+The server is configured entirely through three environment variables:
+
+| Key | Description |
+|---|---|
+| `TRILIUM_URL` | Local URL of Trilium (default: `http://localhost:8080`) |
+| `TRILIUM_API_KEY` | Your ETAPI token |
+| `TRILIUM_DEFAULT_PARENT` | Note ID where new presentations are created (default: `root`) |
+
+Copy the following block into your MCP client config and replace the two
+absolute paths and the env values with your own. Use **absolute** paths — MCP
+clients do not resolve `~` or relative paths.
+
+```json
+{
+  "mcpServers": {
+    "trilium-presenter": {
+      "command": "/path/to/trilium-presenter-plugin/mcp/venv/bin/python",
+      "args": ["/path/to/trilium-presenter-plugin/mcp/server.py"],
+      "env": {
+        "TRILIUM_URL": "http://localhost:8080",
+        "TRILIUM_API_KEY": "your-etapi-token",
+        "TRILIUM_DEFAULT_PARENT": "root"
+      }
+    }
+  }
+}
+```
+
+The same block lives in [`claude_desktop_config.example.json`](claude_desktop_config.example.json) — copy it to a real file and fill in your values:
 
 ```bash
 cp claude_desktop_config.example.json claude_desktop_config.json
 ```
 
-Edit `claude_desktop_config.json` — fill in your values:
+This `claude_desktop_config.json` is just a scratch file for assembling the `mcpServers` block before you paste it into your client — it is gitignored and not read by the server itself.
 
-| Key | Description |
-|---|---|
-| `TRILIUM_URL` | Local URL of Trilium (default: `http://localhost:9160`) |
-| `TRILIUM_API_KEY` | Your ETAPI token |
-| `TRILIUM_DEFAULT_PARENT` | Note ID where new presentations are created (default: `root`) |
+Where to paste the `mcpServers` block depends on your client:
 
-### 4. Add to Claude Desktop
+- **Claude Code (project-scoped):** `.mcp.json` in your project root
+- **Claude Desktop — macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`
+- **Claude Desktop — Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
+- **Claude Desktop — Linux:** `~/.config/Claude/claude_desktop_config.json`
 
-Copy the `mcpServers` block from your `claude_desktop_config.json` into:
+Restart the client after editing its config so the server is picked up.
 
-- **macOS:** `~/Library/Application Support/Claude/claude_desktop_config.json`
-- **Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
-- **Linux:** `~/.config/Claude/claude_desktop_config.json`
+### 4. Test the server (without an MCP client)
 
-### 5. Local development (without Claude Desktop)
+The server speaks MCP over stdio, so running it standalone just blocks waiting
+for input. To inspect and exercise the tools interactively, use the
+[MCP Inspector](https://github.com/modelcontextprotocol/inspector):
 
 ```bash
-python dev.py
+TRILIUM_URL=http://localhost:8080 TRILIUM_API_KEY=your-etapi-token \
+  npx @modelcontextprotocol/inspector venv/bin/python server.py
 ```
 
-Reads config directly from `claude_desktop_config.json` and starts the server.
+This opens a local UI where you can list and call each tool against your
+Trilium instance.
 
 ## Content Organization
 
