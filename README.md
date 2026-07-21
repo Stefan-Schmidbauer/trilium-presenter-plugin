@@ -97,6 +97,11 @@ The first slide defaults to `title` layout, others to `content`. Override with `
 | `#presenterLang` | HTML lang attribute | `en` |
 | `#slideType` | Slide layout type | auto |
 | `#presenterTheme` | Mark a note as theme | -- |
+| `#slideIgnore` | Skip this note (children still become slides) | -- |
+| `#slideIgnore=subtree` | Skip this note and its whole branch | -- |
+
+Notes whose content is empty or whitespace only are skipped automatically, so
+pure grouping notes need no label at all.
 
 ## Documentation
 

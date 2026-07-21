@@ -76,6 +76,27 @@ Trilium's **clone feature** creates references, not copies:
 
 **The presenter works the same either way** — Trilium Presenter simply reads the content of each child note. It doesn't care whether a note is a clone or not.
 
+## Excluding Notes from a Presentation
+
+Not every note under your presentation belongs on screen. Handouts, working
+notes or a grouping folder that happens to carry text would otherwise each
+become a slide. Two mechanisms keep them out:
+
+**Empty notes are skipped automatically.** A note whose content is empty or
+whitespace only never becomes a slide — its children still do. This is what
+makes pure grouping notes work without any extra labels.
+
+**`#slideIgnore` excludes a note on purpose**, even when it has content:
+
+| Label | Effect |
+|-------|--------|
+| `#slideIgnore` | This note is skipped, its children still become slides |
+| `#slideIgnore=subtree` | This note **and its whole branch** are skipped |
+
+Use the bare label for a folder that holds text you don't want projected, and
+`=subtree` for a whole side branch — a "Handouts" or "Notes" folder sitting
+next to your slides.
+
 ## Templates (Optional)
 
 Templates are slides that appear in most presentations but need unique content each time:

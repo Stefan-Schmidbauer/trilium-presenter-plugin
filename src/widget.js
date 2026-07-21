@@ -134,6 +134,20 @@ class PresenterWidget extends api.NoteContextAwareWidget {
                     if (visited.has(note.noteId)) return;
                     visited.add(note.noteId);
 
+                    // #slideIgnore keeps a note out of the presentation on purpose.
+                    // Bare label: only this note is dropped, its children still
+                    // become slides — for grouping notes that carry content you
+                    // do not want on screen. #slideIgnore=subtree drops the whole
+                    // branch, e.g. a "Handouts" folder living next to the slides.
+                    const ignore = note.getLabelValue('slideIgnore');
+                    if (ignore !== null && ignore !== undefined) {
+                        if (ignore === 'subtree') return;
+                        for (const child of getSortedChildren(note)) {
+                            collectSlides(child, visited);
+                        }
+                        return;
+                    }
+
                     const content = note.getContent() || '';
 
                     // Skip container notes that carry no own content: text/html
