@@ -136,8 +136,11 @@ class PresenterWidget extends api.NoteContextAwareWidget {
 
                     const content = note.getContent() || '';
 
-                    // Skip text/html container notes (empty or HTML-only)
-                    if (note.type === 'text') {
+                    // Skip container notes that carry no own content: text/html
+                    // containers as before, plus notes of any other type whose
+                    // content is empty or whitespace only. Without the second
+                    // case an empty chapter note is rendered as a blank slide.
+                    if (note.type === 'text' || !content.trim()) {
                         // Still recurse into children
                         for (const child of getSortedChildren(note)) {
                             collectSlides(child, visited);
