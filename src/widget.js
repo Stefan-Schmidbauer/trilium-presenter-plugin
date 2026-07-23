@@ -514,6 +514,12 @@ class PresenterWidget extends api.NoteContextAwareWidget {
         // Links: [text](url)
         text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
 
+        // Inline spans with CSS classes: [text]{.class1 .class2}
+        text = text.replace(/\[([^\]]+)\]\{([^}]+)\}/g, (m, inner, attrs) => {
+            const classes = attrs.replace(/\./g, '').split(/\s+/).join(' ');
+            return `<span class="${classes}">${inner}</span>`;
+        });
+
         // Bold + italic: ***text***
         text = text.replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>');
 

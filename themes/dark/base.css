@@ -3,7 +3,7 @@
 
 html, body {
     height: 100%;
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-family: 'Segoe UI', system-ui, -apple-system, 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', 'Twemoji Mozilla', sans-serif;
     background: #0f0f1a;
     overflow: auto;
 }
@@ -45,3 +45,19 @@ img.center { display: block; margin: 1rem auto; }
 .progress-bar { position: fixed; bottom: 0; left: 0; height: 5px; background: #e94560; z-index: 101; transition: width 0.3s ease; }
 .nav-hint { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); color: #666; font-size: 0.85rem; opacity: 0; transition: opacity 0.5s; }
 .nav-hint.visible { opacity: 1; }
+/* === Inline-Status-Badges: [Text]{.good} / [Text]{.bad} ===
+   Monochromes ✓/✗ in der Badge-Farbe, farbige Flaeche per CSS —
+   bewusst KEIN Emoji, damit die Darstellung font-unabhaengig ist. */
+.good, .bad {
+    display: inline-block;
+    padding: 0.05em 0.5em;
+    border-radius: 0.5em;
+    font-weight: 600;
+    line-height: 1.4;
+    white-space: nowrap;
+}
+.good::before { content: '\2713\00a0'; font-weight: 700; }
+.bad::before  { content: '\2717\00a0'; font-weight: 700; }
+
+.good { color: #86efac; background: rgba(34,197,94,0.16); }
+.bad  { color: #fca5a5; background: rgba(248,113,113,0.16); }
