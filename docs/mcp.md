@@ -12,6 +12,6 @@ The assistant follows the slide format you define in Trilium: the compact **Slid
 
 ## Setup
 
-The server lives in the `mcp/` folder of the plugin repository. Full setup — Python, configuration, and Claude Desktop — is documented on GitHub:
+The server is a separate project — installed and configured independently of this plugin, then pointed at your Trilium. Full setup — Python, configuration, and MCP clients such as Claude Desktop — is documented on GitHub:
 
-→ **[mcp/README.md](https://github.com/Stefan-Schmidbauer/trilium-presenter-plugin/tree/main/mcp)**
+→ **[trilium-presenter-mcp](https://github.com/Stefan-Schmidbauer/trilium-presenter-mcp)**
