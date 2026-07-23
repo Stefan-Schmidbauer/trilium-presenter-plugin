@@ -3,12 +3,8 @@
 node_modules/
 .env
 CLAUDE.md
-# no leading slash = matches at any depth, incl. mcp/.claude/
 .claude/
 blog/
 
-# Python / MCP server (mcp/)
-venv/
-__pycache__/
-*.pyc
-claude_desktop_config.json
+# ETAPI credentials for maintaining the Trilium notes — only the example is committed
+.trilium-env

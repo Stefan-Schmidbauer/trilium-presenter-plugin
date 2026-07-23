@@ -1,0 +1,10 @@
+# Trilium ETAPI access for maintaining the plugin notes.
+# Copy to .trilium-env and fill in — that file is gitignored, never commit it.
+#
+# Usage:  set -a; . ./.trilium-env; set +a
+#
+# The URL needs its scheme (https://…). The token comes from
+# Trilium -> Options -> ETAPI -> Create new token.
+
+TRILIUM_URL=https://trilium.example.net
+TRILIUM_API_KEY=

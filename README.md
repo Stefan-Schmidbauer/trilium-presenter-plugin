@@ -3,7 +3,7 @@
 [![Release](https://img.shields.io/github/v/release/Stefan-Schmidbauer/trilium-presenter-plugin?sort=semver)](https://github.com/Stefan-Schmidbauer/trilium-presenter-plugin/releases/latest)
 [![License: MIT](https://img.shields.io/github/license/Stefan-Schmidbauer/trilium-presenter-plugin)](LICENSE)
 [![TriliumNext](https://img.shields.io/badge/TriliumNext-compatible-000000?logo=trilium&logoColor=white)](https://triliumnotes.org)
-[![MCP server](https://img.shields.io/badge/MCP-server-7c3aed)](mcp/README.md)
+[![MCP server](https://img.shields.io/badge/MCP-server-7c3aed)](https://github.com/Stefan-Schmidbauer/trilium-presenter-mcp)
 
 Turn any Trilium note into a fullscreen presentation -- directly from Trilium, with one click.
 
@@ -46,9 +46,9 @@ Turn any Trilium note into a fullscreen presentation -- directly from Trilium, w
 
 ## MCP Server (AI slide authoring)
 
-Let an AI assistant build your decks. The [`mcp/`](mcp/) folder ships a Model Context Protocol server that creates and manages presentations directly in Trilium via the ETAPI -- ask Claude something like *"Create a 5-slide intro to our Q3 roadmap"* and the slides appear in your note tree, ready to present.
+Let an AI assistant build your decks. A companion Model Context Protocol server, [**trilium-presenter-mcp**](https://github.com/Stefan-Schmidbauer/trilium-presenter-mcp), creates and manages presentations directly in Trilium via the ETAPI -- ask Claude something like *"Create a 5-slide intro to our Q3 roadmap"* and the slides appear in your note tree, ready to present. It is installed separately from this plugin; the two meet inside Trilium.
 
-The slide format the AI follows is loaded live from the **Slide Format** documentation note (label `#presenterSlideFormat`) -- so that one note is the single source of truth for slide-creation rules, shared by both humans and the AI (it used to be hardcoded in the server). See [mcp/README.md](mcp/README.md) for setup.
+The slide format the AI follows is loaded live from the **Slide Format** documentation note (label `#presenterSlideFormat`) -- so that one note is the single source of truth for slide-creation rules, shared by both humans and the AI (it used to be hardcoded in the server). See the [server's README](https://github.com/Stefan-Schmidbauer/trilium-presenter-mcp#readme) for setup.
 
 ## Slide Organization
 
@@ -111,7 +111,7 @@ See the [docs/](docs/) folder:
 - [Slide Format](docs/slide-format.md) -- compact format reference (also drives the MCP server)
 - [Themes](docs/themes.md) -- creating custom themes
 - [Content Organization](docs/content-organization.md) -- clone-based slide library workflow
-- [MCP Server](docs/mcp.md) -- AI slide authoring overview ([setup](mcp/README.md))
+- [MCP Server](docs/mcp.md) -- AI slide authoring overview ([setup](https://github.com/Stefan-Schmidbauer/trilium-presenter-mcp#readme))
 - [About](docs/about.md) -- author, license, and links
 
 ## Author
