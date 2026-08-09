@@ -1,0 +1,8 @@
+{
+  "name": "trilium-presenter-plugin",
+  "private": true,
+  "description": "Not an npm package — this file exists so `npm test` runs the widget's unit tests. The plugin ships as Trilium notes, built by build-zip.py.",
+  "scripts": {
+    "test": "node --test"
+  }
+}

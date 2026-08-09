@@ -1,0 +1,23 @@
+# Tool configuration only — this repo is not a Python package. The Python here is
+# build tooling (build-zip.py and its tests), not something to install.
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# build-zip.py has a hyphen in its name and is loaded by path in conftest.py;
+# tests/ is on the path so the fixtures can be imported as plain modules.
+pythonpath = ["tests"]
+filterwarnings = ["error"]
+
+[tool.ruff]
+line-length = 104
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "S"]
+ignore = [
+    "S101",  # assert: the test suite is built on it
+]
+
+[tool.ruff.lint.per-file-ignores]
+# conftest.py loads the build script by path before the test modules import it.
+"tests/*" = ["E402"]
