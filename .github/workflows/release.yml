@@ -12,13 +12,15 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      # Pinned to a commit SHA — a major tag can be repointed by whoever owns
+      # the repository, and this job holds contents: write.
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
 
       - name: Build Trilium import zip
-        run: bash build-zip.sh "${{ github.ref_name }}"
+        run: python3 build-zip.py "${{ github.ref_name }}"
 
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2.6.2
         with:
           files: trilium-presenter-plugin.zip
           generate_release_notes: true

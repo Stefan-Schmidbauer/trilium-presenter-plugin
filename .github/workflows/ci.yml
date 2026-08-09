@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# Read-only: nothing here publishes. The release workflow is the only one that
+# needs write access.
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      # Actions are pinned to a commit SHA, not a moving major tag: a tag can be
+      # repointed by whoever owns the repository. Dependabot proposes the bumps
+      # (see .github/dependabot.yml), so the pins do not rot.
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: '3.12'
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22'
+
+      - name: Install build-test tooling
+        # Only the build tests need anything installed; the widget tests run on
+        # node's own runner with no dependencies at all.
+        #
+        # From the pinned file rather than `pip install pytest ruff`: an
+        # unpinned install turns CI red on someone else's release day. The
+        # versions live in requirements-dev.txt so Dependabot can see them —
+        # it cannot read a version out of a run: command.
+        run: pip install -r requirements-dev.txt
+
+      - name: Lint
+        run: ruff check .
+
+      - name: Test the import zip
+        run: pytest -q
+
+      - name: Test the widget
+        run: node --test
+
+      - name: Build the release zip
+        # The archive the release workflow publishes, built on every push — a
+        # build that only runs when a tag is pushed fails at the worst moment.
+        run: python3 build-zip.py "ci-${GITHUB_SHA::7}"

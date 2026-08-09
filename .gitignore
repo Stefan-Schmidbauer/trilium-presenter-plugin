@@ -1,10 +1,28 @@
+# Secrets & local env
+# .trilium-env holds the ETAPI credentials for maintaining the Trilium notes.
+# It is listed separately because `.env*` does not match it — the name does not
+# start with `.env`. Only the example is committed.
+.trilium-env
+.env*
+!*.example
+
+# Build artefacts
 *.zip
-.DS_Store
+
+# Python / tooling — both spellings; a missed pattern commits a whole virtualenv
+venv/
+.venv/
+__pycache__/
+*.pyc
 node_modules/
-.env
+
+# Local assistant context — machine- and author-specific, not part of the project
 CLAUDE.md
 .claude/
+
+# Drafts written here, published elsewhere
 blog/
 
-# ETAPI credentials for maintaining the Trilium notes — only the example is committed
-.trilium-env
+.DS_Store
+.pytest_cache/
+.ruff_cache/

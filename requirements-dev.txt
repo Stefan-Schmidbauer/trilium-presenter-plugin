@@ -1,0 +1,14 @@
+# Development and CI only — the plugin itself has no Python runtime.
+#
+# The Python in this repo is build tooling: build-zip.py and its tests. The
+# widget tests need nothing at all, they run on node's built-in runner.
+#
+# Pinned so that a new pytest or ruff release cannot turn CI red without a
+# change in this repo. ruff is the reason this is not academic: it adds checks
+# in minor releases, so `ruff check .` can start failing on code nobody touched.
+#
+# No hashes, unlike a deployed lockfile: nothing here ships anywhere, so the
+# reproducibility argument that would justify one does not apply.
+
+pytest==9.1.1
+ruff==0.16.2

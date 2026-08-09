@@ -1,0 +1,27 @@
+# Keeps the SHA-pinned actions from rotting.
+#
+# Pinning without automated bumps is how a project ends up on a two-year-old
+# action that nobody noticed: the pin is the security property, the bumps are
+# what keep it from becoming a liability.
+#
+# No npm entry: the plugin has no runtime dependencies — the widget is plain
+# frontend JS against Trilium's own api object, and package.json exists solely
+# so `npm test` runs node's built-in test runner.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: "chore"
+
+  # requirements-dev.txt only — the build tooling CI installs. Nothing here is
+  # shipped; the point of the pins is that CI fails on a change in this repo,
+  # not on a pytest or ruff release, and these bumps are what keep them current.
+  - package-ecosystem: pip
+    directory: /
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: "chore"
