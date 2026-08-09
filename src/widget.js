@@ -4,9 +4,11 @@
  * Clicking it opens a fullscreen presentation in a new window.
  */
 
+// Body only — no heading, padding or separator here. As a RightPanelWidget this
+// markup is placed inside Trilium's own collapsible card, which supplies the
+// title (from widgetTitle) and the frame.
 const TPL = `
-<div style="padding: 10px; border-bottom: 1px solid var(--main-border-color);">
-    <h4 style="margin: 0 0 8px 0;">Trilium Presenter</h4>
+<div>
     <div style="margin-bottom: 8px;">
         <label style="font-size: 0.85em; color: var(--muted-text-color); display: block; margin-bottom: 2px;">Theme</label>
         <select class="tp-theme-select form-control" style="width: 100%; font-size: 0.9em;">
@@ -25,7 +27,16 @@ const TPL = `
 </div>
 `;
 
-class PresenterWidget extends api.NoteContextAwareWidget {
+// RightPanelWidget, not NoteContextAwareWidget: it is the base class Trilium
+// documents for 'right-pane'. It builds the collapsible card — heading, expand
+// arrow, the panel frame — puts widgetTitle into the header, and calls
+// doRenderBody() to fill this.$body. Extending NoteContextAwareWidget instead
+// left that header rendered but empty, so the title had to be faked with an h4
+// inside the panel and the panel could not be collapsed like every other one.
+class PresenterWidget extends api.RightPanelWidget {
+    // Shown in the card header by the base class.
+    get widgetTitle() { return 'Trilium Presenter'; }
+
     // 110, deliberately not 100: trilium-notecast-render's widget mounts in the
     // same 'right-pane' and sits at 100. Equal positions leave the order to the
     // order the widget notes happen to load in, so the two panels could swap
@@ -35,12 +46,15 @@ class PresenterWidget extends api.NoteContextAwareWidget {
     get position() { return 110; }
     get parentWidget() { return 'right-pane'; }
 
+    // Fills this.$body — must NOT assign this.$widget. The base class owns that
+    // property and has already built the card around this body; overwriting it
+    // hands Trilium a widget with no header and detaches what it mounted.
     doRenderBody()  {
-        this.$widget = $(TPL);
-        this.$widget.find('.tp-present-btn').on('click', () => this.startPresentation(false));
-        this.$widget.find('.tp-presenter-btn').on('click', () => this.startPresentation(true));
-        this.$widget.find('.tp-slide-btn').on('click', () => this.showSingleSlide());
-        return this.$widget;
+        this.$body.empty();
+        this.$body.append($(TPL));
+        this.$body.find('.tp-present-btn').on('click', () => this.startPresentation(false));
+        this.$body.find('.tp-presenter-btn').on('click', () => this.startPresentation(true));
+        this.$body.find('.tp-slide-btn').on('click', () => this.showSingleSlide());
     }
 
     async refreshWithNote(note) {
@@ -51,11 +65,11 @@ class PresenterWidget extends api.NoteContextAwareWidget {
 
         if (show) {
             // Presentation buttons only for notes with children
-            this.$widget.find('.tp-present-btn, .tp-presenter-btn').toggle(hasChildren);
+            this.$body.find('.tp-present-btn, .tp-presenter-btn').toggle(hasChildren);
             // Theme selector visible for presentations and single slides
-            this.$widget.find('.tp-theme-select').closest('div').toggle(hasChildren || isSlideable);
+            this.$body.find('.tp-theme-select').closest('div').toggle(hasChildren || isSlideable);
             // Show Slide button for any slideable note
-            this.$widget.find('.tp-slide-btn').toggle(isSlideable);
+            this.$body.find('.tp-slide-btn').toggle(isSlideable);
 
             if (hasChildren || isSlideable) {
                 await this.loadThemes(note);
@@ -68,7 +82,7 @@ class PresenterWidget extends api.NoteContextAwareWidget {
      * Pre-selects the theme named "Default" if available.
      */
     async loadThemes(note) {
-        const $select = this.$widget.find('.tp-theme-select');
+        const $select = this.$body.find('.tp-theme-select');
 
         try {
             const themeNotes = await api.searchForNotes('#presenterTheme');
@@ -210,7 +224,7 @@ class PresenterWidget extends api.NoteContextAwareWidget {
 
     async startPresentation(presenterMode) {
         const noteId = this.noteId;
-        const themeNoteId = this.$widget.find('.tp-theme-select').val();
+        const themeNoteId = this.$body.find('.tp-theme-select').val();
 
         try {
             // Collect presentation data on the frontend (no backend scripting).
@@ -266,7 +280,7 @@ class PresenterWidget extends api.NoteContextAwareWidget {
 
     async showSingleSlide() {
         const noteId = this.noteId;
-        const themeNoteId = this.$widget.find('.tp-theme-select').val();
+        const themeNoteId = this.$body.find('.tp-theme-select').val();
 
         try {
             const note = await api.getNote(noteId);

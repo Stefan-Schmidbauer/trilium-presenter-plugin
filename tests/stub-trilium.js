@@ -2,10 +2,10 @@
  * The smallest Trilium the widget needs in order to be require()d.
  *
  * `src/widget.js` is a Trilium frontend note: it resolves `api` at class-
- * definition time (`class … extends api.NoteContextAwareWidget`) and exports an
+ * definition time (`class … extends api.RightPanelWidget`) and exports an
  * instance, so a bare require() in node throws before a single method exists.
- * Two stubs are enough to get past that — after which every pure helper on the
- * instance is directly callable.
+ * A few stubs are enough to get past that — after which every pure helper on
+ * the instance is directly callable.
  *
  * Deliberately not a DOM: these tests cover the string-producing helpers, which
  * is where the escaping lives. Anything touching the widget's UI or the
@@ -15,6 +15,12 @@
 const calls = { showError: [], searchForNotes: [], getNote: [] };
 
 globalThis.api = {
+    // The real one builds the collapsible card and hands doRenderBody a $body.
+    // Here it only has to exist as a base class: these tests never call
+    // doRenderBody, so $body is never touched.
+    RightPanelWidget: class {
+        toggleInt() {}
+    },
     NoteContextAwareWidget: class {
         toggleInt() {}
     },
