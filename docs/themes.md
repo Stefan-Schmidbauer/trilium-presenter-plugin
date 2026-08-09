@@ -19,13 +19,16 @@ My Theme
   Base              (CSS code note — shared styles)
   Title Slide       (CSS code note + background.svg attachment)
   Content Slide     (CSS code note + background.svg attachment)
-  Handout           (CSS code note — optional, for PDF handout styling)
 ```
 
 - **Base** — Layout, image sizing, navigation, centering utilities
 - **Title Slide** — Typography and styling for title slides, plus a background SVG as attachment
 - **Content Slide** — Typography and styling for content slides, columns, code blocks, tables, plus a background SVG as attachment
-- **Handout** (optional) — CSS for the print/PDF handout. If omitted, the plugin uses a built-in default handout style
+
+There is no Handout note. Printing is
+[trilium-notecast-render](https://github.com/Stefan-Schmidbauer/trilium-notecast-render)'s
+job — it ships the print CSS under `#notecastTheme`, and these themes are for the
+screen only.
 
 ## Included Themes
 

@@ -2,6 +2,14 @@
 
 Trilium Presenter turns any note into a fullscreen presentation — directly from Trilium, with one click.
 
+## Install
+
+Import the plugin's `.zip` into Trilium (**Note tree → … → Import into note**), then **enable the widget**: Trilium neutralises executable labels in anything you import, so the **Widget** note arrives carrying `#disabled:widget` instead of `#widget`. Until you rename it back, the plugin is installed but inert and no widget appears.
+
+1. Open the **Widget** note inside the imported *Trilium Presenter* tree and switch to its *Owned attributes*.
+2. Rename `#disabled:widget` to `#widget` and save.
+3. Reload Trilium (Ctrl+R) — widgets are only read at startup.
+
 ## How It Works
 
 1. **Create a note** — this is your presentation
@@ -34,7 +42,6 @@ Navigate to your presentation note. In the right panel, you'll see:
 
 - **▶ Present** — Opens a fullscreen presentation in a new browser window
 - **🖥 Presenter Mode** — Opens a speaker view with notes and slide list
-- **📄 Handout (PDF)** — Opens a print-optimized view where each slide is a separate page
 
 ### Single Slide Preview
 
@@ -67,7 +74,7 @@ The HTML `lang` attribute of the generated presentation defaults to `en`. To cha
 - `#presenterLang=fr` — French
 - etc.
 
-This affects the presentation, presenter mode, and handout.
+This affects the presentation and presenter mode.
 
 ## Keyboard Shortcuts
 
@@ -91,9 +98,22 @@ The presenter view shows:
 
 The presenter window stays synchronized with the main presentation via BroadcastChannel — navigating in one window updates the other.
 
-## Handout (PDF)
+## Handouts and PDF
 
-The handout mode generates a print-optimized document where each slide starts on a new page. The browser's print dialog opens automatically — save as PDF or print directly.
+This plugin no longer prints. Handouts are made by the sibling plugin
+[trilium-notecast-render](https://github.com/Stefan-Schmidbauer/trilium-notecast-render):
+open the presentation note, tick **Include subtree** in its render widget, and
+print — you get one page per slide, in tree order.
+
+The move gained more than it cost. The renderer prints *any* Notecast type the
+same way, so the deck, the meeting notes and the checklists all take one path;
+its slide theme is landscape, which the presenter's portrait handout never was;
+and this plugin is now only responsible for what happens on screen.
+
+One difference to expect if you printed handouts before v2: the renderer reads
+none of this plugin's labels, so **`#slideIgnore` does not exclude anything from
+a printout**. A branch you keep off screen with it is still printed — see
+*Excluding Notes from a Presentation* in Content Organization.
 
 ## Images
 

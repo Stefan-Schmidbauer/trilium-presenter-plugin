@@ -1,4 +1,4 @@
-## Three Ways to Present
+## Two Ways to Present
 
 ::: {.columns}
 ::: {.column}
@@ -17,14 +17,10 @@ Speaker view with:
 - Clickable slide list
 - Synced with presentation window via BroadcastChannel
 :::
-::: {.column}
-### Handout (PDF)
-
-Print-optimized view — one page per slide.
-
-Auto-opens the print dialog for PDF export.
 :::
-:::
+
+For a printed handout, use **Notecast Render** on this note with *Include
+subtree* ticked — one page per slide, in tree order.
 
 ---
 

@@ -3,7 +3,7 @@
 [![Release](https://img.shields.io/github/v/release/Stefan-Schmidbauer/trilium-presenter-plugin?sort=semver)](https://github.com/Stefan-Schmidbauer/trilium-presenter-plugin/releases/latest)
 [![License: MIT](https://img.shields.io/github/license/Stefan-Schmidbauer/trilium-presenter-plugin)](LICENSE)
 [![TriliumNext](https://img.shields.io/badge/TriliumNext-compatible-000000?logo=trilium&logoColor=white)](https://triliumnotes.org)
-[![MCP server](https://img.shields.io/badge/MCP-server-7c3aed)](https://github.com/Stefan-Schmidbauer/trilium-presenter-mcp)
+[![MCP server](https://img.shields.io/badge/MCP-server-7c3aed)](https://github.com/Stefan-Schmidbauer/trilium-notecast-mcp)
 
 Turn any Trilium note into a fullscreen presentation -- directly from Trilium, with one click.
 
@@ -15,7 +15,6 @@ Turn any Trilium note into a fullscreen presentation -- directly from Trilium, w
 - **Markdown slides** with Pandoc-compatible syntax (columns, speaker notes, code blocks)
 - **Depth-first traversal** -- organize slides in sub-topics, they unfold automatically
 - **Presenter mode** with speaker notes and slide list, synced via BroadcastChannel
-- **Handout/PDF export** with one page per slide
 - **Theme system** -- CSS + SVG backgrounds as Trilium notes, selectable per presentation
 - **Slide templates** -- 11 ready-made layouts for quick slide creation
 - **Keyboard & mouse navigation** with progress bar
@@ -29,6 +28,16 @@ Turn any Trilium note into a fullscreen presentation -- directly from Trilium, w
 3. Select the downloaded `.zip` file
 4. Trilium disables imported widgets by default -- open the **Widget** note inside the imported "Trilium Presenter" tree, find the `#disabled:widget` attribute and rename it to `#widget`
 5. Reload Trilium (Ctrl+R) -- the **Trilium Presenter** widget appears in the right panel
+
+## Upgrading from 1.x
+
+Version 2 removes the **Handout (PDF)** button. Printing moved to the sibling plugin [**trilium-notecast-render**](https://github.com/Stefan-Schmidbauer/trilium-notecast-render), which prints any Notecast type by one code path: install it alongside this one, open the presentation note, tick **Include subtree** and print. You get one page per slide in tree order -- in landscape, which the presenter's portrait handout never was.
+
+Three things worth knowing before you upgrade:
+
+- **`#slideIgnore` does not reach the renderer.** It is a presenter label, and the renderer deliberately reads none of ours. A "Handouts" or "Notes" folder you kept off screen with `#slideIgnore=subtree` **will appear in the printout**. If a branch has to stay out of both, park it outside the presentation note.
+- **Themes installed before v2 still carry a "Handout" note.** It is inert -- the widget skips a theme note by that title on purpose, so it is not read as a slide type called `handout` -- and you can delete it.
+- **Presenting itself is unchanged.** Decks, themes, templates, presenter mode and every label except the handout path work exactly as before.
 
 ## Quick Start
 
@@ -46,9 +55,25 @@ Turn any Trilium note into a fullscreen presentation -- directly from Trilium, w
 
 ## MCP Server (AI slide authoring)
 
-Let an AI assistant build your decks. A companion Model Context Protocol server, [**trilium-presenter-mcp**](https://github.com/Stefan-Schmidbauer/trilium-presenter-mcp), creates and manages presentations directly in Trilium via the ETAPI -- ask Claude something like *"Create a 5-slide intro to our Q3 roadmap"* and the slides appear in your note tree, ready to present. It is installed separately from this plugin; the two meet inside Trilium.
+Let an AI assistant build your decks. A companion Model Context Protocol server, [**trilium-notecast-mcp**](https://github.com/Stefan-Schmidbauer/trilium-notecast-mcp), creates and manages notes directly in Trilium via the ETAPI -- ask Claude something like *"Create a 5-slide intro to our Q3 roadmap"* and the slides appear in your note tree, ready to present. It is installed separately from this plugin; the two meet inside Trilium.
 
-The slide format the AI follows is loaded live from the **Slide Format** documentation note (label `#presenterSlideFormat`) -- so that one note is the single source of truth for slide-creation rules, shared by both humans and the AI (it used to be hardcoded in the server). See the [server's README](https://github.com/Stefan-Schmidbauer/trilium-presenter-mcp#readme) for setup.
+The server is a generic authoring engine: it ships no formats of its own, but writes notes of whatever **type** your Trilium defines. This plugin supplies the `slide` type, so the server can author slides out of the box.
+
+The slide format the AI follows is loaded live from the **Slide Format** documentation note (label `#notecastType=slide`) -- so that one note is the single source of truth for slide-creation rules, shared by both humans and the AI (it used to be hardcoded in the server). See the [server's README](https://github.com/Stefan-Schmidbauer/trilium-notecast-mcp#readme) for setup.
+
+## The Notecast family
+
+This plugin is the **presentation** specialist of three repositories that read and write the same Trilium notes, each doing one job:
+
+| Repo | Role |
+|---|---|
+| **`trilium-presenter-plugin`** (this repo) | **presents a subtree on screen** |
+| [`trilium-notecast-mcp`](https://github.com/Stefan-Schmidbauer/trilium-notecast-mcp) | authors typed notes (`#notecastType`) via the ETAPI |
+| [`trilium-notecast-render`](https://github.com/Stefan-Schmidbauer/trilium-notecast-render) | renders a note to print/PDF in a chosen theme |
+
+They are coupled only through Trilium, by a handful of labels. That coupling is the shared [label contract](https://github.com/Stefan-Schmidbauer/trilium-notecast-mcp/blob/main/docs/notecast-contract.md), which lives in the MCP repo and is binding on all three -- including the labels this plugin owns, `#notecastType=slide` and `#presenterTheme`.
+
+Each is installed separately: this plugin and the renderer as Trilium note imports, the MCP server alongside your AI assistant. **Printing a deck as a handout is the renderer's job** -- this plugin presents, it does not print.
 
 ## Slide Organization
 
@@ -72,7 +97,6 @@ Container notes (`text/html` type) are skipped but their children are included. 
 |--------|-------------|
 | **Present** | Fullscreen presentation in a new window |
 | **Presenter Mode** | Speaker view with notes, slide list, and BroadcastChannel sync |
-| **Handout (PDF)** | Print-optimized view, one page per slide, auto-opens print dialog |
 | **Show Slide** | Preview a single Markdown slide with theme (visible on individual slide notes) |
 
 ![Presenter mode with speaker notes and slide list](trilium-presenter-plugin-presenter.png)
@@ -103,6 +127,31 @@ The first slide defaults to `title` layout, others to `content`. Override with `
 Notes whose content is empty or whitespace only are skipped automatically, so
 pure grouping notes need no label at all.
 
+## Development
+
+```bash
+pip install -r requirements-dev.txt   # pinned; the widget tests need nothing
+ruff check .                # lint, same versions CI uses
+pytest                      # the import zip matches the note tree it declares
+node --test                 # the widget's escaping and rendering helpers
+python3 build-zip.py        # build the archive locally
+```
+
+Both suites run in CI on every push. Neither needs a Trilium instance:
+
+- **`tests/test_build_zip.py`** builds the real archive and checks it against its
+  own manifest — every declared file present, every declared label emitted. That
+  second check exists because the opposite once shipped: while `meta.json` was
+  exported from a live Trilium and the files copied beside it, the two drifted
+  for months.
+- **`tests/widget.test.js`** loads `src/widget.js` in node behind a two-method
+  Trilium stub (`tests/stub-trilium.js`) and exercises the helpers that build the
+  generated document. The window that document opens in is same-origin with
+  Trilium, so the escaping there is a security boundary, not cosmetics.
+
+This does **not** replace the repo rule that widget code is verified by running
+it in Trilium — the tests cover the string-producing helpers, not the UI.
+
 ## Documentation
 
 See the [docs/](docs/) folder:
@@ -111,7 +160,7 @@ See the [docs/](docs/) folder:
 - [Slide Format](docs/slide-format.md) -- compact format reference (also drives the MCP server)
 - [Themes](docs/themes.md) -- creating custom themes
 - [Content Organization](docs/content-organization.md) -- clone-based slide library workflow
-- [MCP Server](docs/mcp.md) -- AI slide authoring overview ([setup](https://github.com/Stefan-Schmidbauer/trilium-presenter-mcp#readme))
+- [MCP Server](docs/mcp.md) -- AI slide authoring overview ([setup](https://github.com/Stefan-Schmidbauer/trilium-notecast-mcp#readme))
 - [About](docs/about.md) -- author, license, and links
 
 ## Author

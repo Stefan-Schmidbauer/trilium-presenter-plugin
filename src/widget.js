@@ -19,24 +19,26 @@ const TPL = `
     <button class="tp-presenter-btn btn btn-secondary btn-sm" style="width: 100%; margin-bottom: 4px;">
         🖥 Presenter Mode
     </button>
-    <button class="tp-handout-btn btn btn-secondary btn-sm" style="width: 100%;">
-        📄 Handout (PDF)
-    </button>
-    <button class="tp-slide-btn btn btn-secondary btn-sm" style="width: 100%; margin-top: 4px;">
+    <button class="tp-slide-btn btn btn-secondary btn-sm" style="width: 100%;">
         🔎 Show Slide
     </button>
 </div>
 `;
 
 class PresenterWidget extends api.NoteContextAwareWidget {
-    get position() { return 100; }
+    // 110, deliberately not 100: trilium-notecast-render's widget mounts in the
+    // same 'right-pane' and sits at 100. Equal positions leave the order to the
+    // order the widget notes happen to load in, so the two panels could swap
+    // between installs — invisible while neither had a heading, obvious now that
+    // both do. Printing is the more frequent action, so the renderer goes first.
+    // The two values belong together: change them in both repos or not at all.
+    get position() { return 110; }
     get parentWidget() { return 'right-pane'; }
 
     doRenderBody()  {
         this.$widget = $(TPL);
         this.$widget.find('.tp-present-btn').on('click', () => this.startPresentation(false));
         this.$widget.find('.tp-presenter-btn').on('click', () => this.startPresentation(true));
-        this.$widget.find('.tp-handout-btn').on('click', () => this.startPresentation('handout'));
         this.$widget.find('.tp-slide-btn').on('click', () => this.showSingleSlide());
         return this.$widget;
     }
@@ -49,7 +51,7 @@ class PresenterWidget extends api.NoteContextAwareWidget {
 
         if (show) {
             // Presentation buttons only for notes with children
-            this.$widget.find('.tp-present-btn, .tp-presenter-btn, .tp-handout-btn').toggle(hasChildren);
+            this.$widget.find('.tp-present-btn, .tp-presenter-btn').toggle(hasChildren);
             // Theme selector visible for presentations and single slides
             this.$widget.find('.tp-theme-select').closest('div').toggle(hasChildren || isSlideable);
             // Show Slide button for any slideable note
@@ -69,13 +71,8 @@ class PresenterWidget extends api.NoteContextAwareWidget {
         const $select = this.$widget.find('.tp-theme-select');
 
         try {
-            const themes = await api.runOnBackend(() => {
-                const themeNotes = api.searchForNotes('#presenterTheme');
-                return themeNotes.map(n => ({
-                    noteId: n.noteId,
-                    title: n.title
-                }));
-            });
+            const themeNotes = await api.searchForNotes('#presenterTheme');
+            const themes = themeNotes.map(n => ({ noteId: n.noteId, title: n.title }));
 
             $select.empty();
 
@@ -99,147 +96,146 @@ class PresenterWidget extends api.NoteContextAwareWidget {
         }
     }
 
+    /**
+     * Depth-first children of a note, ordered by branch notePosition.
+     * Frontend (froca) equivalent of the old backend getSortedChildren.
+     */
+    async getSortedChildren(note) {
+        const children = await note.getChildNotes();
+        const branches = note.getChildBranches();
+        const posMap = {};
+        for (const b of branches) {
+            posMap[b.noteId] = b.notePosition;
+        }
+        children.sort((a, b) => (posMap[a.noteId] || 0) - (posMap[b.noteId] || 0));
+        return children;
+    }
+
+    /**
+     * Depth-first, pre-order slide collection — runs on the frontend against
+     * froca, so it needs no backend scripting. Mirrors the old backend
+     * collectSlides: image/file notes are skipped, text/html and empty notes
+     * are containers (recursed into but not emitted), #slideIgnore drops a note
+     * or its subtree, and a visited set guards against circular clones.
+     */
+    async collectSlides(note, visited, slides) {
+        if (note.type === 'image' || note.type === 'file') return;
+        if (visited.has(note.noteId)) return;
+        visited.add(note.noteId);
+
+        const ignore = note.getLabelValue('slideIgnore');
+        if (ignore !== null && ignore !== undefined) {
+            if (ignore === 'subtree') return;
+            for (const child of await this.getSortedChildren(note)) {
+                await this.collectSlides(child, visited, slides);
+            }
+            return;
+        }
+
+        const content = await note.getContent() || '';
+
+        if (note.type === 'text' || !content.trim()) {
+            for (const child of await this.getSortedChildren(note)) {
+                await this.collectSlides(child, visited, slides);
+            }
+            return;
+        }
+
+        const attachments = await note.getAttachments();
+        const attInfo = attachments.map(a => ({
+            id: a.attachmentId,
+            title: a.title,
+            url: `api/attachments/${a.attachmentId}/image/${encodeURIComponent(a.title)}`
+        }));
+
+        let slideType = note.getLabelValue('slideType');
+        if (!slideType) {
+            slideType = (slides.length === 0) ? 'title' : 'content';
+        }
+
+        slides.push({
+            noteId: note.noteId,
+            title: note.title,
+            content: content,
+            mime: note.mime,
+            type: slideType,
+            attachments: attInfo
+        });
+
+        for (const child of await this.getSortedChildren(note)) {
+            await this.collectSlides(child, visited, slides);
+        }
+    }
+
+    /**
+     * Load a theme's CSS parts (Base / per-type) from its note subtree.
+     * Frontend equivalent of the old backend template loading.
+     */
+    async loadThemeTemplates(themeNoteId) {
+        const templates = { base: '', types: {} };
+        let templateFolder = null;
+
+        // Priority 1: theme selected in the widget combobox.
+        if (themeNoteId) {
+            templateFolder = await api.getNote(themeNoteId);
+        }
+        // Priority 2: the "Default" theme (else the first #presenterTheme note).
+        if (!templateFolder) {
+            const themeNotes = await api.searchForNotes('#presenterTheme');
+            templateFolder = themeNotes.find(n => n.title === 'Default') || themeNotes[0] || null;
+        }
+        if (templateFolder) {
+            const tmplChildren = await templateFolder.getChildNotes();
+            for (const tmpl of tmplChildren) {
+                const css = await tmpl.getContent() || '';
+                const atts = await tmpl.getAttachments();
+                const bgAtt = atts.find(a => a.title === 'background.svg' || a.role === 'image');
+                const bgUrl = bgAtt ? `api/attachments/${bgAtt.attachmentId}/image/${encodeURIComponent(bgAtt.title)}` : '';
+                if (tmpl.title === 'Base') {
+                    templates.base = css;
+                } else if (tmpl.title === 'Handout') {
+                    // Print themes moved to trilium-notecast-render. Themes
+                    // installed before that still carry a Handout note, and
+                    // without this it would be read as the type "handout" —
+                    // ignore it rather than register a slide type nothing emits.
+                    continue;
+                } else {
+                    const typeName = tmpl.title.replace(/\s*Slide\s*/i, '').trim().toLowerCase();
+                    templates.types[typeName] = { css, bgUrl };
+                }
+            }
+        }
+        return templates;
+    }
+
     async startPresentation(presenterMode) {
         const noteId = this.noteId;
         const themeNoteId = this.$widget.find('.tp-theme-select').val();
 
         try {
-            // Fetch presentation data from backend
-            const data = await api.runOnBackend((rootNoteId, themeId) => {
-                const root = api.getNote(rootNoteId);
-                if (!root) return { error: 'Note not found' };
+            // Collect presentation data on the frontend (no backend scripting).
+            const root = await api.getNote(noteId);
+            if (!root) {
+                api.showError('Note not found');
+                return;
+            }
+            const lang = root.getLabelValue('presenterLang') || 'en';
 
-                // Read #presenterLang label, fallback to "en"
-                const lang = root.getLabelValue('presenterLang') || 'en';
+            const slides = [];
+            const visited = new Set();
+            for (const child of await this.getSortedChildren(root)) {
+                await this.collectSlides(child, visited, slides);
+            }
 
-                // Collect slides via depth-first pre-order traversal
-                const slides = [];
+            const templates = await this.loadThemeTemplates(themeNoteId);
 
-                function getSortedChildren(note) {
-                    const children = note.getChildNotes();
-                    const branches = note.getChildBranches();
-                    const posMap = {};
-                    for (const b of branches) {
-                        posMap[b.noteId] = b.notePosition;
-                    }
-                    children.sort((a, b) => (posMap[a.noteId] || 0) - (posMap[b.noteId] || 0));
-                    return children;
-                }
-
-                function collectSlides(note, visited) {
-                    // Skip non-content types
-                    if (note.type === 'image' || note.type === 'file') return;
-
-                    // Guard against circular clones
-                    if (visited.has(note.noteId)) return;
-                    visited.add(note.noteId);
-
-                    // #slideIgnore keeps a note out of the presentation on purpose.
-                    // Bare label: only this note is dropped, its children still
-                    // become slides — for grouping notes that carry content you
-                    // do not want on screen. #slideIgnore=subtree drops the whole
-                    // branch, e.g. a "Handouts" folder living next to the slides.
-                    const ignore = note.getLabelValue('slideIgnore');
-                    if (ignore !== null && ignore !== undefined) {
-                        if (ignore === 'subtree') return;
-                        for (const child of getSortedChildren(note)) {
-                            collectSlides(child, visited);
-                        }
-                        return;
-                    }
-
-                    const content = note.getContent() || '';
-
-                    // Skip container notes that carry no own content: text/html
-                    // containers as before, plus notes of any other type whose
-                    // content is empty or whitespace only. Without the second
-                    // case an empty chapter note is rendered as a blank slide.
-                    if (note.type === 'text' || !content.trim()) {
-                        // Still recurse into children
-                        for (const child of getSortedChildren(note)) {
-                            collectSlides(child, visited);
-                        }
-                        return;
-                    }
-                    const attachments = note.getAttachments ? note.getAttachments() : [];
-                    const attInfo = attachments.map(a => ({
-                        id: a.attachmentId,
-                        title: a.title,
-                        url: `api/attachments/${a.attachmentId}/image/${encodeURIComponent(a.title)}`
-                    }));
-
-                    // Slide type: #slideType label > fallback (first=title, rest=content)
-                    let slideType = note.getLabelValue('slideType');
-                    if (!slideType) {
-                        slideType = (slides.length === 0) ? 'title' : 'content';
-                    }
-
-                    slides.push({
-                        noteId: note.noteId,
-                        title: note.title,
-                        content: content,
-                        mime: note.mime,
-                        type: slideType,
-                        attachments: attInfo
-                    });
-
-                    // Recurse into children
-                    for (const child of getSortedChildren(note)) {
-                        collectSlides(child, visited);
-                    }
-                }
-
-                const visited = new Set();
-                for (const child of getSortedChildren(root)) {
-                    collectSlides(child, visited);
-                }
-
-                // Load CSS templates from selected theme
-                const templates = { base: '', types: {}, handout: '' };
-                let templateFolder;
-
-                // Priority 1: Theme selected in widget combobox
-                if (themeId) {
-                    templateFolder = api.getNote(themeId);
-                }
-
-                // Priority 2: Default theme (first note with #presenterTheme label and title "Default")
-                if (!templateFolder) {
-                    const themeNotes = api.searchForNotes('#presenterTheme');
-                    const defaultTheme = themeNotes.find(n => n.title === 'Default');
-                    if (defaultTheme) {
-                        templateFolder = defaultTheme;
-                    } else if (themeNotes.length > 0) {
-                        templateFolder = themeNotes[0];
-                    }
-                }
-                if (templateFolder) {
-                    const tmplChildren = templateFolder.getChildNotes();
-                    for (const tmpl of tmplChildren) {
-                        const css = tmpl.getContent() || '';
-                        const atts = tmpl.getAttachments ? tmpl.getAttachments() : [];
-                        const bgAtt = atts.find(a => a.title === 'background.svg' || a.role === 'image');
-                        const bgUrl = bgAtt ? `api/attachments/${bgAtt.attachmentId}/image/${encodeURIComponent(bgAtt.title)}` : '';
-
-                        if (tmpl.title === 'Base') {
-                            templates.base = css;
-                        } else if (tmpl.title === 'Handout') {
-                            templates.handout = { css, bgUrl };
-                        } else {
-                            const typeName = tmpl.title.replace(/\s*Slide\s*/i, '').trim().toLowerCase();
-                            templates.types[typeName] = { css, bgUrl };
-                        }
-                    }
-                }
-
-                return {
-                    title: root.title,
-                    lang: lang,
-                    slideCount: slides.length,
-                    slides: slides,
-                    templates: templates
-                };
-            }, [noteId, themeNoteId]);
+            const data = {
+                title: root.title,
+                lang: lang,
+                slideCount: slides.length,
+                slides: slides,
+                templates: templates
+            };
 
             if (data.error) {
                 api.showError(data.error);
@@ -258,8 +254,6 @@ class PresenterWidget extends api.NoteContextAwareWidget {
 
             if (presenterMode === true) {
                 window.open(url, 'trilium-presenter-mode', 'width=1200,height=800');
-            } else if (presenterMode === 'handout') {
-                window.open(url, 'trilium-presenter-handout');
             } else {
                 window.open(url, 'trilium-presentation');
             }
@@ -275,66 +269,36 @@ class PresenterWidget extends api.NoteContextAwareWidget {
         const themeNoteId = this.$widget.find('.tp-theme-select').val();
 
         try {
-            const data = await api.runOnBackend((nId, themeId) => {
-                const note = api.getNote(nId);
-                if (!note) return { error: 'Note not found' };
+            const note = await api.getNote(noteId);
+            if (!note) {
+                api.showError('Note not found');
+                return;
+            }
+            const lang = note.getLabelValue('presenterLang') || 'en';
+            const content = await note.getContent() || '';
+            const attachments = await note.getAttachments();
+            const attInfo = attachments.map(a => ({
+                id: a.attachmentId,
+                title: a.title,
+                url: `api/attachments/${a.attachmentId}/image/${encodeURIComponent(a.title)}`
+            }));
+            const slideType = note.getLabelValue('slideType') || 'content';
+            const templates = await this.loadThemeTemplates(themeNoteId);
 
-                const lang = note.getLabelValue('presenterLang') || 'en';
-                const content = note.getContent() || '';
-                const attachments = note.getAttachments ? note.getAttachments() : [];
-                const attInfo = attachments.map(a => ({
-                    id: a.attachmentId,
-                    title: a.title,
-                    url: `api/attachments/${a.attachmentId}/image/${encodeURIComponent(a.title)}`
-                }));
-
-                let slideType = note.getLabelValue('slideType') || 'content';
-
-                // Load CSS templates from selected theme
-                const templates = { base: '', types: {}, handout: '' };
-                let templateFolder;
-                if (themeId) {
-                    templateFolder = api.getNote(themeId);
-                }
-                if (!templateFolder) {
-                    const themeNotes = api.searchForNotes('#presenterTheme');
-                    const defaultTheme = themeNotes.find(n => n.title === 'Default');
-                    if (defaultTheme) templateFolder = defaultTheme;
-                    else if (themeNotes.length > 0) templateFolder = themeNotes[0];
-                }
-                if (templateFolder) {
-                    const tmplChildren = templateFolder.getChildNotes();
-                    for (const tmpl of tmplChildren) {
-                        const css = tmpl.getContent() || '';
-                        const atts = tmpl.getAttachments ? tmpl.getAttachments() : [];
-                        const bgAtt = atts.find(a => a.title === 'background.svg' || a.role === 'image');
-                        const bgUrl = bgAtt ? `api/attachments/${bgAtt.attachmentId}/image/${encodeURIComponent(bgAtt.title)}` : '';
-                        if (tmpl.title === 'Base') {
-                            templates.base = css;
-                        } else if (tmpl.title === 'Handout') {
-                            templates.handout = { css, bgUrl };
-                        } else {
-                            const typeName = tmpl.title.replace(/\s*Slide\s*/i, '').trim().toLowerCase();
-                            templates.types[typeName] = { css, bgUrl };
-                        }
-                    }
-                }
-
-                return {
+            const data = {
+                title: note.title,
+                lang: lang,
+                slideCount: 1,
+                slides: [{
+                    noteId: note.noteId,
                     title: note.title,
-                    lang: lang,
-                    slideCount: 1,
-                    slides: [{
-                        noteId: note.noteId,
-                        title: note.title,
-                        content: content,
-                        mime: note.mime,
-                        type: slideType,
-                        attachments: attInfo
-                    }],
-                    templates: templates
-                };
-            }, [noteId, themeNoteId]);
+                    content: content,
+                    mime: note.mime,
+                    type: slideType,
+                    attachments: attInfo
+                }],
+                templates: templates
+            };
 
             if (data.error) {
                 api.showError(data.error);
@@ -655,7 +619,7 @@ class PresenterWidget extends api.NoteContextAwareWidget {
 
     /**
      * Resolve attachment filenames to full URLs and process markdown/pandoc.
-     * Shared by presentation and handout rendering.
+     * Shared by the presentation and the single-slide view.
      */
     processSlideContent(slide, baseUrl) {
         let content = slide.content;
@@ -686,16 +650,51 @@ class PresenterWidget extends api.NoteContextAwareWidget {
         return { content, notes: processed.notes };
     }
 
+    // ── Escaping for the generated document ──────────────────────────────────
+    // The presentation is opened from a blob: URL, and a blob: URL inherits the
+    // origin of the document that created it — so the presentation window is
+    // same-origin with Trilium. Anything that escapes its context there runs
+    // with the user's session. Titles, label values and theme CSS are all
+    // arbitrary note data, so each interpolation below is escaped for the
+    // context it lands in.
+
+    /** For text and attribute contexts in the generated HTML. */
+    esc(s) {
+        return String(s ?? '')
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+
+    /**
+     * For data embedded in an inline `<script>` block.
+     *
+     * JSON.stringify does not escape `/`, so a title containing `</script>`
+     * would end the block and turn the rest into markup. Escaping `<` as the
+     * JS unicode escape `<` keeps the JSON value identical while making
+     * the sequence unrecognisable to the HTML parser.
+     */
+    escJson(value) {
+        return JSON.stringify(value).replace(/</g, '\\u003c');
+    }
+
+    /**
+     * For CSS embedded in an inline `<style>` block.
+     *
+     * `<\/style` does not close the element, and CSS reads `\/` as an escaped
+     * slash — so legitimate CSS (a `content:` string, a comment) is unchanged.
+     */
+    escStyle(css) {
+        return String(css ?? '').replace(/<\/(style|script)/gi, '<\\/$1');
+    }
+
     /**
      * Build a complete self-contained HTML presentation.
      */
     buildPresentation(data, presenterMode) {
         const baseUrl = window.location.origin;
-
-        // Handout has its own processing pipeline — return early
-        if (presenterMode === 'handout') {
-            return this.buildHandoutHtml(data, baseUrl);
-        }
 
         const slides = data.slides;
         const slideElements = [];
@@ -710,7 +709,9 @@ class PresenterWidget extends api.NoteContextAwareWidget {
                 slideNotes[i + 1] = notes;
             }
 
-            const slideClass = `${slide.type}-slide`;
+            // slide.type comes from the #slideType label — arbitrary text that
+            // would otherwise escape the class attribute.
+            const slideClass = `${this.esc(slide.type)}-slide`;
             slideTitles.push(slide.title);
 
             slideElements.push(`
@@ -751,13 +752,13 @@ class PresenterWidget extends api.NoteContextAwareWidget {
         }
 
         return `<!DOCTYPE html>
-<html lang="${lang}">
+<html lang="${this.esc(lang)}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${data.title}</title>
+    <title>${this.esc(data.title)}</title>
     <style>
-        ${css}
+        ${this.escStyle(css)}
     </style>
 </head>
 <body>
@@ -779,10 +780,10 @@ class PresenterWidget extends api.NoteContextAwareWidget {
         }
 
         return `<!DOCTYPE html>
-<html lang="${lang}">
+<html lang="${this.esc(lang)}">
 <head>
     <meta charset="UTF-8">
-    <title>${data.title} - Presenter</title>
+    <title>${this.esc(data.title)} - Presenter</title>
     <style>
         body { font-family: system-ui, sans-serif; margin: 0; background: #1a1a2e; color: #eee; display: flex; height: 100vh; }
         .main { flex: 2; padding: 20px; display: flex; flex-direction: column; }
@@ -809,7 +810,7 @@ class PresenterWidget extends api.NoteContextAwareWidget {
     <div class="main">
         <div class="current-info">
             <h2>Current Slide</h2>
-            <h1 id="current-title">${slideTitles[0] || ''}</h1>
+            <h1 id="current-title">${this.esc(slideTitles[0] || '')}</h1>
         </div>
         <div class="notes-section">
             <h3>Speaker Notes</h3>
@@ -822,8 +823,8 @@ class PresenterWidget extends api.NoteContextAwareWidget {
         <div id="slide-list"></div>
     </div>
     <script>
-        const titles = ${JSON.stringify(slideTitles)};
-        const notes = ${JSON.stringify(renderedNotes)};
+        const titles = ${this.escJson(slideTitles)};
+        const notes = ${this.escJson(renderedNotes)};
         const total = titles.length;
         let current = 1;
         const channel = new BroadcastChannel('trilium-presenter-sync');
@@ -843,7 +844,13 @@ class PresenterWidget extends api.NoteContextAwareWidget {
         titles.forEach((t, i) => {
             const div = document.createElement('div');
             div.className = 'slide-item' + (i === 0 ? ' active' : '');
-            div.innerHTML = '<span class="slide-num">' + (i+1) + '</span>' + t;
+            // Built as nodes: a slide title is arbitrary note text, and innerHTML
+            // would turn markup in it into live elements.
+            const num = document.createElement('span');
+            num.className = 'slide-num';
+            num.textContent = (i + 1);
+            div.appendChild(num);
+            div.appendChild(document.createTextNode(t));
             div.onclick = () => { current = i + 1; updateDisplay(); };
             list.appendChild(div);
         });
@@ -870,92 +877,6 @@ class PresenterWidget extends api.NoteContextAwareWidget {
     </script>
 </body>
 </html>`;
-    }
-
-    /**
-     * Build a printable A4 handout from all slides.
-     * Each slide starts on a new page.
-     */
-    buildHandoutHtml(data, baseUrl) {
-        const templates = data.templates || {};
-        const lang = data.lang || 'en';
-
-        // Resolve handout CSS — may be string or { css, bgUrl }
-        let handoutCSS;
-        if (templates.handout && typeof templates.handout === 'object') {
-            handoutCSS = templates.handout.css || '';
-        } else {
-            handoutCSS = templates.handout || '';
-        }
-        if (!handoutCSS) handoutCSS = this.getHandoutCSS();
-
-        // Process each slide into a document section
-        const sections = [];
-        for (const slide of data.slides) {
-            const { content } = this.processSlideContent(slide, baseUrl);
-            sections.push(`<section class="handout-section">${content}</section>`);
-        }
-
-        // Page-break rules injected separately so they work regardless of theme CSS
-        const layoutCSS = `
-            .handout-section { page-break-before: always; break-before: page; }
-            .handout-section:first-child { page-break-before: avoid; break-before: avoid; }
-        `;
-
-        return `<!DOCTYPE html>
-<html lang="${lang}">
-<head>
-    <meta charset="UTF-8">
-    <title>${data.title} — Handout</title>
-    <style>${layoutCSS}</style>
-    <style>${handoutCSS}</style>
-</head>
-<body>
-    <div class="document-container">
-        ${sections.join('\n')}
-    </div>
-    <script>
-        window.onload = () => {
-            setTimeout(() => window.print(), 500);
-        };
-    </script>
-</body>
-</html>`;
-    }
-
-    /**
-     * Fallback CSS for handout if no Handout template exists.
-     */
-    getHandoutCSS() {
-        return `
-        @page { size: A4 portrait; margin: 2.5cm; }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html, body { font-family: 'Segoe UI', system-ui, sans-serif; color: #333; line-height: 1.6; -webkit-print-color-adjust: exact; }
-        .document-container { max-width: 100%; padding: 0; }
-        .handout-section { page-break-before: always; }
-        .handout-section:first-child { page-break-before: avoid; }
-        h1 { font-size: 16pt; font-weight: 700; margin: 16pt 0 8pt; color: #1a202c; page-break-after: avoid; }
-        h2 { font-size: 14pt; font-weight: 600; margin: 12pt 0 6pt; color: #2d3748; page-break-after: avoid; }
-        h3 { font-size: 12pt; font-weight: 600; margin: 10pt 0 5pt; color: #4a5568; page-break-after: avoid; }
-        p { margin: 0 0 8pt; line-height: 1.5; font-size: 10pt; color: #374151; text-align: justify; }
-        ul, ol { margin: 6pt 0 8pt 20pt; }
-        li { font-size: 10pt; line-height: 1.4; margin-bottom: 3pt; color: #374151; }
-        pre { background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 2pt; padding: 6pt; font-family: monospace; font-size: 8pt; margin: 6pt 0; page-break-inside: avoid; white-space: pre-wrap; }
-        code { background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 1pt; padding: 1pt 2pt; font-family: monospace; font-size: 8pt; }
-        pre code { background: transparent; border: none; padding: 0; }
-        table { width: 100%; border-collapse: collapse; margin: 10pt 0; page-break-inside: avoid; font-size: 9pt; }
-        th, td { border: 1pt solid #ddd; padding: 6pt 8pt; text-align: left; }
-        th { background: #f8f9fa; font-weight: bold; }
-        img { max-width: 100%; height: auto; display: block; margin: 10pt auto; page-break-inside: avoid; }
-        blockquote { border-left: 2pt solid #3498db; padding: 4pt 8pt; margin: 6pt 0; background: #f8f9fa; font-style: italic; font-size: 9pt; }
-        strong { color: #2d3748; font-weight: 600; }
-        em { color: #3b82f6; }
-        a { color: #2c3e50; text-decoration: underline; }
-        .columns { display: flex; gap: 8pt; margin: 6pt 0; }
-        .column { flex: 1; min-width: 0; }
-        .page-break { page-break-before: always; }
-        @media print { html, body { background: transparent; } }
-        `;
     }
 
     /**
