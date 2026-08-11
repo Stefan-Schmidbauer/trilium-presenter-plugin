@@ -199,10 +199,15 @@ def test_each_theme_ships_every_slide_role(root):
 
 
 def test_templates_are_discoverable_and_typed(root):
+    """Every template names its slideType. Without one the widget applies a
+    fallback, and it has two that disagree: in a deck the first slide becomes
+    `title`, in the single-slide view everything is `content`. A note made from
+    the Agenda template then rendered differently depending on how it was opened."""
     templates = [n for n in walk(root) if "template" in labels(n)]
     assert len(templates) == 11
     for tmpl in templates:
         assert tmpl["mime"] == "text/x-markdown", tmpl["title"]
+        assert labels(tmpl).get("slideType"), f"{tmpl['title']}: no slideType"
 
 
 def test_slide_type_values_are_ones_the_widget_renders(root):

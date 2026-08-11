@@ -43,12 +43,23 @@ def slide(title: str, md: str, slide_type: str | None = None, **kw) -> dict:
     return dict(title=title, mime=MD, file=f"example/{md}", label=label, **kw)
 
 
-def template(title: str, md: str, slide_type: str | None = None) -> dict:
-    """A slide template, discoverable by #template."""
-    label = {"template": ""}
-    if slide_type:
-        label["slideType"] = slide_type
-    return dict(title=title, mime=MD, file=f"templates/{md}", label=label)
+def template(title: str, md: str, slide_type: str) -> dict:
+    """A slide template, discoverable by #template.
+
+    The type is required, unlike on `slide()`. A template without one inherits
+    whichever fallback the widget happens to apply, and there are two different
+    ones: in a deck the first slide becomes `title` and the rest `content`,
+    while the single-slide view always says `content`. A note made from the
+    Agenda template therefore rendered as a title slide in the deck and as a
+    content slide on its own — same note, two layouts, depending on how it was
+    opened. Naming the type on every template removes that.
+
+    It also matches how the MCP creates slides: the Slide Format note stamps
+    `slideType=content` via #notecastApplyLabels, so the other route to the same
+    kind of slide has always been explicit.
+    """
+    return dict(title=title, mime=MD, file=f"templates/{md}",
+                label={"template": "", "slideType": slide_type})
 
 
 def theme(title: str, folder: str) -> dict:
@@ -129,14 +140,14 @@ TREE = dict(
         dict(title="Templates", mime=HTML,
              file="assets/container-html/Templates.html", kids=[
                  template("Title", "title.md", "title"),
-                 template("Agenda", "agenda.md"),
-                 template("Bullet Points", "bullet-points.md"),
-                 template("Two Columns", "two-columns.md"),
-                 template("Three Columns", "three-columns.md"),
-                 template("Image", "image.md"),
-                 template("Image with Text", "image-with-text.md"),
-                 template("Code", "code.md"),
-                 template("Quote", "quote.md"),
+                 template("Agenda", "agenda.md", "content"),
+                 template("Bullet Points", "bullet-points.md", "content"),
+                 template("Two Columns", "two-columns.md", "content"),
+                 template("Three Columns", "three-columns.md", "content"),
+                 template("Image", "image.md", "content"),
+                 template("Image with Text", "image-with-text.md", "content"),
+                 template("Code", "code.md", "content"),
+                 template("Quote", "quote.md", "content"),
                  template("Chapter", "section-break.md", "chapter"),
                  template("Thank You", "thank-you.md", "title"),
              ]),
