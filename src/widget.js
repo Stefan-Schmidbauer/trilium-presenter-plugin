@@ -207,12 +207,6 @@ class PresenterWidget extends api.RightPanelWidget {
                 const bgUrl = bgAtt ? `api/attachments/${bgAtt.attachmentId}/image/${encodeURIComponent(bgAtt.title)}` : '';
                 if (tmpl.title === 'Base') {
                     templates.base = css;
-                } else if (tmpl.title === 'Handout') {
-                    // Print themes moved to trilium-notecast-render. Themes
-                    // installed before that still carry a Handout note, and
-                    // without this it would be read as the type "handout" —
-                    // ignore it rather than register a slide type nothing emits.
-                    continue;
                 } else {
                     const typeName = tmpl.title.replace(/\s*Slide\s*/i, '').trim().toLowerCase();
                     templates.types[typeName] = { css, bgUrl };

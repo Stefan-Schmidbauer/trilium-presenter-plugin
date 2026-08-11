@@ -37,7 +37,7 @@ Version 2 removes the **Handout (PDF)** button. Printing moved to the sibling pl
 Three things worth knowing before you upgrade:
 
 - **`#slideIgnore` does not reach the renderer.** It is a presenter label, and the renderer deliberately reads none of ours. A "Handouts" or "Notes" folder you kept off screen with `#slideIgnore=subtree` **will appear in the printout**. If a branch has to stay out of both, park it outside the presentation note.
-- **Themes installed before v2 still carry a "Handout" note.** It is inert -- the widget skips a theme note by that title on purpose, so it is not read as a slide type called `handout` -- and you can delete it.
+- **Themes installed before v2 may still carry a "Handout" note.** Delete it. Nothing reads it -- printing is the renderer's job -- and the widget no longer treats the title specially, so a leftover simply registers as a slide type called `handout` that nothing ever emits.
 - **Presenting itself is unchanged.** Decks, themes, templates, presenter mode and every label except the handout path work exactly as before.
 
 ## Quick Start
