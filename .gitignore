@@ -23,6 +23,10 @@ CLAUDE.md
 # Drafts written here, published elsewhere
 blog/
 
+# House themes — branded, not part of the plugin. A working copy of notes that
+# live in Trilium; build-zip.py never looks here. See ssc_theme/README.md.
+ssc_theme/
+
 .DS_Store
 .pytest_cache/
 .ruff_cache/
