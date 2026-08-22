@@ -1,9 +1,39 @@
 /* Default Light Theme - Base Styles */
+/* Emoji are pulled from a range-scoped family that is listed BEFORE the text
+ * font, because font-family is resolved per codepoint and first match wins.
+ *
+ * The bug without it: the emoji fonts sat at the end of the stack, so any text
+ * font that happens to carry a monochrome glyph for an emoji codepoint won for
+ * that one symbol. Measured — DejaVu Sans (what `system-ui` resolves to on
+ * Linux) has U+274C, so ❌ printed as a thin black × while every other emoji
+ * rendered in colour. ❌ is the symbol the slide format asks authors to pair
+ * with ✅, so it is the one that had to work.
+ *
+ * The bug from the naive fix: simply moving the emoji fonts to the front let
+ * them win for codepoints nobody expected. Noto Color Emoji ships a U+0020, and
+ * an emoji advance width is square — every space in the deck became a gap about
+ * three times too wide.
+ *
+ * `unicode-range` is what makes "first" safe: the family can only ever supply
+ * the codepoints listed here, and everything else — space and Latin above all —
+ * falls straight through to the text font. The ranges deliberately avoid
+ * U+2000-206F as a block, which holds emoji-presentation characters *and* six
+ * kinds of space; the two that are wanted are named individually. */
+@font-face {
+    font-family: 'Notecast Emoji';
+    src: local('Apple Color Emoji'), local('Segoe UI Emoji'),
+         local('Noto Color Emoji'), local('Twemoji Mozilla');
+    unicode-range:
+        U+203C, U+2049, U+2122, U+2139, U+2194-21AA, U+231A-231B, U+2328,
+        U+23CF, U+23E9-23FA, U+24C2, U+25AA-25FE, U+2600-27BF, U+2934-2935,
+        U+2B00-2B55, U+3030, U+303D, U+3297, U+3299, U+FE0F, U+1F000-1FAFF;
+}
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 html, body {
     height: 100%;
-    font-family: 'Segoe UI', system-ui, -apple-system, 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', 'Twemoji Mozilla', sans-serif;
+    font-family: 'Notecast Emoji', 'Segoe UI', system-ui, -apple-system, sans-serif;
     background: #fff;
     overflow: auto;
 }
