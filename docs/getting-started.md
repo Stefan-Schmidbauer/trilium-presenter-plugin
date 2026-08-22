@@ -112,8 +112,9 @@ and this plugin is now only responsible for what happens on screen.
 
 One difference to expect if you printed handouts before v2: the renderer reads
 none of this plugin's labels, so **`#slideIgnore` does not exclude anything from
-a printout**. A branch you keep off screen with it is still printed — see
-*Excluding Notes from a Presentation* in Content Organization.
+a printout**. A branch you keep off screen with it is still printed; the renderer
+has its own `#notecastIgnore` for that — see *Excluding Notes from a
+Presentation* in Content Organization.
 
 ## Images
 

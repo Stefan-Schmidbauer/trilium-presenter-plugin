@@ -99,10 +99,15 @@ next to your slides.
 
 **This keeps a note off the screen, not off the page.** `#slideIgnore` is a
 presenter label, and the plugin that prints — trilium-notecast-render — reads
-none of the presenter's labels on purpose. Its **Include subtree** print walks
-every note below the one you start from, ignored branches included. So a side
-branch excluded here still turns up in a printed handout; if it has to stay out
-of both, keep it outside the presentation note altogether.
+none of the presenter's labels on purpose. That is not an oversight: the folder
+this label usually sits on is a "Handouts" or "Notes" branch kept out of the
+deck *because* it belongs on paper, so a printer honouring `#slideIgnore` would
+drop exactly what you meant to print.
+
+If a branch has to stay out of both, give it the renderer's own label as well —
+`#notecastIgnore`, same shape (bare for the note, `=subtree` for the branch).
+The two labels are independent by design, and a note carrying both is left out
+on screen and on paper.
 
 ## Templates (Optional)
 
