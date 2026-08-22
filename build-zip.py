@@ -26,6 +26,7 @@ import json
 import pathlib
 import sys
 import zipfile
+from typing import Any
 
 HERE = pathlib.Path(__file__).parent
 
@@ -82,7 +83,9 @@ def theme(title: str, folder: str) -> dict:
         ])
 
 
-TREE = dict(
+# Annotated because a node's values are heterogeneous — str, dict and list —
+# and an inferred union makes `{**TREE.get("label", {})}` in main() unusable.
+TREE: dict[str, Any] = dict(
     title="Trilium Presenter", mime=HTML,
     file="assets/container-html/Trilium Presenter.html", kids=[
 

@@ -20,6 +20,8 @@ TEST_VERSION = "v9.9.9-test"
 
 def _load_build_script():
     spec = importlib.util.spec_from_file_location("build_zip", REPO / "build-zip.py")
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"cannot load {REPO / 'build-zip.py'}")
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
