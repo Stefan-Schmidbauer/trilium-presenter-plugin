@@ -45,3 +45,25 @@
     margin: 2rem auto;
     box-shadow: 0 8px 16px rgba(0,0,0,0.15);
 }
+
+/* A title slide may carry a short agenda. Without these rules the list inherits
+   `text-align: center` from .slide-content while the <ul> box still spans the
+   full width, so the markers stay hard left and each line centres independently
+   — a ragged staircase. `display: inline-block` shrinks the box to its content
+   so the parent centres it as a whole; `text-align: left` inside restores normal
+   reading, and the padding leaves room for the markers.
+   The shipped Title template has exactly this shape, so it was the default look. */
+.title-slide ul,
+.title-slide ol {
+    display: inline-block;
+    text-align: left;
+    margin: 0 auto 1.5rem;
+    padding-left: 1.2em;
+}
+
+.title-slide li {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    margin-bottom: 0.4rem;
+    color: #4a5568;
+}
