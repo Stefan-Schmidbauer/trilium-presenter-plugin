@@ -26,17 +26,20 @@ Pandoc-compatible Markdown.
   trilium-notecast-render, which does the printing.
 
 ## Conventions & Voice
-Language, address form (formal/informal) and tone are NOT fixed by the plugin.
+Write in **German** unless the author has asked for another language. Follow that
+request for the whole set of slides, not just the one being written.
 
-⛔ MANDATORY: If `Conventions` below is `<unset>`, you MUST STOP and ask
-the author for language, address form and tone BEFORE writing ANY slide
-content. Do NOT proceed until the author has answered. No exceptions.
+Address form and tone are NOT fixed by the plugin. A slide deck speaks to an
+audience directly, so the address form is visible on the first slide already.
+
+⛔ MANDATORY: If `Conventions` below is `<unset>`, you MUST STOP and ask the
+author for address form and tone BEFORE writing ANY slide content. Do NOT
+proceed until the author has answered. No exceptions.
 
 Once the author has answered: apply the conventions consistently and offer to
 pin them here. If `Conventions` is already set: follow them, do not ask.
 
-Conventions: <unset>
-<!-- Example once pinned: Language: German · Address: formal (Sie) · Tone: direct, practical. -->
+Conventions: Language: German · Address: formal (Sie) · Tone: direct, practical.
 
 ## Full reference
 Long examples & all options: see the **Slide Content** reference note (human-facing).
