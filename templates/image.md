@@ -1,4 +1,4 @@
-## Visual Overview
+# Visual Overview
 
 ![Description](filename.png){.img-large .center}
 

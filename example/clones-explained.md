@@ -1,4 +1,4 @@
-## How Clones Work
+# How Clones Work
 
 ::: {.columns}
 ::: {.column}

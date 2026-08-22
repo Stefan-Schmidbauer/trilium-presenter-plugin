@@ -1,4 +1,4 @@
-## Build a Slide Library
+# Build a Slide Library
 
 Instead of creating slides from scratch each time, build a **Master library** and assemble presentations by **cloning**.
 

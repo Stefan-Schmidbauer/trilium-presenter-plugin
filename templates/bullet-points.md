@@ -1,4 +1,4 @@
-## Key Points
+# Key Points
 
 - First important point
 - Second important point

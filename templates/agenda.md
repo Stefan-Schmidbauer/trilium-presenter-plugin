@@ -1,4 +1,4 @@
-## Agenda
+# Agenda
 
 1. Introduction
 2. Topic One

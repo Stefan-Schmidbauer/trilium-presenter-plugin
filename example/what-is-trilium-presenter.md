@@ -1,4 +1,4 @@
-## What is Trilium Presenter?
+# What is Trilium Presenter?
 
 A plugin that turns any Trilium note into a fullscreen presentation.
 

@@ -1,4 +1,4 @@
-## Code Example
+# Code Example
 
 Description of what this code does:
 

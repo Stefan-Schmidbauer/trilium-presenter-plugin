@@ -1,4 +1,4 @@
-## Images in Slides
+# Images in Slides
 
 Attach an image to your slide note, then reference it by filename:
 

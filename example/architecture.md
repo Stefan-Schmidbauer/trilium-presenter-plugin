@@ -1,4 +1,4 @@
-## Columns & Speaker Notes
+# Columns & Speaker Notes
 
 ### Multi-Column Layouts
 

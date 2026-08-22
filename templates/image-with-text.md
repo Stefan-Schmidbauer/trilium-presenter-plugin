@@ -1,4 +1,4 @@
-## Topic with Visual
+# Topic with Visual
 
 ::: {.columns}
 ::: {.column}
