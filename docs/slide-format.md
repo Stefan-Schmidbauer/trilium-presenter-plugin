@@ -14,12 +14,16 @@ Pandoc-compatible Markdown.
 ## Layout building blocks
 - Columns (auto-detected, up to 4):
   `::: {.columns}` → per column `::: {.column}` … `:::` → close `:::`
-- Images: `![alt](api/images/<noteId>/<file>){.img-medium .center}`
+- Images: `![alt](filename.png){.img-medium .center}` — a **bare file name**, no
+  path and no URL. The image is an attachment of this slide's own note, and the
+  name is matched against the attachment titles. `attach_image` returns exactly
+  this form; never construct a URL by hand.
   Sizes: `.img-tiny` / `.img-small` / `.img-medium` / `.img-large` /
   `.img-xlarge` / `.img-fill` / `.img-fit` · `.center` to center.
 - Tables: `| Col | Col |` header + required `|---|---|` separator row.
   Inline bold/italic/code/links work in cells.
-- PDF page break: `::: {.page-break}` … `:::`
+- Page break for print: `::: {.page-break}` … `:::` — read by
+  trilium-notecast-render, which does the printing.
 
 ## Conventions & Voice
 Language, address form (formal/informal) and tone are NOT fixed by the plugin.

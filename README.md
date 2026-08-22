@@ -36,7 +36,7 @@ Version 2 removes the **Handout (PDF)** button. Printing moved to the sibling pl
 
 Three things worth knowing before you upgrade:
 
-- **`#slideIgnore` does not reach the renderer.** It is a presenter label, and the renderer deliberately reads none of ours. A "Handouts" or "Notes" folder you kept off screen with `#slideIgnore=subtree` **will appear in the printout**. If a branch has to stay out of both, park it outside the presentation note.
+- **`#slideIgnore` does not reach the renderer.** It is a presenter label, and the renderer deliberately reads none of ours -- the folder it usually marks is kept off screen *because* it belongs on paper. A "Handouts" or "Notes" folder you kept off screen with `#slideIgnore=subtree` **will appear in the printout**. If a branch has to stay out of both, add the renderer's own `#notecastIgnore` (same shape) alongside it.
 - **Themes installed before v2 may still carry a "Handout" note.** Delete it. Nothing reads it -- printing is the renderer's job -- and the widget no longer treats the title specially, so a leftover simply registers as a slide type called `handout` that nothing ever emits.
 - **Presenting itself is unchanged.** Decks, themes, templates, presenter mode and every label except the handout path work exactly as before.
 
@@ -104,7 +104,7 @@ Container notes (`text/html` type) are skipped but their children are included. 
 
 ## Themes
 
-Select a theme from the dropdown before presenting. Themes are Trilium notes with the `#presenterTheme` label containing CSS sub-notes (Base, Title Slide, Content Slide) and optional SVG background attachments.
+Select a theme from the dropdown before presenting. Themes are Trilium notes with the `#presenterTheme` label containing CSS sub-notes (Base, Title Slide, Content Slide, Chapter Slide) and optional SVG background attachments.
 
 Included themes: **Default** (light) and **Dark**.
 
@@ -113,6 +113,7 @@ Included themes: **Default** (light) and **Dark**.
 The first slide defaults to `title` layout, others to `content`. Override with `#slideType` label:
 - `#slideType=title` -- Title slide styling
 - `#slideType=content` -- Content slide styling
+- `#slideType=chapter` -- Section divider, shipped with both themes
 - Custom types by adding matching CSS notes to your theme
 
 ## Configuration

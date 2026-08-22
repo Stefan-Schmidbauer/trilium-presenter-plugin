@@ -19,11 +19,13 @@ My Theme
   Base              (CSS code note — shared styles)
   Title Slide       (CSS code note + background.svg attachment)
   Content Slide     (CSS code note + background.svg attachment)
+  Chapter Slide     (CSS code note)
 ```
 
 - **Base** — Layout, image sizing, navigation, centering utilities
 - **Title Slide** — Typography and styling for title slides, plus a background SVG as attachment
 - **Content Slide** — Typography and styling for content slides, columns, code blocks, tables, plus a background SVG as attachment
+- **Chapter Slide** — Styling for section dividers (`#slideType=chapter`); both shipped themes carry it, and it needs no background of its own
 
 There is no Handout note. Printing is
 [trilium-notecast-render](https://github.com/Stefan-Schmidbauer/trilium-notecast-render)'s
@@ -45,6 +47,7 @@ screen only.
    - `Base` — Copy from an existing theme and modify
    - `Title Slide` — Title-specific styles
    - `Content Slide` — Content-specific styles
+   - `Chapter Slide` — Section-divider styles
 4. **Attach backgrounds** — Upload SVG files as attachments named `background.svg` to the Title Slide and Content Slide notes
 5. **Select the theme** — Your new theme will automatically appear in the widget dropdown
 
@@ -57,14 +60,22 @@ screen only.
 
 ## Custom Slide Types
 
-You can create additional slide types beyond title and content:
+The note title of a CSS note determines the CSS class, and the class is what a
+`#slideType` label selects: "Chapter Slide" becomes `.chapter-slide`, which
+styles every slide labelled `#slideType=chapter`. That is the whole mechanism —
+`chapter` is not built in, it is simply a CSS note both shipped themes happen to
+carry.
 
-1. Add a new CSS note to your theme folder (e.g., "Chapter Slide")
-2. The note title determines the CSS class: "Chapter Slide" becomes `.chapter-slide`
+To add a type of your own beyond the three that ship:
+
+1. Add a new CSS note to your theme folder (e.g., "Quote Slide")
+2. Its title gives you the class — here `.quote-slide`
 3. Attach a `background.svg` if desired
-4. Label your slides with `#slideType=chapter`
+4. Label your slides with `#slideType=quote`
 
-This allows unlimited slide types: chapter breaks, section dividers, quote slides, image-only slides, etc.
+This allows unlimited slide types: quote slides, image-only slides, agenda
+slides, etc. A slide whose type has no matching CSS note still renders — it just
+gets no styling of its own beyond `Base`.
 
 ## CSS Reference
 

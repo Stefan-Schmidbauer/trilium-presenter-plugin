@@ -135,6 +135,10 @@ Speaker notes support Markdown formatting and appear in the Presenter Mode windo
 
 ## Images
 
+An image is an **attachment of the slide's own note**, and the reference is the
+attachment's file name — no path, no URL. The plugin matches that name against
+the note's attachment titles and resolves it to a Trilium URL when presenting.
+
 ### With CSS Size Classes
 
 ```markdown
@@ -163,12 +167,16 @@ Speaker notes support Markdown formatting and appear in the Presenter Mode windo
 
 Images without classes display at their natural size, constrained to max-width: 100%.
 
-## Page Breaks (PDF)
+## Page Breaks (Print)
 
 ```markdown
 ::: {.page-break}
 :::
 ```
+
+The marker does nothing on screen — printing is
+[trilium-notecast-render](https://github.com/Stefan-Schmidbauer/trilium-notecast-render)'s
+job, and it is that plugin which honours the break.
 
 ## Tables
 
