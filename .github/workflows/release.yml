@@ -14,7 +14,7 @@ jobs:
     steps:
       # Pinned to a commit SHA — a major tag can be repointed by whoever owns
       # the repository, and this job holds contents: write.
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Build Trilium import zip
         run: python3 build-zip.py "${{ github.ref_name }}"
