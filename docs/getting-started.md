@@ -10,6 +10,13 @@ Import the plugin's `.zip` into Trilium (**Note tree → … → Import into not
 2. Rename `#disabled:widget` to `#widget` and save.
 3. Reload Trilium (Ctrl+R) — widgets are only read at startup.
 
+**Then show the widget panel.** After the reload the widget is loaded, but it lives in the right pane — and that pane may be collapsed, or showing a different tab. Nothing is wrong; it is just not on screen:
+
+4. Open the right pane with the **toggle right pane** button in the top right corner of the window.
+5. In the tab strip at the top of that pane, pick the **Widgets** tab — the puzzle-piece icon.
+
+**Trilium Presenter** now appears there, next to any other plugin widget you have installed. Its section is collapsible: if the heading shows a `>` arrow, click it to fold the widget open.
+
 ## How It Works
 
 1. **Create a note** — this is your presentation

@@ -12,6 +12,7 @@ containers, templates — so it has more places for a declaration to go missing.
 """
 import io
 import json
+import re
 import zipfile
 
 import pytest
@@ -174,6 +175,51 @@ def test_slide_format_note_carries_the_full_notecast_contract(root):
     assert got["notecastPrefix"] == "Folie"
     # Legacy label, kept until the MCP is proven end to end.
     assert "presenterSlideFormat" in got
+
+
+def test_the_slide_format_note_declares_its_own_attributes():
+    """The labels are parsed out of the note's `## Attributes` table, so the
+    note humans copy is the note that says what it carries."""
+    declared = bz.attributes(REPO / "docs/slide-format.md")
+    assert declared["notecastType"] == "slide"
+    assert declared["presenterSlideFormat"] == ""
+
+
+def test_the_manifest_labels_are_what_the_note_declares(root):
+    """The other end of the parse.
+
+    `test_slide_format_note_carries_the_full_notecast_contract` asserts the
+    values a reader would expect; this one asserts they came from the note
+    itself, which is what makes it the single source.
+    """
+    assert labels(find(root, "Slide Format")) == bz.attributes(REPO / "docs/slide-format.md")
+
+
+@pytest.mark.parametrize("table,complaint", [
+    ("| `#presenterTypo` | `x` |", "unknown label"),
+    ("| `#notecastType` | `x` |\n| `#notecastType` | `y` |", "declared twice"),
+    ("| `#notecastTargetType` | `code` |", "nothing defines the id"),
+    ("| `#notecastType` | `x` |\n| `#notecastTargetType` | `binary` |", "not text|code"),
+    ("| `#notecastType` | `x` |\n| `#notecastMime` | `text/x-markdown` |",
+     "on a text type is never read"),
+    ("| `#notecastType` | `x` |\n| `#notecastTargetType` | `code` |", "code type needs"),
+    ("| notecastType | x |", "cannot read attribute row"),
+])
+def test_a_broken_attributes_table_fails_the_build(tmp_path, table, complaint):
+    """Every one of these is stored by Trilium without complaint and only shows
+    up later, as a slide created in the wrong shape — so the build has to be the
+    thing that refuses."""
+    md = tmp_path / "broken.md"
+    md.write_text(f"# Broken\n\n## Attributes\n\n| Label | Value |\n|---|---|\n{table}\n")
+    with pytest.raises(ValueError, match=re.escape(complaint)):
+        bz.attributes(md)
+
+
+def test_a_note_without_an_attributes_section_fails_the_build(tmp_path):
+    md = tmp_path / "silent.md"
+    md.write_text("# Silent\n\nA format that never says what it is.\n")
+    with pytest.raises(ValueError, match="no '## Attributes' section"):
+        bz.attributes(md)
 
 
 def test_exactly_one_note_claims_the_slide_type(root):

@@ -14,7 +14,7 @@ The server is **not part of this plugin**. It is a separate project, [trilium-no
 
 The server is a **generic authoring engine**: it ships no formats of its own. What it can write is defined by notes in *your* Trilium, and this plugin supplies the definition for slides.
 
-The **Slide Format** documentation note carries the label `#notecastType=slide`. Its content — the slide rules — is loaded live and embedded into the server's `create_note` / `update_note` tool descriptions, so it reliably reaches the AI regardless of the client. That one note is the single source of truth for slide-creation rules, shared by humans and the AI alike. Its labels also carry the mechanics: slides become Code notes with mime `text/x-markdown`, get `#slideType=content`, and are prefixed `Folie`.
+The **Slide Format** documentation note carries the label `#notecastType=slide`. Its content — the slide rules — is loaded live and embedded into the server's `create_note` / `update_note` tool descriptions, so it reliably reaches the AI regardless of the client. That one note is the single source of truth for slide-creation rules, shared by humans and the AI alike. Its labels also carry the mechanics: slides become Code notes with mime `text/x-markdown`, get `#slideType=content`, and are prefixed `Folie`. The note names them itself, in its **Attributes** section at the end — that table is not documentation *about* the definition, it is what the build stamps onto it, so copy it as the starting point for a type of your own.
 
 The longer **Slide Content** note stays as the full syntax reference for humans.
 

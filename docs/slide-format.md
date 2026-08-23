@@ -43,3 +43,23 @@ Conventions: Language: German · Address: formal (Sie) · Tone: direct, practica
 
 ## Full reference
 Long examples & all options: see the **Slide Content** reference note (human-facing).
+
+## Attributes
+
+The definition note carries these labels. They are the mechanics — what a slide
+is *created as*, which the MCP reads before it writes one. They belong to the
+definition, not to documentation about it: the build stamps the note from this
+table.
+
+| Label | Value |
+|---|---|
+| `#notecastType` | `slide` |
+| `#notecastTargetType` | `code` |
+| `#notecastMime` | `text/x-markdown` |
+| `#notecastApplyLabels` | `slideType=content` |
+| `#notecastPrefix` | `Folie` |
+| `#presenterSlideFormat` | — |
+
+`#presenterSlideFormat` is the legacy label this note was found by before the
+Notecast contract existed. It carries no value and is kept until the MCP is
+proven end to end.

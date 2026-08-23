@@ -28,7 +28,14 @@ Turn any Trilium note into a fullscreen presentation -- directly from Trilium, w
 2. In Trilium, right-click any note in the tree and select **Import into note**
 3. Select the downloaded `.zip` file
 4. Trilium disables imported widgets by default -- open the **Widget** note inside the imported "Trilium Presenter" tree, find the `#disabled:widget` attribute and rename it to `#widget`
-5. Reload Trilium (Ctrl+R) -- the **Trilium Presenter** widget appears in the right panel
+5. Reload Trilium (Ctrl+R) -- widgets are only read at startup
+6. Show the widget panel: open the right pane with the **toggle right pane** button in the top right corner, then pick the **Widgets** tab -- the puzzle-piece icon
+
+The reload loads the widget; it does not necessarily show it. **Trilium Presenter** lives in the right pane, which may be collapsed or showing a different tab -- nothing is wrong, it is just not on screen:
+
+![The right pane's Widgets tab, listing Trilium Presenter next to the renderer's widget](trilium_widget_show.png)
+
+The section is collapsible: if the heading shows a `>` arrow, click it to fold the widget open.
 
 ## Upgrading from 1.x
 

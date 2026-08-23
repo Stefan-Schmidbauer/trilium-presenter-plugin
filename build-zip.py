@@ -24,6 +24,7 @@ from __future__ import annotations
 import hashlib
 import json
 import pathlib
+import re
 import sys
 import zipfile
 from typing import Any
@@ -36,6 +37,65 @@ HTML = "text/html"
 JS = "application/javascript;env=frontend"
 SVG = "image/svg+xml"
 EXT = {MD: ".mkd", CSS: ".css", HTML: ".html", JS: ".js"}
+
+
+# The labels a type definition may carry: the Notecast contract's, plus the
+# legacy `#presenterSlideFormat` this note is still found by. Anything else in
+# an `## Attributes` table is a typo — a label Trilium stores happily and no
+# consumer ever reads.
+TYPE_LABELS = ("notecastType", "notecastTargetType", "notecastMime",
+               "notecastApplyLabels", "notecastParent", "notecastPrefix",
+               "presenterSlideFormat")
+
+# A value cell is the label's value in backticks, or an em dash for a label
+# carried bare — Trilium stores those with an empty value.
+ATTRIBUTE_ROW = re.compile(r"^\|\s*`#(\w+)`\s*\|\s*(?:`([^`]*)`|—)\s*\|\s*$")
+
+
+def attributes(path: pathlib.Path) -> dict[str, str]:
+    """The mechanics labels a type declares, read from its own `## Attributes`.
+
+    The sibling of this function in trilium-notecast-render; the same reasoning
+    applies, and it applies harder here. This repo's type definition is a
+    *documentation* note — the one note humans read for the slide format and the
+    MCP reads as its authoring instructions — so a reader building a type of
+    their own has every reason to copy it, and until now it never said which
+    labels it carries. Those sat in TREE, three files away.
+
+    The table is validated rather than trusted. A misspelt label, or a mime on a
+    `text` type, is stored by Trilium without complaint and only shows up when
+    the MCP creates a note of the wrong kind.
+    """
+    text = path.read_text()
+    section = re.search(r"^## Attributes$(.*?)(?=^## |\Z)", text, re.M | re.S)
+    if section is None:
+        raise ValueError(f"{path.name}: no '## Attributes' section")
+
+    found: dict[str, str] = {}
+    rows = [ln for ln in section.group(1).splitlines() if ln.startswith("|")]
+    # The first two are the header and its delimiter — skipped by position, not
+    # by their wording, which a translated note would change.
+    for line in rows[2:]:
+        row = ATTRIBUTE_ROW.match(line)
+        if row is None:
+            raise ValueError(f"{path.name}: cannot read attribute row {line!r}")
+        name, value = row.group(1), row.group(2) or ""
+        if name not in TYPE_LABELS:
+            raise ValueError(f"{path.name}: unknown label #{name}")
+        if name in found:
+            raise ValueError(f"{path.name}: #{name} declared twice")
+        found[name] = value
+
+    if "notecastType" not in found:
+        raise ValueError(f"{path.name}: no #notecastType — nothing defines the id")
+    target = found.setdefault("notecastTargetType", "text")
+    if target not in ("text", "code"):
+        raise ValueError(f"{path.name}: #notecastTargetType={target!r} is not text|code")
+    if target == "text" and "notecastMime" in found:
+        raise ValueError(f"{path.name}: #notecastMime on a text type is never read")
+    if target == "code" and "notecastMime" not in found:
+        raise ValueError(f"{path.name}: a code type needs #notecastMime")
+    return found
 
 
 def slide(title: str, md: str, slide_type: str | None = None, **kw) -> dict:
@@ -96,16 +156,10 @@ TREE: dict[str, Any] = dict(
             dict(title="Getting Started", mime=MD, file="docs/getting-started.md"),
             # The one note two tools share: the presenter documents the slide
             # format for humans, the MCP reads the same note as its authoring
-            # instructions. #presenterSlideFormat is the legacy label, kept
-            # until the MCP is proven end to end; #notecastType=slide is live.
-            dict(title="Slide Format", mime=MD, file="docs/slide-format.md", label={
-                "presenterSlideFormat": "",
-                "notecastType": "slide",
-                "notecastTargetType": "code",
-                "notecastMime": MD,
-                "notecastApplyLabels": "slideType=content",
-                "notecastPrefix": "Folie",
-            }),
+            # instructions. Its labels are declared in the note's own
+            # `## Attributes` table and parsed back out here — see attributes().
+            dict(title="Slide Format", mime=MD, file="docs/slide-format.md",
+                 label=attributes(HERE / "docs/slide-format.md")),
             dict(title="Slide Content", mime=MD, file="docs/slide-content.md"),
             dict(title="Themes", mime=MD, file="docs/themes.md"),
             dict(title="Content Organization", mime=MD, file="docs/content-organization.md"),
