@@ -11,4 +11,4 @@
 # reproducibility argument that would justify one does not apply.
 
 pytest==9.1.1
-ruff==0.16.2
+ruff==0.16.5
