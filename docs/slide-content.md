@@ -16,11 +16,13 @@ A few conventions keep slides consistent and presentation-ready:
 
 Language, address form (formal vs. informal), and tone are **not fixed** by the plugin — they depend on you and your audience.
 
-> **No conventions defined.** When creating slides, ask the author for **language**, **address form** (formal / informal), and **tone**, then apply them consistently. Offer to record the answers in this section so they become the single source for future slides.
+They are pinned in one place only: the `Conventions:` line of the **Slide Format** note. That note is the slide type definition the MCP server reads, so whatever it says is what an assistant writing slides follows. This reference deliberately repeats none of it — a second copy is a second thing to keep in step.
 
-Replace the quote above with your own conventions to pin them, for example:
+To change the conventions, edit that line — for a workshop among colleagues, say:
 
-> Language: German · Address: formal ("Sie") · Tone: direct, practical.
+> Conventions: Language: German · Address: informal (du) · Tone: relaxed, encouraging.
+
+Set it to `<unset>` and the assistant asks for address form and tone before it writes the first slide.
 
 ## Basic Formatting
 
