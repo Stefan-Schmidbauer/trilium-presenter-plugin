@@ -8,7 +8,7 @@
 
 Turn any Trilium note into a fullscreen presentation -- directly from Trilium, with one click.
 
-![Trilium Presenter — note tree, slide overview, and widget](trilium-presenter-plugin.png)
+![Trilium Presenter — note tree, slide overview, and widget](assets/screenshots/trilium-presenter-plugin.png)
 
 ## Features
 
@@ -33,7 +33,7 @@ Turn any Trilium note into a fullscreen presentation -- directly from Trilium, w
 
 The reload loads the widget; it does not necessarily show it. **Trilium Presenter** lives in the right pane, which may be collapsed or showing a different tab -- nothing is wrong, it is just not on screen:
 
-![The right pane's Widgets tab, listing Trilium Presenter next to the renderer's widget](trilium_widget_show.png)
+![The right pane's Widgets tab, listing Trilium Presenter next to the renderer's widget](assets/screenshots/trilium_widget_show.png)
 
 The section is collapsible: if the heading shows a `>` arrow, click it to fold the widget open.
 
@@ -57,9 +57,9 @@ Three things worth knowing before you upgrade:
 2. Set child note type to **Code** with language **Markdown** (`text/x-markdown`)
 3. Navigate to your presentation note and click **Present** in the right panel
 
-![A slide in the Markdown editor](trilium-presenter-plugin-one-slide.png)
+![A slide in the Markdown editor](assets/screenshots/trilium-presenter-plugin-one-slide.png)
 
-![The same slide rendered as a presentation](trilium-presenter-plugin-slide.png)
+![The same slide rendered as a presentation](assets/screenshots/trilium-presenter-plugin-slide.png)
 
 ## MCP Server (AI slide authoring)
 
@@ -107,7 +107,7 @@ Container notes (`text/html` type) are skipped but their children are included. 
 | **Presenter Mode** | Speaker view with notes, slide list, and BroadcastChannel sync |
 | **Show Slide** | Preview a single Markdown slide with theme (visible on individual slide notes) |
 
-![Presenter mode with speaker notes and slide list](trilium-presenter-plugin-presenter.png)
+![Presenter mode with speaker notes and slide list](assets/screenshots/trilium-presenter-plugin-presenter.png)
 
 ## Themes
 
