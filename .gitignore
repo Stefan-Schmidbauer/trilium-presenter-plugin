@@ -20,8 +20,8 @@ node_modules/
 CLAUDE.md
 .claude/
 
-# Drafts written here, published elsewhere
-blog/
+# Articles, LinkedIn/website images, videos — local only, never committed
+marketing/
 
 # House themes — branded, not part of the plugin. A working copy of notes that
 # live in Trilium; build-zip.py never looks here. See ssc_theme/README.md.
